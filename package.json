@@ -1,0 +1,10 @@
+{
+  "name": "post-labor-wiki",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "verify": "node scripts/verify-sources.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
