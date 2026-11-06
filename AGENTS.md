@@ -1,5 +1,5 @@
 # post-labor-wiki
-Visual, source-first wiki on post-labor economics and post-work society. Live: https://post-labor-wiki.technoir.cloud
+Visual, source-first wiki on post-labor economics and post-work society. Not deployed yet (research phase); will live at https://post-labor-wiki.technoir.cloud
 
 ## Commands
 - Check (before every commit and deploy): `npm run check`

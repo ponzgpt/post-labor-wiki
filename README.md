@@ -2,7 +2,7 @@
 
 A visual, source-first wiki on post-labor economics, post-work society and the history and frameworks around them: timelines, charts and memes over walls of text, and a citation behind every claim.
 
-Live (from milestone 1): https://post-labor-wiki.technoir.cloud
+Will be live at https://post-labor-wiki.technoir.cloud from milestone 1; not deployed yet.
 
 ## Status
 Research phase. The site is not built yet; this repo holds the research it will be built from.
@@ -24,6 +24,12 @@ Research phase. The site is not built yet; this repo holds the research it will 
 2. Empirical claims, forecasts and normative proposals are labelled differently.
 3. Each framework page has a "What skeptics say" box.
 4. AI-generated research reports (including those in Shapiro's repo) are leads, never citations.
+
+## How this was made
+
+I'm a vibe coder. I decide what to build, write the spec and the rules it has to follow, and test the result until it
+does what I said. AI coding agents write the code; I don't write code by hand. Commits under my name were made by an
+agent working for me.
 
 ## Licence
 Code: MIT. Writing and original graphics: CC BY 4.0. Third-party images keep their own licences, listed in the site credits.
