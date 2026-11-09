@@ -1,0 +1,91 @@
+/* Sepia print look, matched to the PLE memes: warm paper, ink, rust accent. */
+:root {
+  --sl-font: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --plw-display: 'Fraunces Variable', Georgia, serif;
+  --sl-color-accent-low: #3d2416;
+  --sl-color-accent: #c0582b;
+  --sl-color-accent-high: #f2c9b0;
+  --sl-color-white: #f6efe3;
+  --sl-color-gray-1: #e8dfd0;
+  --sl-color-gray-2: #c9bda9;
+  --sl-color-gray-3: #9c8f7b;
+  --sl-color-gray-4: #5f554a;
+  --sl-color-gray-5: #3b332b;
+  --sl-color-gray-6: #29231d;
+  --sl-color-black: #1c1814;
+  --plw-evidence: #4f7a4a;
+  --plw-forecast: #b08419;
+  --plw-proposal: #3f6a8f;
+}
+:root[data-theme='light'] {
+  --sl-color-accent-low: #f3dccd;
+  --sl-color-accent: #a4441b;
+  --sl-color-accent-high: #5a2410;
+  --sl-color-white: #1c1814;
+  --sl-color-gray-1: #2e2720;
+  --sl-color-gray-2: #463d34;
+  --sl-color-gray-3: #6e6356;
+  --sl-color-gray-4: #9c8f7b;
+  --sl-color-gray-5: #d9cdb8;
+  --sl-color-gray-6: #ece3d3;
+  --sl-color-gray-7: #f4ede1;
+  --sl-color-black: #faf6ee;
+  --plw-evidence: #33602f;
+  --plw-forecast: #7d5c08;
+  --plw-proposal: #2b5375;
+}
+
+h1, h2, h3, .site-title, .hero h1 { font-family: var(--plw-display); letter-spacing: -0.01em; }
+.hero h1 { font-weight: 700; }
+
+.cite { font-size: 0.85em; white-space: nowrap; color: var(--sl-color-gray-3); }
+.cite a { color: inherit; text-decoration-style: dotted; }
+
+.tag {
+  display: inline-block; padding: 0.05rem 0.5rem; margin-right: 0.35rem; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--sl-color-black); vertical-align: 0.1em;
+}
+.tag-evidence { background: var(--plw-evidence); }
+.tag-forecast { background: var(--plw-forecast); }
+.tag-proposal { background: var(--plw-proposal); }
+:root:not([data-theme='light']) .tag { color: #fff; }
+
+/* Infographics: colours come from the theme, so they work light and dark. */
+.infographic { margin: 1.5rem 0; }
+.infographic svg { width: 100%; height: auto; }
+.infographic figcaption, .sl-markdown-content figure figcaption { font-size: 0.85rem; color: var(--sl-color-gray-3); margin-top: 0.5rem; }
+.ig-h { font-family: var(--plw-display); font-size: 20px; font-weight: 700; text-anchor: middle; fill: var(--sl-color-white); }
+.ig-t { font-size: 15px; text-anchor: middle; fill: var(--sl-color-white); }
+.ig-b { font-weight: 700; }
+.ig-s { font-size: 12.5px; fill: var(--sl-color-gray-2); }
+.ig-box { fill: var(--sl-color-gray-6); stroke: var(--sl-color-gray-4); }
+.ig-strong { stroke: var(--sl-color-accent); }
+.ig-home { fill: var(--sl-color-accent-low); stroke: var(--sl-color-accent); stroke-width: 2; }
+.ig-arrow { stroke: var(--sl-color-gray-3); stroke-width: 2; fill: none; }
+.ig-big { stroke-width: 4; stroke: var(--sl-color-accent); }
+.ig-ahead { fill: var(--sl-color-gray-3); }
+.pp-tier path { fill: var(--sl-color-accent-low); stroke: var(--sl-color-accent); stroke-width: 1.5; }
+.pp-tier.pp-4 path { fill: var(--sl-color-gray-6); stroke-dasharray: 5 4; }
+
+/* Memes and paintings */
+.meme { max-width: 26rem; margin-inline: auto; }
+.meme img { border: 1px solid var(--sl-color-gray-5); border-radius: 6px; }
+
+/* Bibliography */
+.bib-filter { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
+.bib-filter button {
+  font: inherit; font-size: 0.8rem; padding: 0.15rem 0.65rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--sl-color-gray-4); background: transparent; color: var(--sl-color-gray-2);
+}
+.bib-filter button[aria-pressed='true'] { background: var(--sl-color-accent); border-color: var(--sl-color-accent); color: var(--sl-color-black); }
+.bib-list { list-style: none; padding: 0; }
+.bib-list li { margin: 0 0 0.9rem; padding-left: 1.2rem; text-indent: -1.2rem; }
+.bib-list li:target { background: var(--sl-color-accent-low); border-radius: 4px; }
+.bib-authors { font-weight: 600; }
+.bib-note { text-indent: 0; margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--sl-color-gray-3); }
+.badge {
+  display: inline-block; text-indent: 0; margin-left: 0.4rem; padding: 0 0.4rem; border-radius: 4px;
+  font-size: 0.7rem; border: 1px solid var(--sl-color-gray-4); color: var(--sl-color-gray-3);
+}
+.badge-lz { border-color: var(--sl-color-accent); color: var(--sl-color-accent); }

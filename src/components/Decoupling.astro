@@ -1,0 +1,49 @@
+---
+// The Great Decoupling as two household balance sheets. Concept after Shapiro, Labor Zero (2026), plates 1–2; drawing ours.
+const after = [
+  ['Universal basic income', 0.9],
+  ['Public wealth-fund dividends', 0.9],
+  ['Collectively owned assets', 0.9],
+  ['Personal assets', 0.9],
+  ['Residual wages', 0.35],
+];
+---
+<figure class="infographic">
+  <svg viewBox="0 0 720 330" role="img" aria-labelledby="dc-title dc-desc">
+    <title id="dc-title">The Great Decoupling</title>
+    <desc id="dc-desc">Today a household's income comes mainly from wages for work. In a post-labor economy it would come mainly from ownership and transfers, with wages as a small residual.</desc>
+    <g class="ig-panel">
+      <text x="170" y="28" class="ig-h">Today: wage-based</text>
+      <rect x="40" y="52" width="260" height="56" rx="8" class="ig-box" />
+      <text x="170" y="86" class="ig-t">Work (time sold to an employer)</text>
+      <path d="M170 110 V150" class="ig-arrow" marker-end="url(#dc-ah)" />
+      <rect x="40" y="152" width="260" height="56" rx="8" class="ig-box ig-strong" />
+      <text x="170" y="186" class="ig-t">Wages</text>
+      <path d="M170 210 V250" class="ig-arrow" marker-end="url(#dc-ah)" />
+      <rect x="70" y="252" width="200" height="56" rx="28" class="ig-home" />
+      <text x="170" y="286" class="ig-t ig-b">Household</text>
+    </g>
+    <path d="M330 170 H390" class="ig-arrow ig-big" marker-end="url(#dc-ah)" />
+    <g class="ig-panel">
+      <text x="555" y="28" class="ig-h">Post-labor: capital-based</text>
+      {after.map(([label, o], i) => (
+        <g opacity={o}>
+          <rect x={410} y={50 + i * 38} width={290} height={30} rx="6" class="ig-box ig-strong" />
+          <text x={555} y={70 + i * 38} class="ig-t">{label}</text>
+        </g>
+      ))}
+      <path d="M555 242 V250" class="ig-arrow" marker-end="url(#dc-ah)" />
+      <rect x="455" y="252" width="200" height="56" rx="28" class="ig-home" />
+      <text x="555" y="286" class="ig-t ig-b">Household</text>
+    </g>
+    <defs>
+      <marker id="dc-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" class="ig-ahead" />
+      </marker>
+    </defs>
+  </svg>
+  <figcaption>
+    The Great Decoupling, as Post-Labor Economics frames it: household income shifts from wages to ownership and transfers.
+    Concept after David Shapiro, <a href="https://daveshap.github.io/PostLaborEconomics/laborzero/"><cite>Labor Zero</cite></a> (2026), plates 1–2; drawing ours (CC BY 4.0).
+  </figcaption>
+</figure>

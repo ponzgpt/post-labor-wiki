@@ -1,0 +1,10 @@
+---
+// Inline author-year citation linking to the bibliography entry. Unknown ids fail the build.
+import { byId, shortCite } from '../lib/sources.mjs';
+
+interface Props { id: string; at?: string }
+const { id, at } = Astro.props;
+const s = byId.get(id);
+if (!s) throw new Error(`<Cite id="${id}"> is not in research/sources.json`);
+---
+<span class="cite">(<a href={`/bibliography/#${id}`} title={s.title}>{shortCite(s)}</a>{at && `, ${at}`})</span>

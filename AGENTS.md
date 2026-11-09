@@ -1,14 +1,14 @@
 # post-labor-wiki
-Visual, source-first wiki on post-labor economics and post-work society. Not deployed yet (research phase); will live at https://post-labor-wiki.technoir.cloud
+Visual, source-first wiki on post-labor economics and post-work society (Astro + Starlight). Live: https://post-labor-wiki.technoir.cloud
 
 ## Commands
 - Check (before every commit and deploy): `npm run check`
 - Verify sources online (before publishing new pages): `npm run verify`
-- Dev: not scaffolded yet (milestone 1: Astro + Starlight)
-- Deploy: `./scripts/deploy.sh` (milestone 1)
+- Dev: `npm run dev`
+- Deploy: `./scripts/deploy.sh`
 
 ## Non-negotiables
-1. `research/sources.json` is the single source registry; pages cite `[@id]` and never hand-write a bibliography entry. Its audience includes David Shapiro, so it must hold up to an expert.
+1. `research/sources.json` is the single source registry; pages cite with `<Cite id="…" at="…" />` (research notes use `[@id]`) and never hand-write a bibliography entry. Its audience includes David Shapiro, so it must hold up to an expert.
 2. Every number needs a primary or peer-reviewed source with a locator. Shapiro's `/Research` PDFs are AI-generated: use them as leads, never as citations.
 3. Label forecasts and "illustrative" charts as such; keep empirical, forecast and normative claims visibly apart.
 4. Each framework page carries a steelmanned "What skeptics say" box.

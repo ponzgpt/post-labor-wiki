@@ -1,0 +1,75 @@
+---
+title: Post-labor in five minutes
+description: The idea, the evidence so far, what Post-Labor Economics proposes, what experiments show, and the strongest doubts.
+sidebar:
+  order: 1
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import Cite from '../../../components/Cite.astro';
+import Tag from '../../../components/Tag.astro';
+import Decoupling from '../../../components/Decoupling.astro';
+import Pyramid from '../../../components/Pyramid.astro';
+import horse from '../../../assets/img/horse-tractor.png';
+import cubicle from '../../../assets/img/cubicle-museum.png';
+
+<Aside type="tip" title="TL;DR">
+Machines have always replaced tasks. Post-labor thinkers argue that AI and robotics could replace enough of them that wages stop being how most households get by, so income has to come from ownership instead. The data shows labour losing ground; whether it is about to fall off a cliff is still contested.
+</Aside>
+
+## 1. An old dream, a new deadline
+
+In 1930 Keynes predicted that within a century his grandchildren's generation would work "a fifteen-hour week", and he named the side effect: "technological unemployment" <Cite id="keynes1930" />. Fifty years later Wassily Leontief warned that human labour could go the way of the draft horse after the tractor <Cite id="leontief1983" />.
+
+<figure class="meme">
+  <Image src={horse} alt="Cartoon of a grinning horse in overalls driving a tractor, saying 'Try and automate my job, I dare you!'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />
+  <figcaption>Leontief's horse, as a meme. By David Shapiro, <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Memes">PLE memes</a>, CC0.</figcaption>
+</figure>
+
+## 2. What the data already shows
+
+- <Tag kind="evidence" />The global labour share of income has declined significantly since the early 1980s <Cite id="karabarbounis2014" />.
+- <Tag kind="evidence" />In the US, productivity has grown far faster than the pay of typical workers since the 1970s <Cite id="bivens2015" />.
+- <Tag kind="evidence" />US local labour markets more exposed to industrial robots in 1990–2007 lost employment and wages <Cite id="acemoglu2020" />.
+- <Tag kind="evidence" />About 80% of US workers have at least 10% of their tasks exposed to large language models, and about 19% have at least half <Cite id="eloundou2024" at="abstract" />. Exposure is not job loss: the authors make no prediction about timing or adoption.
+- <Tag kind="evidence" />In the field, an AI assistant raised customer-support productivity by 15% on average, mostly for less experienced agents <Cite id="brynjolfsson2025" at="abstract" />.
+
+## 3. The Post-Labor Economics answer
+
+David Shapiro's Post-Labor Economics starts from what he calls the Great Decoupling: economic output no longer runs through wage employment <Cite id="shapiro2026laborzero" />. If that holds, the question is not how to save jobs but how households get an income without them.
+
+<Decoupling />
+
+<Tag kind="proposal" />His answer is to make ownership, not wages, the main way income is distributed: sovereign wealth funds paying automation dividends, wider employee ownership, universal basic capital grants and public stakes in AI built on public data <Cite id="shapiro2025movement" />. He calls basic income "necessary but not sufficient": prosperity measures need power measures beside them <Cite id="shapiro2025six" />.
+
+<Pyramid />
+
+## 4. What real experiments say
+
+<Tag kind="evidence" />Cash without conditions has been tested for decades. The headline results:
+
+| Programme | What people got | Headline result |
+|---|---|---|
+| Mincome, Manitoba, 1974–79 | A guaranteed annual income | Hospitalisations 8.5% lower than controls <Cite id="forget2011" at="abstract" /> |
+| Alaska Permanent Fund, since 1982 | A yearly dividend for every resident | No effect on employment; part-time work up 1.8 points <Cite id="jones2022" at="abstract" /> |
+| Finland, 2017–18 | €560 a month to 2,000 unemployed people | Small employment effects, better wellbeing <Cite id="kela2020" /> |
+| Kenya, GiveDirectly | About $1,000 per poor household, once | Each dollar raised local output by about $2.50, with minimal inflation <Cite id="egger2022" at="abstract" /> |
+| OpenResearch, Texas and Illinois, 2020–23 | $1,000 a month for three years | Earned income down about $1,900 a year; work down 1–2 hours a week; leisure up most <Cite id="vivalt2024" at="abstract" /> |
+
+None of these tested a world without jobs. They tell us how people respond to cash while jobs still exist.
+
+## 5. The strongest doubts
+
+- <Tag kind="evidence" />Every wave of automation so far has also created work; automation complements labour as well as replacing it <Cite id="autor2015" />.
+- <Tag kind="evidence" />Fear that "this time is different" is as old as industry, and has been wrong before <Cite id="mokyr2015" />.
+- <Tag kind="forecast" />A task-based estimate puts AI's ten-year boost to total factor productivity at no more than 0.66% <Cite id="acemoglu2024" at="abstract" />. Post-labor advocates reply that such estimates leave out AI agents and humanoid robots <Cite id="shapiro2025six" />.
+
+<figure class="meme">
+  <Image src={cubicle} alt="Cartoon of a boy and his father at a museum exhibit of an office cubicle. Boy: 'Dad, you used to work in one of these? It's like a rabbit cage.' Father: 'Yep, it was miserable.'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />
+  <figcaption>The optimist's forecast, as a meme. By David Shapiro, <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Memes">PLE memes</a>, CC0.</figcaption>
+</figure>
+
+## Where to go next
+
+The full arguments, data and history get their own sections as the wiki grows. Until then, every source on this page is in the [bibliography](/bibliography/), and [How we source](/start-here/how-we-source/) explains the labels.

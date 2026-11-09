@@ -1,0 +1,32 @@
+---
+// Shapiro's Pyramid of Prosperity, five tiers of post-labor household income, base first.
+const tiers = [
+  ['Universal basic income', 'A floor for everyone'],
+  ['Public wealth-fund dividends', 'Like the Alaska Permanent Fund dividend'],
+  ['Collectively owned assets', 'Co-ops, ESOPs, community trusts'],
+  ['Personal assets', 'Savings, shares, property'],
+  ['Residual wages', 'Work by choice'],
+];
+const H = 52, W = 640, top = 20;
+---
+<figure class="infographic">
+  <svg viewBox={`0 0 ${W} ${top + tiers.length * H + 10}`} role="img" aria-labelledby="pp-title">
+    <title id="pp-title">Pyramid of Prosperity: {tiers.map((t) => t[0]).join(', ')}</title>
+    {tiers.map(([name, sub], i) => {
+      const row = tiers.length - 1 - i; // base at the bottom
+      const y = top + row * H;
+      const t = 60 + row * 50, b = t + 50; // half-widths of top and bottom edges, so slopes line up
+      return (
+        <g class={`pp-tier pp-${i}`}>
+          <path d={`M${W / 2 - t} ${y} H${W / 2 + t} L${W / 2 + b} ${y + H - 4} H${W / 2 - b} Z`} />
+          <text x={W / 2} y={y + 22} class="ig-t ig-b">{name}</text>
+          <text x={W / 2} y={y + 40} class="ig-t ig-s">{sub}</text>
+        </g>
+      );
+    })}
+  </svg>
+  <figcaption>
+    The Pyramid of Prosperity: five tiers of household income in a mature post-labor economy, broadest at the base.
+    Tiers from David Shapiro's public-domain <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Charts">PLE charts</a> and <cite>Labor Zero</cite> plate 3; examples and drawing ours.
+  </figcaption>
+</figure>

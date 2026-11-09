@@ -1,0 +1,58 @@
+---
+import { sources, year, href } from '../lib/sources.mjs';
+
+const GROUPS = [
+  ['shapiro', 'David Shapiro: Post-Labor Economics'],
+  ['classic', 'Classic texts'],
+  ['paper', 'Peer-reviewed papers'],
+  ['working-paper', 'Working papers'],
+  ['book', 'Books'],
+  ['trial', 'Trials and programmes'],
+  ['report', 'Reports'],
+  ['data', 'Data series'],
+  ['commentary', 'Commentary'],
+  ['fiction', 'Fiction'],
+];
+const topics = [...new Set(sources.flatMap((s) => s.topics))].sort();
+---
+<div class="bib-filter" role="group" aria-label="Filter by topic">
+  <button type="button" data-topic="" aria-pressed="true">All ({sources.length})</button>
+  {topics.map((t) => <button type="button" data-topic={t} aria-pressed="false">{t}</button>)}
+</div>
+
+{GROUPS.map(([kind, label]) => {
+  const items = sources.filter((s) => s.kind === kind).sort((a, b) => a.year - b.year);
+  return items.length > 0 && (
+    <section class="bib-group">
+      <h2 id={`group-${kind}`}>{label}</h2>
+      <ol class="bib-list">
+        {items.map((s) => (
+          <li id={s.id} data-topics={s.topics.join(' ')}>
+            <span class="bib-authors">{s.authors.join(', ')}</span> ({year(s)}).{' '}
+            <a href={href(s)} rel="noopener"><cite>{s.title}</cite></a>
+            {s.venue && <>. {s.venue}</>}.
+            {s.doi && <span class="badge">DOI {s.doi}</span>}
+            {s.laborZero && <span class="badge badge-lz" title="Also cited in Shapiro's Labor Zero (2026)">in Labor Zero</span>}
+            {s.note && <p class="bib-note">{s.note}</p>}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+})}
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.bib-filter button');
+  for (const b of buttons) {
+    b.addEventListener('click', () => {
+      const t = b.dataset.topic;
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      document.querySelectorAll<HTMLElement>('.bib-list li').forEach((li) => {
+        li.hidden = !!t && !li.dataset.topics!.split(' ').includes(t);
+      });
+      document.querySelectorAll<HTMLElement>('.bib-group').forEach((g) => {
+        g.hidden = !g.querySelector('li:not([hidden])');
+      });
+    });
+  }
+</script>

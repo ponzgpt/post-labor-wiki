@@ -2,10 +2,10 @@
 
 A visual, source-first wiki on post-labor economics, post-work society and the history and frameworks around them: timelines, charts and memes over walls of text, and a citation behind every claim.
 
-Will be live at https://post-labor-wiki.technoir.cloud from milestone 1; not deployed yet.
+Live: https://post-labor-wiki.technoir.cloud
 
 ## Status
-Research phase. The site is not built yet; this repo holds the research it will be built from.
+Milestone 1: the Astro + Starlight skeleton is live with "Post-labor in five minutes", "How we source", the generated bibliography and credits. Sections ship one at a time, following [`research/outline.md`](research/outline.md).
 
 | File | What it is |
 |---|---|
@@ -16,7 +16,9 @@ Research phase. The site is not built yet; this repo holds the research it will 
 | [`research/assets.md`](research/assets.md) | Images, charts and memes we can use, with licences. |
 
 ## Commands
-- `npm run check`: validates the registry and that every `[@id]` citation resolves (offline; CI runs it).
+- `npm run dev`: local site.
+- `npm run check`: validates the registry and research citations, runs the unit test, builds the site (a `<Cite>` to an unknown id fails the build). CI and the deploy run it.
+- `./scripts/deploy.sh`: builds the committed HEAD on the VPS and rolls it out behind Traefik.
 - `npm run verify`: checks every DOI on Crossref and every URL over HTTP, then rewrites `research/verification.md`.
 
 ## Sourcing rules

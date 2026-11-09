@@ -1,0 +1,7 @@
+---
+// Labels a claim as measured evidence, a forecast, or a proposal (sourcing rule 2).
+interface Props { kind: 'evidence' | 'forecast' | 'proposal' }
+const { kind } = Astro.props;
+const label = { evidence: 'Evidence', forecast: 'Forecast', proposal: 'Proposal' }[kind];
+---
+<span class={`tag tag-${kind}`}>{label}</span>
