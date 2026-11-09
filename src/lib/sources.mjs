@@ -14,7 +14,7 @@ export function year(s) {
 function baseCite(s) {
   const a = s.authors;
   const who = s.short ?? (a.length > 2 ? `${surname(a[0])} et al.` : a.map(surname).join(' & '));
-  return `${who} ${year(s)}`;
+  return s.kind === 'data' ? who : `${who} ${year(s)}`; // data series are cited by name; their snapshot date is on the chart
 }
 
 /** Author-year cite, with a/b/c suffixes (in registry order) when two sources would read the same. */

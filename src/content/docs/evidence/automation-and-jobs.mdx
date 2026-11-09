@@ -1,0 +1,45 @@
+---
+title: What automation does to jobs
+description: The key studies on how computers, robots and AI affect work, what each actually measured, and how to read headline numbers.
+sidebar:
+  order: 5
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import Cite from '../../../components/Cite.astro';
+import Tag from '../../../components/Tag.astro';
+import computers from '../../../assets/img/five-computers.jpg';
+
+<Aside type="tip" title="TL;DR">
+Headline numbers about automation measure very different things: exposure, risk, local effects or productivity. Read the method before the number. The evidence so far shows real displacement in specific places and tasks, and no economy-wide collapse in work, yet.
+</Aside>
+
+## Exposure is not job loss
+
+<Tag kind="forecast" />In 2013, an occupation-level model put about 47% of US employment at high risk of computerisation <Cite id="frey2017" />. A task-level method applied to 21 OECD countries found about 9% <Cite id="arntz2016" at="abstract" />. The difference: whole occupations rarely automate, because most jobs mix easy and hard tasks.
+
+<Tag kind="evidence" />For large language models, about 80% of US workers have at least 10% of their tasks exposed, and about 19% have at least half; the authors make no prediction about timing <Cite id="eloundou2024" at="abstract" />.
+
+## What has actually been measured
+
+| Study | What it measured | Finding |
+|---|---|---|
+| <Cite id="autor2003" /> | Which tasks computers took over, 1960–1998 | Computers replace routine tasks and complement problem-solving work |
+| <Cite id="acemoglu2017wp" /> | Industrial robots in US local labour markets, 1990–2007 | One more robot per 1,000 workers: employment-to-population down 0.18–0.34 points, wages down 0.25–0.5% (abstract) |
+| <Cite id="acemoglu2019" /> | Automation vs new tasks across the economy | Displacement has outpaced the creation of new tasks in recent decades |
+| <Cite id="brynjolfsson2025" /> | An AI assistant for 5,172 support agents | Productivity up 15% on average, mostly for less experienced agents (abstract) |
+| <Cite id="acemoglu2024" /> | AI's economy-wide effect, task-based model | No more than 0.66% extra productivity over ten years (abstract) |
+
+## Why it matters for post-labor
+
+Post-Labor Economics argues that the old pattern, where displaced workers move to new tasks, breaks once machines are better, faster, cheaper and safer at most of them, including cognitive work <Cite id="shapiro2025six" />. The question becomes empirical: are new tasks still appearing faster than old ones disappear?
+
+<figure class="meme">
+  <Image src={computers} alt="Cartoon of a 1940s businessman at a desk saying 'I think there is a world market for maybe five computers.'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />
+  <figcaption>Forecasts age badly in both directions. The quote is often attributed to IBM's Thomas Watson in 1943; its origin is disputed. Meme by David Shapiro, <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Memes">PLE memes</a>, CC0.</figcaption>
+</figure>
+
+<Aside type="caution" title="What skeptics say">
+Two centuries of predictions that machines would end work have been wrong so far <Cite id="mokyr2015" />, and weak job growth in rich countries may reflect slow economic growth more than fast automation <Cite id="benanav2020" />.
+</Aside>

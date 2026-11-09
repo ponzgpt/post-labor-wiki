@@ -5,7 +5,7 @@ A visual, source-first wiki on post-labor economics, post-work society and the h
 Live: https://post-labor-wiki.technoir.cloud
 
 ## Status
-Milestone 1: the Astro + Starlight skeleton is live with "Post-labor in five minutes", "How we source", the generated bibliography and credits. Sections ship one at a time, following [`research/outline.md`](research/outline.md).
+Live: "Post-labor in five minutes", "How we source", **The evidence** (labour share, productivity vs pay, participation, farms and factories, automation studies; charts from FRED and Our World in Data), the generated bibliography and credits. Sections ship one at a time, following [`research/outline.md`](research/outline.md).
 
 | File | What it is |
 |---|---|
@@ -17,6 +17,7 @@ Milestone 1: the Astro + Starlight skeleton is live with "Post-labor in five min
 
 ## Commands
 - `npm run dev`: local site.
+- `npm run data`: re-downloads the chart data from FRED and Our World in Data into `public/data/` (snapshot dates in `src/data/manifest.json`).
 - `npm run check`: validates the registry and research citations, runs the unit test, builds the site (a `<Cite>` to an unknown id fails the build). CI and the deploy run it.
 - `./scripts/deploy.sh`: builds the committed HEAD on the VPS and rolls it out behind Traefik.
 - `npm run verify`: checks every DOI on Crossref and every URL over HTTP, then rewrites `research/verification.md`.

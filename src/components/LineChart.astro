@@ -1,0 +1,185 @@
+---
+// Static SVG line chart rendered at build time, with a crosshair tooltip, a legend, direct end labels and a data table.
+// Two layouts (wide, narrow) are rendered and swapped by CSS so text stays legible on phones.
+import Cite from './Cite.astro';
+import { fetched } from '../lib/data.mjs';
+
+interface Point { x: number; v: number }
+interface Series { label: string; points: Point[]; gap?: number; markers?: boolean }
+interface Props {
+  title: string;
+  series: Series[];
+  unit: 'pct' | 'index' | 'millions';
+  yMin?: number;
+  yMax?: number;
+  annotations?: { x: number; label: string }[];
+  sources: string[];
+  files: string[];
+}
+const { title, series, unit, annotations = [], sources, files } = Astro.props;
+
+const fmt = (v: number) => (unit === 'pct' ? `${v.toFixed(1)}%` : unit === 'millions' ? `${v.toFixed(1)}M` : v.toFixed(0));
+const tickFmt = (v: number) => (unit === 'pct' ? `${+v.toFixed(1)}%` : unit === 'millions' ? `${+v.toFixed(1)}M` : String(+v.toFixed(1)));
+
+const all = series.flatMap((s) => s.points);
+const x0 = Math.min(...all.map((p) => p.x)), x1 = Math.max(...all.map((p) => p.x));
+
+function niceStep(range: number, target: number) {
+  const raw = range / target, mag = 10 ** Math.floor(Math.log10(raw));
+  return [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= raw)!;
+}
+const yStep = niceStep((Astro.props.yMax ?? Math.max(...all.map((p) => p.v))) - (Astro.props.yMin ?? Math.min(...all.map((p) => p.v))), 4);
+const y0 = Astro.props.yMin ?? Math.floor(Math.min(...all.map((p) => p.v)) / yStep) * yStep;
+const y1 = Astro.props.yMax ?? Math.ceil(Math.max(...all.map((p) => p.v)) / yStep) * yStep;
+const yTicks: number[] = [];
+for (let v = y0; v <= y1 + 1e-9; v += yStep) yTicks.push(v);
+
+function layout(w: number, h: number, endLabels: boolean, maxXTicks: number) {
+  const m = { l: 52, r: endLabels ? 60 : 16, t: 18, b: 30 };
+  const sx = (x: number) => m.l + ((x - x0) / (x1 - x0 || 1)) * (w - m.l - m.r);
+  const sy = (v: number) => m.t + (1 - (v - y0) / (y1 - y0)) * (h - m.t - m.b);
+  const xStep = [1, 2, 5, 10, 20, 25, 50, 100, 200].find((s) => (x1 - x0) / s <= maxXTicks)!;
+  const xTicks: number[] = [];
+  for (let x = Math.ceil(x0 / xStep) * xStep; x <= x1; x += xStep) xTicks.push(x);
+  const paths = series.map((s) => {
+    let d = '';
+    s.points.forEach((p, i) => {
+      const jump = i === 0 || (s.gap !== undefined && p.x - s.points[i - 1].x > s.gap);
+      d += `${jump ? 'M' : 'L'}${sx(p.x).toFixed(1)} ${sy(p.v).toFixed(1)}`;
+    });
+    return d;
+  });
+  // End labels only when they cannot collide; otherwise the legend and tooltip carry identity.
+  const ends = series.map((s, i) => ({ i, y: sy(s.points.at(-1)!.v) })).sort((a, b) => a.y - b.y);
+  const fits = endLabels && ends.every((e, k) => k === 0 || e.y - ends[k - 1].y >= 16);
+  return { w, h, m, sx, sy, xTicks, paths, fits };
+}
+const views = [
+  { cls: 'chart-wide', ...layout(720, 340, true, 8) },
+  { cls: 'chart-narrow', ...layout(400, 320, false, 4) },
+];
+
+const xs = [...new Set(all.map((p) => p.x))].sort((a, b) => a - b);
+const payload = JSON.stringify({
+  xs,
+  unit,
+  series: series.map((s) => ({ label: s.label, v: Object.fromEntries(s.points.map((p) => [p.x, p.v])) })),
+  views: views.map(({ w, h, m }) => ({ w, h, m })),
+  x0, x1,
+});
+const id = `c-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}`;
+---
+<figure class="chart" data-chart={payload}>
+  {series.length > 1 && (
+    <ul class="chart-legend" aria-label="Legend">
+      {series.map((s, i) => <li><span class={`key s${i + 1}`} aria-hidden="true" />{s.label}</li>)}
+    </ul>
+  )}
+  <div class="chart-plot">
+    {views.map((g) => (
+      <svg class={g.cls} viewBox={`0 0 ${g.w} ${g.h}`} role="img" aria-labelledby={`${id}-${g.cls}`} tabindex="0">
+        <title id={`${id}-${g.cls}`}>{title}. Use the arrow keys for values; the data table follows.</title>
+        {yTicks.map((v) => (
+          <g class="grid">
+            <line x1={g.m.l} x2={g.w - g.m.r} y1={g.sy(v)} y2={g.sy(v)} />
+            <text x={g.m.l - 8} y={g.sy(v) + 4} class="tick" text-anchor="end">{tickFmt(v)}</text>
+          </g>
+        ))}
+        {g.xTicks.map((x) => <text x={g.sx(x)} y={g.h - 8} class="tick" text-anchor="middle">{x}</text>)}
+        {annotations.map((a) => (
+          <g class="annot">
+            <line x1={g.sx(a.x)} x2={g.sx(a.x)} y1={g.m.t} y2={g.h - g.m.b} />
+            <text x={g.sx(a.x) + 4} y={g.m.t + 10}>{a.label}</text>
+          </g>
+        ))}
+        {g.paths.map((d, i) => <path d={d} class={`line s${i + 1}`} />)}
+        {series.map((s, i) => s.markers && s.points.slice(0, -1).map((p) => <circle cx={g.sx(p.x)} cy={g.sy(p.v)} r="4" class={`dot s${i + 1}`} />))}
+        {series.map((s, i) => {
+          const p = s.points.at(-1)!;
+          return (
+            <g>
+              <circle cx={g.sx(p.x)} cy={g.sy(p.v)} r="4" class={`dot s${i + 1}`} />
+              {g.fits && <text x={g.sx(p.x) + 9} y={g.sy(p.v) + 4} class="end">{fmt(p.v)}</text>}
+            </g>
+          );
+        })}
+        <line class="crosshair" y1={g.m.t} y2={g.h - g.m.b} x1="0" x2="0" visibility="hidden" />
+      </svg>
+    ))}
+    <div class="chart-tip" hidden />
+  </div>
+  <figcaption>
+    <slot />
+    {' '}Source: {sources.map((s, i) => <>{i > 0 && '; '}<Cite id={s} /></>)}. Annual averages of complete years.
+    Data snapshot {fetched(files[0])}: {files.map((f, i) => <>{i > 0 && ', '}<a href={`/data/${f}`} download>{f}</a></>)}.
+  </figcaption>
+  <details class="chart-table">
+    <summary>Data table</summary>
+    <table>
+      <thead><tr><th>Year</th>{series.map((s) => <th>{s.label}</th>)}</tr></thead>
+      <tbody>
+        {xs.map((x) => (
+          <tr><td>{x}</td>{series.map((s) => { const p = s.points.find((q) => q.x === x); return <td>{p ? fmt(p.v) : '–'}</td>; })}</tr>
+        ))}
+      </tbody>
+    </table>
+  </details>
+</figure>
+
+<script>
+  type Payload = { xs: number[]; unit: string; series: { label: string; v: Record<string, number> }[]; views: { w: number; h: number; m: { l: number; r: number; t: number; b: number } }[]; x0: number; x1: number };
+  for (const fig of document.querySelectorAll<HTMLElement>('figure.chart')) {
+    const d: Payload = JSON.parse(fig.dataset.chart!);
+    const tip = fig.querySelector<HTMLElement>('.chart-tip')!;
+    const fmt = (v: number) => (d.unit === 'pct' ? `${v.toFixed(1)}%` : d.unit === 'millions' ? `${v.toFixed(1)}M` : v.toFixed(0));
+    fig.querySelectorAll<SVGSVGElement>('svg').forEach((svg, vi) => {
+      const g = d.views[vi];
+      const hair = svg.querySelector<SVGLineElement>('.crosshair')!;
+      const toSvg = (x: number) => g.m.l + ((x - d.x0) / (d.x1 - d.x0 || 1)) * (g.w - g.m.l - g.m.r);
+      let k = d.xs.length - 1;
+      const show = () => {
+        const x = d.xs[k], sx = toSvg(x);
+        hair.setAttribute('x1', String(sx));
+        hair.setAttribute('x2', String(sx));
+        hair.setAttribute('visibility', 'visible');
+        tip.replaceChildren();
+        const head = document.createElement('div');
+        head.className = 'tip-x';
+        head.textContent = String(x);
+        tip.append(head);
+        d.series.forEach((s, i) => {
+          if (s.v[x] === undefined) return;
+          const row = document.createElement('div');
+          const key = document.createElement('span');
+          key.className = `key s${i + 1}`;
+          const val = document.createElement('strong');
+          val.textContent = fmt(s.v[x]);
+          row.append(key, val, document.createTextNode(d.series.length > 1 ? ` ${s.label}` : ''));
+          tip.append(row);
+        });
+        const box = svg.getBoundingClientRect(), plot = fig.querySelector('.chart-plot')!.getBoundingClientRect();
+        const px = (sx / g.w) * box.width + box.left - plot.left;
+        tip.hidden = false;
+        tip.style.left = `${Math.min(Math.max(px + 12, 0), plot.width - tip.offsetWidth)}px`;
+        if (px + 12 + tip.offsetWidth > plot.width) tip.style.left = `${Math.max(px - 12 - tip.offsetWidth, 0)}px`;
+      };
+      const hide = () => { tip.hidden = true; hair.setAttribute('visibility', 'hidden'); };
+      svg.addEventListener('pointermove', (e) => {
+        const box = svg.getBoundingClientRect();
+        const sx = ((e.clientX - box.left) / box.width) * g.w;
+        const x = d.x0 + ((sx - g.m.l) / (g.w - g.m.l - g.m.r)) * (d.x1 - d.x0);
+        k = d.xs.reduce((best, xi, i) => (Math.abs(xi - x) < Math.abs(d.xs[best] - x) ? i : best), 0);
+        show();
+      });
+      svg.addEventListener('pointerleave', hide);
+      svg.addEventListener('blur', hide);
+      svg.addEventListener('focus', show);
+      svg.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        k = Math.min(Math.max(k + (e.key === 'ArrowRight' ? 1 : -1), 0), d.xs.length - 1);
+        show();
+      });
+    });
+  }
+</script>

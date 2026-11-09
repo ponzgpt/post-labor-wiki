@@ -1,0 +1,65 @@
+---
+title: Labour's share of income
+description: How much of what the US economy produces goes to workers, from 1929 to today, and why the answer depends on how you count.
+sidebar:
+  order: 1
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Cite from '../../../components/Cite.astro';
+import Tag from '../../../components/Tag.astro';
+import LineChart from '../../../components/LineChart.astro';
+import { fred, last, peak } from '../../../lib/data.mjs';
+
+export const ls = fred('PRS85006173.csv');
+export const pre2000Low = Math.min(...ls.filter((p) => p.x <= 2000).map((p) => p.v));
+export const comp = fred('A4002E1A156NBEA.csv');
+export const wages = fred('W270RE1A156NBEA.csv');
+export const f1 = (v) => v.toFixed(1);
+
+<Aside type="tip" title="TL;DR">
+If workers matter less to production, their slice of income should shrink. In the US it has: the official labour share of business income is lower now than at any time before 2000. But the long-run picture is a hump, not a cliff, and part of the story is benefits replacing wages.
+</Aside>
+
+## The official measure
+
+<Tag kind="evidence" />The Bureau of Labor Statistics tracks how much of nonfarm business output is paid to workers, including an estimate for the self-employed. From 1947 to 2000 the index never fell below {f1(pre2000Low)}. In {last(ls).x} it averaged {f1(last(ls).v)} (2017 = 100).
+
+<LineChart
+  title="US nonfarm business labour share, index 2017 = 100"
+  series={[{ label: 'Labour share', points: ls }]}
+  unit="index"
+  sources={['fred-laborshare']}
+  files={['PRS85006173.csv']}
+>
+  Labour's share of US nonfarm business output, index 2017 = 100.
+</LineChart>
+
+## Wages vs total compensation
+
+<Tag kind="evidence" />A wider lens, the Bureau of Economic Analysis's share of all US income, tells a subtler story. Total compensation peaked at {f1(peak(comp).v)}% of income in {peak(comp).x} and stood at {f1(last(comp).v)}% in {last(comp).x}, close to where it was in 1929 ({f1(comp[0].v)}%). Wages and salaries alone fell further, from {f1(wages[0].v)}% in {wages[0].x} to {f1(last(wages).v)}%, because a growing slice of pay now arrives as benefits such as health insurance and pensions.
+
+<LineChart
+  title="Compensation and wages as a share of US gross domestic income"
+  series={[
+    { label: 'Total compensation', points: comp },
+    { label: 'Wages and salaries', points: wages },
+  ]}
+  unit="pct"
+  sources={['bea-compshare', 'bea-wageshare']}
+  files={['A4002E1A156NBEA.csv', 'W270RE1A156NBEA.csv']}
+>
+  Share of US gross domestic income paid as total compensation, and as wages and salaries only.
+</LineChart>
+
+## Not just an American story
+
+<Tag kind="evidence" />Across countries, the labour share has declined significantly since the early 1980s; the authors attribute roughly half of the fall to the falling relative price of investment goods, which made it cheaper to replace labour with capital <Cite id="karabarbounis2014" at="abstract" />.
+
+## Why it matters for post-labor
+
+Post-Labor Economics reads this decline as the early phase of the Great Decoupling: output keeps growing while the share paid for human work shrinks <Cite id="shapiro2025six" />. If that continues, more income flows to whoever owns the machines, which is why PLE focuses on ownership rather than wages <Cite id="piketty2014" />.
+
+<Aside type="caution" title="What skeptics say">
+Measured with total compensation and national income, the US labour share barely moved between 1970 (66%) and 2006 (64%) <Cite id="feldstein2008" at="abstract" />. Our own BEA chart agrees that today's compensation share is near its 1929 level. The fall is real in the business-sector series, but its size depends on what you count as labour income and over which years.
+</Aside>

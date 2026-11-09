@@ -9,6 +9,7 @@ test('short citations', () => {
   assert.equal(shortCite({ authors: ['Martin Luther King Jr.'], year: 1967 }), 'King 1967');
   assert.equal(shortCite({ authors: ['Kela'], short: 'Kela', year: 2020 }), 'Kela 2020');
   assert.equal(year({ year: -350 }), 'c. 350 BCE');
+  assert.equal(shortCite({ kind: 'data', authors: ['BLS'], short: 'BLS, OPHNFB', year: 2026 }), 'BLS, OPHNFB');
 });
 
 test('same author and year get a/b suffixes', () => {

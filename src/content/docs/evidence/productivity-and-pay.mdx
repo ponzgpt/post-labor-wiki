@@ -1,0 +1,51 @@
+---
+title: Productivity vs pay
+description: Has pay kept up with what workers produce? The data since 1973, and why economists disagree about the gap.
+sidebar:
+  order: 2
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Cite from '../../../components/Cite.astro';
+import Tag from '../../../components/Tag.astro';
+import LineChart from '../../../components/LineChart.astro';
+import { fred, rebase, last } from '../../../lib/data.mjs';
+
+export const prod = rebase(fred('OPHNFB.csv'), 1973);
+export const pay = rebase(fred('COMPRNFB.csv'), 1973);
+export const gain = (s) => `${Math.round(last(s).v - 100)}%`;
+
+<Aside type="tip" title="TL;DR">
+Since 1973, output per hour in US business has grown much faster than the average worker's real hourly pay. Everyone agrees the lines diverge; they disagree on how much, depending on which worker, which pay and which price index you use.
+</Aside>
+
+## The gap in official data
+
+<Tag kind="evidence" />From 1973 to {last(prod).x}, output per hour in the nonfarm business sector rose {gain(prod)}. Real hourly compensation, which includes benefits, rose {gain(pay)}.
+
+<LineChart
+  title="US productivity and real hourly compensation, 1973 = 100"
+  series={[
+    { label: 'Output per hour', points: prod },
+    { label: 'Real hourly compensation', points: pay },
+  ]}
+  unit="index"
+  sources={['fred-productivity', 'fred-realcomp']}
+  files={['OPHNFB.csv', 'COMPRNFB.csv']}
+>
+  Nonfarm business sector, all workers, both indexed to 1973 = 100. Compensation is the average for all workers, deflated by consumer prices.
+</LineChart>
+
+## Three ways to measure the same gap
+
+1. **Which worker.** The chart shows the *average*. If pay at the top grows fastest, the typical worker's pay grows less. The Economic Policy Institute tracks typical workers and finds a much wider gap <Cite id="bivens2015" />.
+2. **Which pay.** Wages alone exclude health insurance and pensions, which have taken a growing share of compensation (see [labour's share of income](/evidence/labour-share/)).
+3. **Which prices.** Productivity is measured in the prices of what workers make; pay is usually deflated by the prices of what workers buy. Use the same index for both and much of the gap disappears <Cite id="feldstein2008" at="abstract" />.
+
+## Why it matters for post-labor
+
+If gains from productivity stop reaching workers, growth alone will not carry household incomes. That is the core empirical premise of the Great Decoupling <Cite id="shapiro2026laborzero" />.
+
+<Aside type="caution" title="What skeptics say">
+The link is weakened, not broken: from 1973 to 2016, each extra point of productivity growth went with 0.7 to 1 point more growth in median and average pay, and 0.4 to 0.7 points for production workers <Cite id="stansbury2017" at="abstract" />. On this reading, other forces such as weaker bargaining power suppressed pay, rather than productivity escaping workers entirely.
+</Aside>

@@ -1,0 +1,57 @@
+{
+  "A4002E1A156NBEA.csv": {
+    "source": "bea-compshare",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=A4002E1A156NBEA",
+    "fetched": "2026-11-09"
+  },
+  "W270RE1A156NBEA.csv": {
+    "source": "bea-wageshare",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=W270RE1A156NBEA",
+    "fetched": "2026-11-09"
+  },
+  "PRS85006173.csv": {
+    "source": "fred-laborshare",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PRS85006173",
+    "fetched": "2026-11-09"
+  },
+  "OPHNFB.csv": {
+    "source": "fred-productivity",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=OPHNFB",
+    "fetched": "2026-11-09"
+  },
+  "COMPRNFB.csv": {
+    "source": "fred-realcomp",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=COMPRNFB",
+    "fetched": "2026-11-09"
+  },
+  "LNS11300060.csv": {
+    "source": "fred-primeage-lfpr",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LNS11300060",
+    "fetched": "2026-11-09"
+  },
+  "LRAC25MAUSM156S.csv": {
+    "source": "oecd-lfpr-men",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LRAC25MAUSM156S",
+    "fetched": "2026-11-09"
+  },
+  "LRAC25FEUSM156S.csv": {
+    "source": "oecd-lfpr-women",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LRAC25FEUSM156S",
+    "fetched": "2026-11-09"
+  },
+  "MANEMP.csv": {
+    "source": "fred-manemp",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=MANEMP",
+    "fetched": "2026-11-09"
+  },
+  "OUTMS.csv": {
+    "source": "fred-outms",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=OUTMS",
+    "fetched": "2026-11-09"
+  },
+  "agriculture-employment-share.csv": {
+    "source": "owid-agriculture",
+    "url": "https://ourworldindata.org/grapher/share-of-the-labor-force-employed-in-agriculture.csv?v=1&csvType=full&useColumnShortNames=true",
+    "fetched": "2026-11-09"
+  }
+}

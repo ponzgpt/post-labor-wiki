@@ -12,6 +12,7 @@ export default defineConfig({
       customCss: ['@fontsource-variable/fraunces', './src/styles/theme.css'],
       sidebar: [
         { label: 'Start here', items: [{ autogenerate: { directory: 'start-here' } }] },
+        { label: 'The evidence', items: [{ autogenerate: { directory: 'evidence' } }] },
         { label: 'Reference', items: ['bibliography', 'credits'] },
       ],
     }),

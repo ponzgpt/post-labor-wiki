@@ -1,0 +1,38 @@
+---
+title: The evidence
+description: What the data says so far about work, pay and automation, with live charts from official statistics.
+sidebar:
+  order: 0
+  label: Overview
+---
+
+import { Aside, LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { fred, rebase, last, peak } from '../../../lib/data.mjs';
+
+export const ls = fred('PRS85006173.csv');
+export const prod = rebase(fred('OPHNFB.csv'), 1973);
+export const pay = rebase(fred('COMPRNFB.csv'), 1973);
+export const lfpr = fred('LNS11300060.csv');
+export const jobs = fred('MANEMP.csv');
+export const out = rebase(fred('OUTMS.csv'), 1987);
+
+Post-labor arguments rest on a claim about the present: that human labour is already losing ground. These pages test that claim against official US and global data. Charts are drawn from snapshots of FRED and Our World in Data, every chart has a data table and a CSV download, and each page ends with the strongest counter-reading.
+
+<div class="figures">
+  <div class="figure-tile"><div class="value">{Math.round(last(prod).v - 100)}% vs {Math.round(last(pay).v - 100)}%</div><div class="label">Growth in US output per hour vs real hourly pay, 1973–{last(prod).x}</div></div>
+  <div class="figure-tile"><div class="value">{last(ls).v.toFixed(0)}</div><div class="label">US labour share index in {last(ls).x} (2017 = 100); {peak(ls).v.toFixed(0)} at its {peak(ls).x} peak</div></div>
+  <div class="figure-tile"><div class="value">+{Math.round(last(out).v - 100)}%</div><div class="label">US manufacturing output since 1987, with {(last(jobs).v / 1000).toFixed(1)}M jobs left of {(peak(jobs).v / 1000).toFixed(1)}M at the {peak(jobs).x} peak</div></div>
+  <div class="figure-tile"><div class="value">{last(lfpr).v.toFixed(1)}%</div><div class="label">Prime-age participation in {last(lfpr).x}, near its {peak(lfpr).x} record of {peak(lfpr).v.toFixed(1)}%</div></div>
+</div>
+
+<Aside>
+The first three figures point toward a decoupling of output from labour. The fourth points the other way: so far, people are still working. Both are true, and the pages below show why.
+</Aside>
+
+<CardGrid>
+  <LinkCard title="Labour's share of income" href="/evidence/labour-share/" description="How much of output goes to workers, and why it depends on what you count." />
+  <LinkCard title="Productivity vs pay" href="/evidence/productivity-and-pay/" description="The gap since 1973 and the three ways to measure it." />
+  <LinkCard title="Who is working" href="/evidence/participation/" description="Prime-age participation for men and women since 1948." />
+  <LinkCard title="Farms and factories" href="/evidence/farms-and-factories/" description="Six centuries of leaving the farm; more factory output with fewer jobs." />
+  <LinkCard title="What automation does to jobs" href="/evidence/automation-and-jobs/" description="Exposure, risk and measured effects: what each famous number means." />
+</CardGrid>

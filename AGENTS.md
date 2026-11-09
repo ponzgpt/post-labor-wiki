@@ -4,6 +4,7 @@ Visual, source-first wiki on post-labor economics and post-work society (Astro +
 ## Commands
 - Check (before every commit and deploy): `npm run check`
 - Verify sources online (before publishing new pages): `npm run verify`
+- Refresh chart data (then review the diff and commit): `npm run data`
 - Dev: `npm run dev`
 - Deploy: `./scripts/deploy.sh`
 
@@ -15,3 +16,4 @@ Visual, source-first wiki on post-labor economics and post-work society (Astro +
 5. Images: public domain, CC0, CC BY or ours, each with a credits entry. Shapiro's `docs/laborzero/` material is © all rights reserved: link it, never copy it.
 6. Summaries are our own wording; quote under 15 words per source.
 7. Visual first: each page leads with a chart, timeline, card or meme; ≤600 words of prose.
+8. Builds never fetch data: charts read the committed snapshots in `public/data/`, and numbers in page text are computed from them, never typed in.

@@ -1,0 +1,77 @@
+---
+title: Farms and factories
+description: Agriculture's share of work over six centuries, and US manufacturing output vs jobs since 1987.
+sidebar:
+  order: 4
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import Cite from '../../../components/Cite.astro';
+import Tag from '../../../components/Tag.astro';
+import LineChart from '../../../components/LineChart.astro';
+import { fred, owid, rebase, last, peak } from '../../../lib/data.mjs';
+import farrier from '../../../assets/img/farrier.png';
+
+export const uk = owid('agriculture-employment-share.csv', 'United Kingdom');
+export const fr = owid('agriculture-employment-share.csv', 'France');
+export const world = owid('agriculture-employment-share.csv', 'World');
+export const jobsAll = fred('MANEMP.csv');
+export const jobs = rebase(jobsAll, 1987);
+export const output = rebase(fred('OUTMS.csv'), 1987);
+export const f1 = (v) => v.toFixed(1);
+export const m1 = (v) => (v / 1000).toFixed(1);
+
+<Aside type="tip" title="TL;DR">
+The biggest labour-saving shift in history already happened: farming went from most people's job to almost nobody's. Factories are repeating the pattern. Both times, the work went elsewhere. Post-labor thinkers ask what happens when there is no elsewhere.
+</Aside>
+
+## Six centuries of leaving the farm
+
+<Tag kind="evidence" />Around 1400, most of the workforce in England and France worked the land ({f1(uk[0].v)}% and {f1(fr[0].v)}%). By {last(uk).x} the shares were {f1(last(uk).v)}% and {f1(last(fr).v)}%. The world as a whole is still on the way: {f1(world[0].v)}% in {world[0].x}, {f1(last(world).v)}% in {last(world).x}.
+
+<LineChart
+  title="Share of employment in agriculture"
+  series={[
+    { label: 'United Kingdom', points: uk, gap: 150, markers: true },
+    { label: 'France', points: fr, gap: 150, markers: true },
+    { label: 'World', points: world },
+  ]}
+  unit="pct"
+  yMin={0}
+  yMax={80}
+  sources={['owid-agriculture']}
+  files={['agriculture-employment-share.csv']}
+>
+  Before 1980 there are only a few estimates (dots), and none between 1800 and 1980, so the lines break there. Data via Our World in Data (CC BY 4.0).
+</LineChart>
+
+<figure class="meme">
+  <Image src={farrier} alt="Cartoon of a farrier shoeing a horse in a barn, saying 'Farming is never going away, therefore my job is safe.'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />
+  <figcaption>Farming never went away; the farriers did. By David Shapiro, <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Memes">PLE memes</a>, CC0.</figcaption>
+</figure>
+
+## More output, fewer factory jobs
+
+<Tag kind="evidence" />US manufacturing employment peaked at {m1(peak(jobsAll).v)} million in {peak(jobsAll).x} and averaged {m1(last(jobsAll).v)} million in {last(jobsAll).x}. Since 1987, real manufacturing output has grown {Math.round(last(output).v - 100)}% while jobs fell {Math.round(100 - last(jobs).v)}%.
+
+<LineChart
+  title="US manufacturing output and employment, 1987 = 100"
+  series={[
+    { label: 'Real output', points: output },
+    { label: 'Employment', points: jobs },
+  ]}
+  unit="index"
+  sources={['fred-outms', 'fred-manemp']}
+  files={['OUTMS.csv', 'MANEMP.csv']}
+>
+  Both indexed to 1987 = 100, the first year of the output series.
+</LineChart>
+
+## Why it matters for post-labor
+
+This is the Great Decoupling in miniature: production keeps rising while the human labour it needs falls <Cite id="shapiro2025six" />. Robots played a measurable part in the factory story: US areas more exposed to industrial robots saw employment and wages fall <Cite id="acemoglu2017wp" at="abstract" />.
+
+<Aside type="caution" title="What skeptics say">
+Farm and factory workers did not become permanently idle: the economy created new tasks and whole new sectors, and automation complemented as much work as it replaced <Cite id="autor2015" /> <Cite id="acemoglu2019" />. Manufacturing jobs also fell for reasons beyond automation, including trade. The open question is whether AI, which targets cognitive work, leaves anywhere similar to go.
+</Aside>
