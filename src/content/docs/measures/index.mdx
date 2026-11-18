@@ -1,0 +1,32 @@
+---
+title: Measures to watch
+description: A dashboard of the numbers that would show a post-labor transition starting, each drawn from a committed snapshot of official data.
+tableOfContents: false
+---
+
+import Sparkline from '../../../components/Sparkline.astro';
+import { fred, ilo, byArea, householdIncome, rebase, real, pfd } from '../../../lib/data.mjs';
+
+export const prod = rebase(fred('OPHNFB.csv'), 1973);
+export const pay = rebase(fred('COMPRNFB.csv'), 1973);
+export const gap = prod.map((p) => ({ x: p.x, v: p.v - pay.find((q) => q.x === p.x).v }));
+export const h = householdIncome();
+export const cpi = fred('CPIAUCSL.csv');
+export const mfg = fred('MANEMP.csv').map((p) => ({ x: p.x, v: p.v / 1000 }));
+
+If machines were taking over paid work, these lines would move first: labour's slice of income down, ownership and transfers up, fewer prime-age adults in work, fewer hours. Each tile shows the latest annual value, the change over its full history and a sparkline; follow the title for the full chart and the debate.
+
+<div class="spark-grid">
+  <Sparkline label="US labour share (2017 = 100)" points={fred('PRS85006173.csv')} unit="index" source="fred-laborshare" file="PRS85006173.csv" watch="A sustained fall below its post-2000 range would fit the decoupling thesis." href="/evidence/labour-share/" />
+  <Sparkline label="World labour income share, % of GDP" points={ilo('X01')} unit="pct" source="ilo-labour-share" file="ilo-labour-income-share.csv" watch="The global test: falling everywhere, not just in the US." href="/evidence/labour-share/" />
+  <Sparkline label="US productivity minus pay (index points, 1973 = 100)" points={gap} unit="index" source="fred-productivity" file="OPHNFB.csv" watch="A widening gap means output growth is reaching pay less." href="/evidence/productivity-and-pay/" />
+  <Sparkline label="Prime-age employment rate, US" points={fred('LNS12300060.csv')} unit="pct" source="fred-primeage-epop" file="LNS12300060.csv" watch="The clearest sign of jobs disappearing: a fall outside recessions." href="/evidence/participation/" />
+  <Sparkline label="Prime-age participation, US" points={fred('LNS11300060.csv')} unit="pct" source="fred-primeage-lfpr" file="LNS11300060.csv" watch="Falls if people stop looking for work altogether." href="/evidence/participation/" />
+  <Sparkline label="Capital income, % of US personal income" points={h.capital} unit="pct" source="bea-pi-components" file="PIROA.csv" watch="Post-Labor Economics wants this to rise, and to be widely shared." href="/frameworks/economic-agency/" />
+  <Sparkline label="Transfers, % of US personal income" points={h.transfers} unit="pct" source="bea-pi-components" file="PCTR.csv" watch="Rising transfers with flat capital income is the dependent path PLE warns about." href="/frameworks/economic-agency/" />
+  <Sparkline label="Hours worked per worker, OECD average" points={byArea('oecd-hours-worked.csv', 'OECD')} unit="hours" source="oecd-hours" file="oecd-hours-worked.csv" watch="Productivity taken as free time instead of lost jobs." href="/evidence/farms-and-factories/" />
+  <Sparkline label="US manufacturing jobs (millions)" points={mfg} unit="millions" source="fred-manemp" file="MANEMP.csv" watch="The decoupling in miniature: output up, jobs down." href="/evidence/farms-and-factories/" />
+  <Sparkline label="Alaska dividend per person, today's dollars" points={real(pfd(), cpi, cpi.at(-1).x)} unit="usd" source="akdor-pfd" file="alaska-pfd.csv" watch="The longest-running citizen dividend: is it growing into an income?" href="/policy/citizen-dividends/" />
+</div>
+
+Snapshots are refreshed with `npm run data` and committed after review; the date on each tile is when its file was downloaded. The capital and transfer tiles use national accounts, which include imputed items, so they are a rough proxy for household cash income, not Shapiro's own measures.

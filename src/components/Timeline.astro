@@ -1,0 +1,30 @@
+---
+// Vertical timeline from src/data/timeline.json: one card per milestone, each with its source. Building towards "now".
+import Cite from './Cite.astro';
+import events from '../data/timeline.json';
+
+interface Props { kinds?: string[] }
+const { kinds } = Astro.props;
+const KIND = { idea: 'Idea', evidence: 'Evidence', policy: 'Policy', technology: 'Technology', ple: 'Post-Labor Economics' };
+const shown = events.filter((e) => !kinds || kinds.includes(e.kind));
+const eras = [...new Set(shown.map((e) => e.era))];
+---
+<div class="timeline">
+  {eras.map((era) => (
+    <section class="tl-era" aria-labelledby={`era-${era.replace(/\W+/g, '-').toLowerCase()}`}>
+      <h3 class="tl-era-h" id={`era-${era.replace(/\W+/g, '-').toLowerCase()}`}>{era}</h3>
+      <ol class="tl-list">
+        {shown.filter((e) => e.era === era).map((e) => (
+          <li class={`tl-item tl-${e.kind}`}>
+            <span class="tl-year">{e.when}</span>
+            <div class="tl-card">
+              <span class={`tl-kind tl-k-${e.kind}`}>{KIND[e.kind]}</span>
+              <strong class="tl-title">{e.title}</strong>
+              <p>{e.text} <Cite id={e.cite} at={e.at} /></p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  ))}
+</div>

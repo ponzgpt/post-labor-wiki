@@ -1,0 +1,20 @@
+---
+// Comparison cards for the policy toolbox, from src/data/policies.json.
+import Cite from './Cite.astro';
+import policies from '../data/policies.json';
+const STRENGTH = { strong: 'Strong', moderate: 'Moderate', thin: 'Thin' };
+---
+<div class="policy-grid">
+  {policies.map((p) => (
+    <article class="policy-card">
+      <h3><a href={p.href}>{p.name}</a></h3>
+      <p class="policy-what">{p.what}</p>
+      <dl>
+        <dt>Paid for by</dt><dd>{p.funding}</dd>
+        <dt>Reaches</dt><dd>{p.reach}</dd>
+        <dt>Evidence base</dt><dd><span class={`strength strength-${p.strength}`}>{STRENGTH[p.strength]}</span> {p.evidence} <Cite id={p.cite} at={p.at} /></dd>
+        <dt>Main risk</dt><dd>{p.risk}</dd>
+      </dl>
+    </article>
+  ))}
+</div>

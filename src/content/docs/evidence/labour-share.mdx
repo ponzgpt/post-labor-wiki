@@ -6,16 +6,20 @@ sidebar:
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import Skeptics from '../../../components/Skeptics.astro';
 import Cite from '../../../components/Cite.astro';
 import Tag from '../../../components/Tag.astro';
 import LineChart from '../../../components/LineChart.astro';
-import { fred, last, peak } from '../../../lib/data.mjs';
+import { fred, last, peak, ilo, ILO_EDITION } from '../../../lib/data.mjs';
 
 export const ls = fred('PRS85006173.csv');
 export const pre2000Low = Math.min(...ls.filter((p) => p.x <= 2000).map((p) => p.v));
 export const comp = fred('A4002E1A156NBEA.csv');
 export const wages = fred('W270RE1A156NBEA.csv');
 export const f1 = (v) => v.toFixed(1);
+export const world = ilo('X01');
+export const high = ilo('X05');
+export const low = ilo('X02');
 
 <Aside type="tip" title="TL;DR">
 If workers matter less to production, their slice of income should shrink. In the US it has: the official labour share of business income is lower now than at any time before 2000. But the long-run picture is a hump, not a cliff, and part of the story is benefits replacing wages.
@@ -54,12 +58,29 @@ If workers matter less to production, their slice of income should shrink. In th
 
 ## Not just an American story
 
-<Tag kind="evidence" />Across countries, the labour share has declined significantly since the early 1980s; the authors attribute roughly half of the fall to the falling relative price of investment goods, which made it cheaper to replace labour with capital <Cite id="karabarbounis2014" at="abstract" />.
+<Tag kind="evidence" />Across countries, the labour share has declined significantly since the early 1980s; the authors attribute roughly half of the fall to the falling relative price of investment goods, which made it cheaper to replace labour with capital <Cite id="karabarbounis2014" at="abstract" />. The ILO's modelled estimates, which include the self-employed, put the world's labour income share at {f1(world[0].v)}% of GDP in {world[0].x} and {f1(last(world).v)}% in {last(world).x}.
+
+<LineChart
+  title="Labour income share, percent of GDP, by country income group"
+  series={[
+    { label: 'High income', points: high },
+    { label: 'World', points: world },
+    { label: 'Low income', points: low },
+  ]}
+  unit="pct"
+  averaged={false}
+  sources={['ilo-labour-share']}
+  files={['ilo-labour-income-share.csv']}
+>
+  ILO modelled estimates (SDG indicator 10.4.1), edition of November {ILO_EDITION}; the edition's projections for {ILO_EDITION} onwards are left out.
+</LineChart>
 
 ## Why it matters for post-labor
 
-Post-Labor Economics reads this decline as the early phase of the Great Decoupling: output keeps growing while the share paid for human work shrinks <Cite id="shapiro2025six" />. If that continues, more income flows to whoever owns the machines, which is why PLE focuses on ownership rather than wages <Cite id="piketty2014" />.
+Post-Labor Economics reads this decline as an early phase of the Great Decoupling: output keeps growing while the share paid for human work shrinks <Cite id="shapiro2025six" at="part II" />. If that continues, more income flows to whoever owns the machines, which is why it focuses on ownership rather than wages.
 
-<Aside type="caution" title="What skeptics say">
-Measured with total compensation and national income, the US labour share barely moved between 1970 (66%) and 2006 (64%) <Cite id="feldstein2008" at="abstract" />. Our own BEA chart agrees that today's compensation share is near its 1929 level. The fall is real in the business-sector series, but its size depends on what you count as labour income and over which years.
-</Aside>
+<Skeptics>
+- **It depends what you count.** Measured with total compensation and national income, the US labour share barely moved between 1970 (66%) and 2006 (64%) <Cite id="feldstein2008" at="abstract" />. Our own BEA chart agrees that today's compensation share is near its 1929 level.
+- **Outside the US it may not be falling at all.** Once housing and self-employment are treated consistently, labour shares are stable or rising in major advanced economies other than the US and Canada, which casts doubt on most technological explanations <Cite id="gutierrez2020" at="abstract" />.
+- **Market power, not machines.** In the US, most of the decline comes from sales shifting to "superstar" firms with low labour shares, not from falling shares inside firms <Cite id="autor2020superstar" at="abstract" />.
+</Skeptics>

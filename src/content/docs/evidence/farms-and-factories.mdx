@@ -1,14 +1,14 @@
 ---
-title: Farms and factories
-description: Agriculture's share of work over six centuries, and US manufacturing output vs jobs since 1987.
+title: Historical analogues
+description: 'Farms, factories, telephone exchanges and the working week: what earlier labour-saving transitions did to jobs, pay and hours.'
 sidebar:
-  order: 4
+  order: 5
 ---
 
-import { Aside } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import Cite from '../../../components/Cite.astro';
 import Tag from '../../../components/Tag.astro';
+import Skeptics from '../../../components/Skeptics.astro';
 import LineChart from '../../../components/LineChart.astro';
 import { fred, owid, rebase, last, peak } from '../../../lib/data.mjs';
 import farrier from '../../../assets/img/farrier.png';
@@ -16,19 +16,15 @@ import farrier from '../../../assets/img/farrier.png';
 export const uk = owid('agriculture-employment-share.csv', 'United Kingdom');
 export const fr = owid('agriculture-employment-share.csv', 'France');
 export const world = owid('agriculture-employment-share.csv', 'World');
+export const hUS = owid('working-hours-long-run.csv', 'United States');
+export const hUK = owid('working-hours-long-run.csv', 'United Kingdom');
+export const hDE = owid('working-hours-long-run.csv', 'Germany');
 export const jobsAll = fred('MANEMP.csv');
 export const jobs = rebase(jobsAll, 1987);
 export const output = rebase(fred('OUTMS.csv'), 1987);
 export const f1 = (v) => v.toFixed(1);
 export const m1 = (v) => (v / 1000).toFixed(1);
-
-<Aside type="tip" title="TL;DR">
-The biggest labour-saving shift in history already happened: farming went from most people's job to almost nobody's. Factories are repeating the pattern. Both times, the work went elsewhere. Post-labor thinkers ask what happens when there is no elsewhere.
-</Aside>
-
-## Six centuries of leaving the farm
-
-<Tag kind="evidence" />Around 1400, most of the workforce in England and France worked the land ({f1(uk[0].v)}% and {f1(fr[0].v)}%). By {last(uk).x} the shares were {f1(last(uk).v)}% and {f1(last(fr).v)}%. The world as a whole is still on the way: {f1(world[0].v)}% in {world[0].x}, {f1(last(world).v)}% in {last(world).x}.
+export const h0 = (v) => Math.round(v).toLocaleString('en-US');
 
 <LineChart
   title="Share of employment in agriculture"
@@ -40,16 +36,45 @@ The biggest labour-saving shift in history already happened: farming went from m
   unit="pct"
   yMin={0}
   yMax={80}
+  averaged={false}
   sources={['owid-agriculture']}
   files={['agriculture-employment-share.csv']}
 >
   Before 1980 there are only a few estimates (dots), and none between 1800 and 1980, so the lines break there. Data via Our World in Data (CC BY 4.0).
 </LineChart>
 
-<figure class="meme">
-  <Image src={farrier} alt="Cartoon of a farrier shoeing a horse in a barn, saying 'Farming is never going away, therefore my job is safe.'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />
-  <figcaption>Farming never went away; the farriers did. By David Shapiro, <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Memes">PLE memes</a>, CC0.</figcaption>
-</figure>
+## Leaving the farm
+
+<Tag kind="evidence" />Around 1400, most of the workforce in England and France worked the land ({f1(uk[0].v)}% and {f1(fr[0].v)}%). By {last(uk).x} the shares were {f1(last(uk).v)}% and {f1(last(fr).v)}%. The world is still on the way: {f1(world[0].v)}% in {world[0].x}, {f1(last(world).v)}% in {last(world).x}. The biggest labour-saving shift in history did not leave people idle; the work moved elsewhere.
+
+## The first decoupling: Engels' pause
+
+<Tag kind="evidence" />The transition was not painless. In Britain, output per worker rose 46% between 1780 and 1840 while the real wage rose only 12%; profits took a growing share of income until wages finally caught up later in the century <Cite id="allen2009" at="introduction" />. Labour's share can fall for two generations even when work does not disappear.
+
+## Telephone operators
+
+<Tag kind="evidence" />Between 1920 and 1940, AT&T replaced operators with mechanical switching across over half its network. The jobs vanished, but later cohorts of young women were not less employed: clerical and service work, including new kinds of jobs, absorbed them. Incumbent operators bore the cost, and a decade on were more likely to be in lower-paid jobs or out of work <Cite id="feigenbaum2024" at="abstract" />.
+
+## Fewer hours, not fewer jobs
+
+<Tag kind="evidence" />Productivity was also taken as time. Hours per worker in the US fell from {h0(hUS[0].v)} a year in {hUS[0].x} to {h0(last(hUS).v)} in {last(hUS).x}; in Germany from {h0(hDE[0].v)} to {h0(last(hDE).v)}.
+
+<LineChart
+  title="Annual working hours per worker"
+  series={[
+    { label: 'Germany', points: hDE },
+    { label: 'United Kingdom', points: hUK },
+    { label: 'United States', points: hUS },
+  ]}
+  unit="hours"
+  averaged={false}
+  sources={['owid-hours', 'huberman2007']}
+  files={['working-hours-long-run.csv']}
+>
+  Before 1950, benchmark years only ({hUS.filter((p) => p.x < 1950).map((p) => p.x).join(', ')}), joined by straight lines. Huberman and Minns to 1938, Penn World Table from 1950, via Our World in Data (CC BY 4.0); the two sources are not fully comparable at the join.
+</LineChart>
+
+Keynes expected the trend to reach a fifteen-hour week within a century <Cite id="keynes1930" at="part II" />. It stalled well short.
 
 ## More output, fewer factory jobs
 
@@ -68,10 +93,11 @@ The biggest labour-saving shift in history already happened: farming went from m
   Both indexed to 1987 = 100, the first year of the output series.
 </LineChart>
 
-## Why it matters for post-labor
+<figure class="meme">
+  <Image src={farrier} alt="Cartoon of a farrier shoeing a horse in a barn, saying 'Farming is never going away, therefore my job is safe.'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />
+  <figcaption>Farming never went away; the farriers did. By David Shapiro, <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Memes">PLE memes</a>, CC0.</figcaption>
+</figure>
 
-This is the Great Decoupling in miniature: production keeps rising while the human labour it needs falls <Cite id="shapiro2025six" />. Robots played a measurable part in the factory story: US areas more exposed to industrial robots saw employment and wages fall <Cite id="acemoglu2017wp" at="abstract" />.
-
-<Aside type="caution" title="What skeptics say">
-Farm and factory workers did not become permanently idle: the economy created new tasks and whole new sectors, and automation complemented as much work as it replaced <Cite id="autor2015" /> <Cite id="acemoglu2019" />. Manufacturing jobs also fell for reasons beyond automation, including trade. The open question is whether AI, which targets cognitive work, leaves anywhere similar to go.
-</Aside>
+<Skeptics title="What the analogues do and do not show">
+Every transition so far created new tasks and sectors, and automation complemented as much work as it replaced <Cite id="autor2015" at="abstract" /> <Cite id="acemoglu2019" at="abstract" />. Manufacturing jobs also fell for reasons beyond automation, including trade. Post-Labor Economics replies that people sell only four things, strength, dexterity, cognition and empathy, and that machines are now gaining on all four at once <Cite id="shapiro2026seven" at="intuition 2" />.
+</Skeptics>

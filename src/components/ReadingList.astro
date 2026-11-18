@@ -1,0 +1,23 @@
+---
+// Reading list from src/data/reading.json: registry entries with a one-line reason, grouped into a path.
+import { byId, year, href } from '../lib/sources.mjs';
+import list from '../data/reading.json';
+for (const g of list) for (const r of g.items) if (!byId.has(r.id)) throw new Error(`reading.json: unknown source ${r.id}`);
+---
+{list.map((g, gi) => (
+  <section class="reading">
+    <h2 id={`step-${gi + 1}`}><span class="reading-step">{gi + 1}</span> {g.group}</h2>
+    <p class="reading-intro">{g.intro}</p>
+    <ol class="reading-list">
+      {g.items.map((r) => {
+        const s = byId.get(r.id)!;
+        return (
+          <li>
+            <a href={href(s)} rel="noopener"><cite>{s.title}</cite></a> <span class="reading-meta">{s.authors.join(', ')}, {year(s)} · {r.format}</span>
+            <p>{r.why} <a href={`/bibliography/#${s.id}`} class="reading-bib">Bibliography entry</a></p>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+))}

@@ -1,0 +1,21 @@
+---
+// People and organisations from src/data/people.json. Links are checked by npm run verify.
+import Cite from './Cite.astro';
+import people from '../data/people.json';
+const groups = [...new Set(people.map((p) => p.group))];
+---
+{groups.map((g) => (
+  <section>
+    <h2 id={g.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>{g}</h2>
+    <div class="dir-grid">
+      {people.filter((p) => p.group === g).map((p) => (
+        <article class="dir-card">
+          <h3>{p.name}</h3>
+          <p class="dir-role">{p.role}</p>
+          <p>{p.why}{p.cite && <> <Cite id={p.cite} at={p.at} /></>}</p>
+          <p class="dir-links">{p.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.url} rel="noopener">{l.label}</a></>)}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+))}

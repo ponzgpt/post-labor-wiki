@@ -1,41 +1,54 @@
 ---
-// The Great Decoupling as two household balance sheets. Concept after Shapiro, Labor Zero (2026), plates 1–2; drawing ours.
-const after = [
-  ['Universal basic income', 0.9],
-  ['Public wealth-fund dividends', 0.9],
-  ['Collectively owned assets', 0.9],
-  ['Personal assets', 0.9],
-  ['Residual wages', 0.35],
-];
+// The Great Decoupling as two household income systems. Concept and the illustrative 60/20/20 → 20/80 income mix
+// after Shapiro, Labor Zero (2026), plates 1–2 (© all rights reserved, so linked, not copied); drawing ours.
+const before = [['Wages', 60], ['Transfers', 20], ['Capital', 20]] as const;
+const after = [['Wages + transfers', 20], ['Capital', 80]] as const;
+const bar = (parts: readonly (readonly [string, number])[], x: number, y: number, w: number) => {
+  let at = x;
+  return parts.map(([label, pct], i) => {
+    const width = (pct / 100) * w;
+    const seg = { label, pct, x: at, width, cls: label === 'Capital' ? 'ig-seg-cap' : i === 0 ? 'ig-seg-wage' : 'ig-seg-tr' };
+    at += width;
+    return seg;
+  });
+};
+const b1 = bar(before, 20, 272, 320), b2 = bar(after, 390, 272, 320);
 ---
 <figure class="infographic">
-  <svg viewBox="0 0 720 330" role="img" aria-labelledby="dc-title dc-desc">
-    <title id="dc-title">The Great Decoupling</title>
-    <desc id="dc-desc">Today a household's income comes mainly from wages for work. In a post-labor economy it would come mainly from ownership and transfers, with wages as a small residual.</desc>
-    <g class="ig-panel">
-      <text x="170" y="28" class="ig-h">Today: wage-based</text>
-      <rect x="40" y="52" width="260" height="56" rx="8" class="ig-box" />
-      <text x="170" y="86" class="ig-t">Work (time sold to an employer)</text>
-      <path d="M170 110 V150" class="ig-arrow" marker-end="url(#dc-ah)" />
-      <rect x="40" y="152" width="260" height="56" rx="8" class="ig-box ig-strong" />
-      <text x="170" y="186" class="ig-t">Wages</text>
-      <path d="M170 210 V250" class="ig-arrow" marker-end="url(#dc-ah)" />
-      <rect x="70" y="252" width="200" height="56" rx="28" class="ig-home" />
-      <text x="170" y="286" class="ig-t ig-b">Household</text>
-    </g>
-    <path d="M330 170 H390" class="ig-arrow ig-big" marker-end="url(#dc-ah)" />
-    <g class="ig-panel">
-      <text x="555" y="28" class="ig-h">Post-labor: capital-based</text>
-      {after.map(([label, o], i) => (
-        <g opacity={o}>
-          <rect x={410} y={50 + i * 38} width={290} height={30} rx="6" class="ig-box ig-strong" />
-          <text x={555} y={70 + i * 38} class="ig-t">{label}</text>
-        </g>
-      ))}
-      <path d="M555 242 V250" class="ig-arrow" marker-end="url(#dc-ah)" />
-      <rect x="455" y="252" width="200" height="56" rx="28" class="ig-home" />
-      <text x="555" y="286" class="ig-t ig-b">Household</text>
-    </g>
+  <svg viewBox="0 0 720 340" role="img" aria-labelledby="dc-title dc-desc">
+    <title id="dc-title">The Great Decoupling: from a wage-based to a capital-based household</title>
+    <desc id="dc-desc">Today households sell labour to firms and are paid wages; in Shapiro's illustration about 60% of household income is wages, 20% transfers and 20% capital. After the decoupling, households own capital (firms, robots, AI, land, energy, funds) and receive dividends, interest and rents; his long-run target is 80% from capital and 20% from wages and transfers.</desc>
+    <text x="180" y="26" class="ig-h ig-h-sm">Today: earn by working</text>
+    <rect x="40" y="48" width="120" height="50" rx="25" class="ig-home" />
+    <text x="100" y="78" class="ig-t ig-b">Households</text>
+    <rect x="200" y="48" width="120" height="50" rx="8" class="ig-box ig-strong" />
+    <text x="260" y="78" class="ig-t ig-b">Firms</text>
+    <path d="M160 64 H196" class="ig-arrow" marker-end="url(#dc-ah)" />
+    <text x="180" y="118" class="ig-t ig-s">labour →</text>
+    <path d="M200 86 H164" class="ig-arrow" marker-end="url(#dc-ah)" />
+    <text x="180" y="136" class="ig-t ig-s">← wages</text>
+
+    <text x="550" y="26" class="ig-h ig-h-sm">Post-labor: earn by owning</text>
+    <rect x="410" y="48" width="120" height="50" rx="25" class="ig-home" />
+    <text x="470" y="78" class="ig-t ig-b">Households</text>
+    <rect x="570" y="48" width="120" height="50" rx="8" class="ig-box ig-strong" />
+    <text x="630" y="78" class="ig-t ig-b">Capital</text>
+    <text x="550" y="166" class="ig-t ig-s">capital: firms, robots, AI, land, energy, funds</text>
+    <path d="M530 64 H566" class="ig-arrow" marker-end="url(#dc-ah)" />
+    <text x="550" y="118" class="ig-t ig-s">ownership (stock) →</text>
+    <path d="M570 86 H534" class="ig-arrow" marker-end="url(#dc-ah)" />
+    <text x="550" y="136" class="ig-t ig-s">← dividends, interest, rents (flow)</text>
+
+    <path d="M335 120 H385" class="ig-arrow ig-big" marker-end="url(#dc-ah)" />
+    <text x="180" y="258" class="ig-t ig-s">Household income mix today (illustrative)</text>
+    <text x="550" y="258" class="ig-t ig-s">Long-run target (illustrative; W + T = wages and transfers)</text>
+    {[...b1, ...b2].map((s) => (
+      <g>
+        <rect x={s.x} y="272" width={s.width - 2} height="40" rx="4" class={s.cls} />
+        <text x={s.x + s.width / 2} y="290" class="ig-t ig-seg-t">{s.label === 'Wages + transfers' ? 'W + T' : s.label}</text>
+        <text x={s.x + s.width / 2} y="306" class="ig-t ig-seg-t ig-b">{s.pct}%</text>
+      </g>
+    ))}
     <defs>
       <marker id="dc-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0 0 L10 5 L0 10 z" class="ig-ahead" />
@@ -43,7 +56,7 @@ const after = [
     </defs>
   </svg>
   <figcaption>
-    The Great Decoupling, as Post-Labor Economics frames it: household income shifts from wages to ownership and transfers.
+    The Great Decoupling as Post-Labor Economics frames it. The two income mixes are Shapiro's illustrations, not measurements.
     Concept after David Shapiro, <a href="https://daveshap.github.io/PostLaborEconomics/laborzero/"><cite>Labor Zero</cite></a> (2026), plates 1–2; drawing ours (CC BY 4.0).
   </figcaption>
 </figure>

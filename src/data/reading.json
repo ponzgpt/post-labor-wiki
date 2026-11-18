@@ -1,0 +1,30 @@
+[
+  {"group": "Start with Shapiro", "intro": "The framework in its author's own words, shortest first.", "items": [
+    {"id": "shapiro2026video", "format": "video, 10 min", "why": "The fastest overview of the whole framework."},
+    {"id": "shapiro2025six", "format": "essay", "why": "His own syllabus: automation, labour's decline, power, measurement, interventions, life after labour."},
+    {"id": "shapiro2026seven", "format": "essay", "why": "The framework compressed into seven intuitions, from 'better, faster, cheaper, safer' to the meaning economy."},
+    {"id": "shapiro2025movement", "format": "essay", "why": "Why he names laborism as the obstacle and what Labor/Zero wants."},
+    {"id": "shapiro2026laborzero", "format": "book companion", "why": "The book's plates, the appendix on measuring ownership income, and an 82-page bibliography. Free to read; all rights reserved."}
+  ]},
+  {"group": "The evidence on work and technology", "intro": "What economists have measured so far.", "items": [
+    {"id": "autor2015", "format": "journal article, open access", "why": "Why automation has not yet ended work: substitution, complementarity and demand."},
+    {"id": "acemoglu2019", "format": "journal article, open access", "why": "The displacement-versus-new-tasks framework in one readable paper."},
+    {"id": "autor2024newwork", "format": "journal article", "why": "Where new jobs come from, and evidence that automation's job-eroding effect has strengthened."},
+    {"id": "karabarbounis2014", "format": "journal article", "why": "The paper that put the global fall in labour's share on the map."},
+    {"id": "brynjolfsson2025canaries", "format": "working paper", "why": "The most-watched early evidence on AI and entry-level jobs."}
+  ]},
+  {"group": "Cash, ownership and their evidence", "intro": "What happens when people get money or assets without a job attached.", "items": [
+    {"id": "vanparijs2017", "format": "book", "why": "The fullest case for basic income, with its history and objections."},
+    {"id": "hoynes2019", "format": "review article", "why": "The strongest cost-based case against UBI in rich countries."},
+    {"id": "jones2022", "format": "journal article", "why": "Alaska's dividend and jobs: the best evidence on a permanent, universal payment."},
+    {"id": "vivalt2024", "format": "working paper", "why": "The largest US unconditional cash trial, with careful labour-supply estimates."},
+    {"id": "kruse2022", "format": "short review, open access", "why": "What over a hundred studies say about employee ownership."}
+  ]},
+  {"group": "The critics and the wider frame", "intro": "Read these to test the thesis, not to confirm it.", "items": [
+    {"id": "mokyr2015", "format": "journal article, open access", "why": "Two centuries of technological anxiety, and why earlier alarms were early."},
+    {"id": "benanav2020", "format": "book", "why": "The case that slow growth, not automation, explains weak demand for labour."},
+    {"id": "acemoglu2024", "format": "working paper", "why": "A task-based estimate that AI's ten-year macro effect is modest."},
+    {"id": "acemoglu2023", "format": "book", "why": "A thousand years of who gained from technology, and why it is a political choice."},
+    {"id": "keynes1930", "format": "essay, free", "why": "Where the modern conversation starts, and how its forecast half came true."}
+  ]}
+]

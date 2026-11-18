@@ -1,0 +1,9 @@
+---
+// The steelmanned counter-case every framework and policy page must carry (AGENTS.md rule 4; npm run check enforces it).
+import { Aside } from '@astrojs/starlight/components';
+interface Props { title?: string }
+const { title = 'What skeptics say' } = Astro.props;
+---
+<Aside type="caution" title={title}>
+  <div class="skeptics"><slot /></div>
+</Aside>

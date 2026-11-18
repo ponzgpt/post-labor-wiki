@@ -2,56 +2,111 @@
   "A4002E1A156NBEA.csv": {
     "source": "bea-compshare",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=A4002E1A156NBEA",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "W270RE1A156NBEA.csv": {
     "source": "bea-wageshare",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=W270RE1A156NBEA",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "PRS85006173.csv": {
     "source": "fred-laborshare",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PRS85006173",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "OPHNFB.csv": {
     "source": "fred-productivity",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=OPHNFB",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "COMPRNFB.csv": {
     "source": "fred-realcomp",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=COMPRNFB",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "LNS11300060.csv": {
     "source": "fred-primeage-lfpr",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LNS11300060",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "LRAC25MAUSM156S.csv": {
     "source": "oecd-lfpr-men",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LRAC25MAUSM156S",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "LRAC25FEUSM156S.csv": {
     "source": "oecd-lfpr-women",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LRAC25FEUSM156S",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "MANEMP.csv": {
     "source": "fred-manemp",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=MANEMP",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "OUTMS.csv": {
     "source": "fred-outms",
     "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=OUTMS",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
   },
   "agriculture-employment-share.csv": {
     "source": "owid-agriculture",
     "url": "https://ourworldindata.org/grapher/share-of-the-labor-force-employed-in-agriculture.csv?v=1&csvType=full&useColumnShortNames=true",
-    "fetched": "2026-11-09"
+    "fetched": "2026-11-18"
+  },
+  "LNS12300060.csv": {
+    "source": "fred-primeage-epop",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=LNS12300060",
+    "fetched": "2026-11-18"
+  },
+  "W209RC1.csv": {
+    "source": "bea-pi-components",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=W209RC1",
+    "fetched": "2026-11-18"
+  },
+  "PIROA.csv": {
+    "source": "bea-pi-components",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PIROA",
+    "fetched": "2026-11-18"
+  },
+  "RENTIN.csv": {
+    "source": "bea-pi-components",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RENTIN",
+    "fetched": "2026-11-18"
+  },
+  "PROPINC.csv": {
+    "source": "bea-pi-components",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PROPINC",
+    "fetched": "2026-11-18"
+  },
+  "PCTR.csv": {
+    "source": "bea-pi-components",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=PCTR",
+    "fetched": "2026-11-18"
+  },
+  "CPIAUCSL.csv": {
+    "source": "bls-cpi",
+    "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL",
+    "fetched": "2026-11-18"
+  },
+  "working-hours-long-run.csv": {
+    "source": "owid-hours",
+    "url": "https://ourworldindata.org/grapher/annual-working-hours-per-worker.csv?v=1&csvType=full&useColumnShortNames=true",
+    "fetched": "2026-11-18"
+  },
+  "ilo-labour-income-share.csv": {
+    "source": "ilo-labour-share",
+    "url": "https://rplumber.ilo.org/data/indicator/?id=LAP_2GDP_NOC_RT_A&ref_area=X01+X02+X05&format=.csv",
+    "fetched": "2026-11-18"
+  },
+  "oecd-hours-worked.csv": {
+    "source": "oecd-hours",
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.ELS.SAE,DSD_HW@DF_AVG_ANN_HRS_WKD,1.0/OECD+USA+DEU+JPN............?startPeriod=1970&format=csvfile",
+    "fetched": "2026-11-18"
+  },
+  "alaska-pfd.csv": {
+    "source": "akdor-pfd",
+    "url": "https://pfd.alaska.gov/Division-Info/summary-of-dividend-applications-payments",
+    "fetched": "2026-11-18"
   }
 }

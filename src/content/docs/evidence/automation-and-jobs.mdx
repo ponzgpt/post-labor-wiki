@@ -1,45 +1,61 @@
 ---
-title: What automation does to jobs
-description: The key studies on how computers, robots and AI affect work, what each actually measured, and how to read headline numbers.
+title: Automation exposure and jobs
+description: Task-based theory, AI exposure indices and the first measured effects of generative AI, with what each famous number actually measures.
 sidebar:
-  order: 5
+  order: 6
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import Cite from '../../../components/Cite.astro';
 import Tag from '../../../components/Tag.astro';
+import Skeptics from '../../../components/Skeptics.astro';
 import computers from '../../../assets/img/five-computers.jpg';
 
+<div class="measure-ladder" role="list" aria-label="From potential to measured effect">
+  <div role="listitem" class="rung rung-forecast"><span class="rung-k">Potential</span><strong>47% → 9%</strong><p>US jobs at "high risk" by occupation <Cite id="frey2017" at="abstract" />, versus OECD jobs by task <Cite id="arntz2016" at="abstract" /></p></div>
+  <div role="listitem" class="rung rung-forecast"><span class="rung-k">Exposure</span><strong>1 in 4</strong><p>workers worldwide in jobs with some generative-AI exposure; 3.3% in the highest band <Cite id="gmyrek2025" at="abstract" /></p></div>
+  <div role="listitem" class="rung rung-evidence"><span class="rung-k">Use</span><strong>~40%</strong><p>of US adults aged 18–64 using generative AI by late 2024; 1–5% of work hours assisted <Cite id="bick2024" at="abstract" /></p></div>
+  <div role="listitem" class="rung rung-evidence"><span class="rung-k">Effect</span><strong>None yet, overall</strong><p>Precise zeros for earnings and hours in Denmark; a widening gap for young US workers in exposed jobs</p></div>
+</div>
+
 <Aside type="tip" title="TL;DR">
-Headline numbers about automation measure very different things: exposure, risk, local effects or productivity. Read the method before the number. The evidence so far shows real displacement in specific places and tasks, and no economy-wide collapse in work, yet.
+Read the method before the number. Exposure measures what AI could touch, not what it will replace or when. Measured effects so far are small overall, with the first signs concentrated among young workers in the most exposed occupations.
 </Aside>
 
-## Exposure is not job loss
+## From occupations to tasks
 
-<Tag kind="forecast" />In 2013, an occupation-level model put about 47% of US employment at high risk of computerisation <Cite id="frey2017" />. A task-level method applied to 21 OECD countries found about 9% <Cite id="arntz2016" at="abstract" />. The difference: whole occupations rarely automate, because most jobs mix easy and hard tasks.
+<Tag kind="evidence" />Computers replace routine tasks and complement problem-solving work <Cite id="autor2003" at="abstract" />. This task view changed the numbers: an occupation-level model put about 47% of US employment at high risk of computerisation <Cite id="frey2017" at="abstract" />; a task-level method for 21 OECD countries found about 9% <Cite id="arntz2016" at="abstract" />. Most jobs mix tasks machines can do with tasks they cannot.
 
-<Tag kind="evidence" />For large language models, about 80% of US workers have at least 10% of their tasks exposed, and about 19% have at least half; the authors make no prediction about timing <Cite id="eloundou2024" at="abstract" />.
+The framework behind most current work: automation displaces labour from tasks, new tasks reinstate it, and in recent decades displacement has outpaced reinstatement <Cite id="acemoglu2019" at="abstract" />.
+
+## AI exposure indices
+
+<Tag kind="forecast" />Exposure indices score occupations by how much of their task content AI could perform. For large language models, about 80% of US workers have at least 10% of their tasks exposed, and about 19% at least half; the authors make no prediction about timing <Cite id="eloundou2024" at="abstract" />. Earlier, Felten, Raj and Seamans built an occupation, industry and county index of AI exposure <Cite id="felten2021" at="abstract" />. The ILO's global index finds exposure rising with income: 11% of employment in low-income countries, 34% in high-income ones <Cite id="gmyrek2025" at="abstract" />.
 
 ## What has actually been measured
 
-| Study | What it measured | Finding |
+| Study | Setting | Finding |
 |---|---|---|
-| <Cite id="autor2003" /> | Which tasks computers took over, 1960–1998 | Computers replace routine tasks and complement problem-solving work |
-| <Cite id="acemoglu2017wp" /> | Industrial robots in US local labour markets, 1990–2007 | One more robot per 1,000 workers: employment-to-population down 0.18–0.34 points, wages down 0.25–0.5% (abstract) |
-| <Cite id="acemoglu2019" /> | Automation vs new tasks across the economy | Displacement has outpaced the creation of new tasks in recent decades |
-| <Cite id="brynjolfsson2025" /> | An AI assistant for 5,172 support agents | Productivity up 15% on average, mostly for less experienced agents (abstract) |
-| <Cite id="acemoglu2024" /> | AI's economy-wide effect, task-based model | No more than 0.66% extra productivity over ten years (abstract) |
+| <Cite id="acemoglu2017wp" at="abstract" /> | Industrial robots, US local labour markets, 1990–2007 | One more robot per 1,000 workers: employment-to-population down 0.18–0.34 points, wages down 0.25–0.5% |
+| <Cite id="brynjolfsson2025" at="abstract" /> | AI assistant, 5,172 support agents | Productivity up 15% on average, mostly for less experienced agents |
+| <Cite id="humlum2025" at="abstract" /> | Danish workers and workplaces, two years after ChatGPT | Precise null effects on earnings and hours; effects above 2% ruled out |
+| <Cite id="brynjolfsson2025canaries" at="abstract" /> | US payroll records to mid-2026 | Workers aged 22–25 in exposed occupations about 19% below their counterfactual; no economy-wide displacement |
+| <Cite id="acemoglu2024" at="abstract" /> | Task-based macro model | <Tag kind="forecast" />No more than 0.66% extra total factor productivity over ten years |
+
+The young-worker gap works mainly through less hiring, and concentrates where AI substitutes for tasks rather than complementing them; the authors call the evidence descriptive, not causal <Cite id="brynjolfsson2025canaries" at="abstract" />.
 
 ## Why it matters for post-labor
 
-Post-Labor Economics argues that the old pattern, where displaced workers move to new tasks, breaks once machines are better, faster, cheaper and safer at most of them, including cognitive work <Cite id="shapiro2025six" />. The question becomes empirical: are new tasks still appearing faster than old ones disappear?
+Post-Labor Economics argues that the old escape route, moving to new tasks, closes once machines are better, faster, cheaper and safer at most of them, cognitive work included <Cite id="shapiro2026seven" at="intuition 1" />. That makes the next few years testable: watch whether the entry-level gap spreads to older workers and to the aggregate.
 
 <figure class="meme">
   <Image src={computers} alt="Cartoon of a 1940s businessman at a desk saying 'I think there is a world market for maybe five computers.'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />
   <figcaption>Forecasts age badly in both directions. The quote is often attributed to IBM's Thomas Watson in 1943; its origin is disputed. Meme by David Shapiro, <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Memes">PLE memes</a>, CC0.</figcaption>
 </figure>
 
-<Aside type="caution" title="What skeptics say">
-Two centuries of predictions that machines would end work have been wrong so far <Cite id="mokyr2015" />, and weak job growth in rich countries may reflect slow economic growth more than fast automation <Cite id="benanav2020" />.
-</Aside>
+<Skeptics>
+- **New work keeps arriving.** Most current US employment is in job specialties introduced since 1940, though the job-eroding effect of automation innovations has intensified since 1980 <Cite id="autor2024newwork" at="abstract" />.
+- **Weak job growth has other causes.** Slow economic growth, not fast automation, may explain weak labour demand in rich countries <Cite id="benanav2020" at="chs. 3–4" />.
+- **Alarm is old.** Anxiety that machines will end work has recurred since the late 18th century <Cite id="mokyr2015" at="abstract" />; so far automation has also complemented labour and raised demand for it <Cite id="autor2015" at="abstract" />.
+</Skeptics>

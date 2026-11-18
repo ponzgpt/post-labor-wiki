@@ -1,0 +1,40 @@
+---
+// A dashboard tile: latest value, change over the window, and a sparkline drawn from a committed snapshot.
+import Cite from './Cite.astro';
+import { fetched } from '../lib/data.mjs';
+import { fmt } from '../lib/format.mjs';
+
+interface Point { x: number; v: number }
+interface Props {
+  label: string;
+  points: Point[];
+  unit: 'pct' | 'index' | 'millions' | 'usd' | 'hours';
+  source: string;
+  file: string;
+  /** What a rise means for the post-labor thesis, in a few words. */
+  watch: string;
+  href?: string;
+}
+const { label, points, unit, source, file, watch, href } = Astro.props;
+const first = points[0], last = points.at(-1)!;
+const W = 240, H = 56, pad = 4;
+const vs = points.map((p) => p.v);
+const lo = Math.min(...vs), hi = Math.max(...vs);
+const sx = (x: number) => pad + ((x - first.x) / (last.x - first.x || 1)) * (W - 2 * pad);
+const sy = (v: number) => pad + (1 - (v - lo) / (hi - lo || 1)) * (H - 2 * pad);
+const d = points.map((p, i) => `${i ? 'L' : 'M'}${sx(p.x).toFixed(1)} ${sy(p.v).toFixed(1)}`).join('');
+const delta = last.v - first.v;
+const deltaText = unit === 'pct' ? `${delta >= 0 ? '+' : '−'}${Math.abs(delta).toFixed(1)} pts` : `${delta >= 0 ? '+' : '−'}${fmt(unit, Math.abs(delta))}`;
+const min = points.find((p) => p.v === lo)!, max = points.find((p) => p.v === hi)!;
+---
+<article class="spark-tile">
+  <h3 class="spark-label">{href ? <a href={href}>{label}</a> : label}</h3>
+  <div class="spark-value">{fmt(unit, last.v)} <span class="spark-year">{last.x}</span></div>
+  <div class="spark-delta">{deltaText} since {first.x}</div>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${label}: ${fmt(unit, first.v)} in ${first.x}, ${fmt(unit, last.v)} in ${last.x}; low ${fmt(unit, min.v)} in ${min.x}, high ${fmt(unit, max.v)} in ${max.x}.`}>
+    <path d={d} class="spark-line" />
+    <circle cx={sx(last.x)} cy={sy(last.v)} r="3" class="spark-dot" />
+  </svg>
+  <p class="spark-watch">{watch}</p>
+  <p class="spark-src"><Cite id={source} /> · snapshot {fetched(file)} · <a href={`/data/${file}`} download>CSV</a></p>
+</article>

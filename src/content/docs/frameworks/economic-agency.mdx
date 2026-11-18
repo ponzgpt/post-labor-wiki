@@ -1,0 +1,76 @@
+---
+title: Economic agency and the Pyramid of Prosperity
+description: How Post-Labor Economics measures where household income comes from, the five tiers it wants to build, and what US data show today.
+sidebar:
+  order: 2
+---
+
+import Cite from '../../../components/Cite.astro';
+import Tag from '../../../components/Tag.astro';
+import Skeptics from '../../../components/Skeptics.astro';
+import Pyramid from '../../../components/Pyramid.astro';
+import LineChart from '../../../components/LineChart.astro';
+import { householdIncome, last } from '../../../lib/data.mjs';
+
+export const h = householdIncome();
+export const y0 = h.wages[0], y1 = last(h.wages);
+export const car = (i) => h.capital[i].v / (h.wages[i].v + h.transfers[i].v);
+export const lastI = h.wages.length - 1;
+export const f0 = (v) => v.toFixed(0);
+
+<Pyramid
+  id="prosperity"
+  title="The Pyramid of Prosperity: five tiers of post-labor household income"
+  tiers={[
+    ['The universals', 'Cash, services and capital endowments for everyone'],
+    ['Public wealth', 'Funds owned in common that pay the whole population'],
+    ['Collectively owned private assets', 'Co-ops, employee-owned firms, land trusts'],
+    ['Private wealth accumulation', 'Help for every household to build earning assets'],
+    ['Residual wages', 'Not the only route to security'],
+  ]}
+  axis={['Reaches everyone', 'Reaches fewest']}
+  dashedTop
+>
+  Tier names after David Shapiro, <a href="https://daveshap.github.io/PostLaborEconomics/laborzero/"><cite>Labor Zero</cite></a> (2026), plate 3; glosses paraphrased and drawing ours (CC BY 4.0). The plate itself is © all rights reserved.
+</Pyramid>
+
+## The idea
+
+<Tag kind="proposal" />Economic agency is a household's ability to secure its own living. Post-Labor Economics tracks it by splitting income into three buckets, wages, transfers and capital, and argues that as wages fall the other two must rise, with capital the most neglected <Cite id="shapiro2026seven" at="intuition 3" />. The Pyramid of Prosperity orders the institutions that would deliver that income, broadest first <Cite id="shapiro2026laborzero" at="plate 3" />.
+
+## Two ratios to measure it
+
+<cite>Labor Zero</cite>'s free appendix defines two measures <Cite id="shapiro2026laborzero" at="appendix, 'How the ratios fit together'" />:
+
+- **Capital Allocation Ratio (CAR):** recurring ownership income divided by wages plus transfers. A CAR of 0.25 means capital supplies one fifth of that income; a CAR of 4, four fifths.
+- **Public Wealth Ratio (PWR):** the part of household resources that comes through qualifying shared institutions, so that broad ownership can be told apart from ownership by a few.
+
+The appendix also sets tests for what counts as inclusive capital, including broad eligibility, real yielding assets and benefits independent of employment <Cite id="shapiro2026laborzero" at="appendix, 'Count the benefit once'" />.
+
+## What US data show
+
+<Tag kind="evidence" />National accounts give a rough version of the three buckets. In {y1.x}, compensation was {f0(y1.v)}% of US personal income from these sources, transfers {f0(last(h.transfers).v)}% and capital income {f0(last(h.capital).v)}%, against {f0(y0.v)}%, {f0(h.transfers[0].v)}% and {f0(h.capital[0].v)}% in {y0.x}. The implied CAR moved from {car(0).toFixed(2)} to {car(lastI).toFixed(2)}.
+
+<LineChart
+  title="US personal income by source, share of the total"
+  series={[
+    { label: 'Compensation', points: h.wages },
+    { label: 'Transfers', points: h.transfers },
+    { label: 'Capital income', points: h.capital },
+  ]}
+  unit="pct"
+  yMin={0}
+  sources={['bea-pi-components']}
+  files={['W209RC1.csv', 'PCTR.csv', 'PIROA.csv', 'RENTIN.csv', 'PROPINC.csv']}
+>
+  Shares of the sum of compensation received, current transfer receipts, capital income (interest, dividends and rental income) and proprietors' income (not drawn: it mixes labour and capital). A rough national proxy, not Shapiro's household ledger: it includes imputed items such as owner-occupiers' rent.
+</LineChart>
+
+The shift so far is mostly from wages to transfers, not to ownership: the opposite of the path PLE wants. And a national share says nothing about how many households receive that capital income.
+
+<Skeptics>
+- **Ownership income is already highly unequal**, so raising capital's share without changing who owns it could widen gaps rather than close them <Cite id="piketty2014" at="introduction" />.
+- **Returns are not guaranteed.** Capital income depends on returns that fluctuate; Alaska's dividend has swung widely from year to year (see [citizen dividends](/policy/citizen-dividends/)).
+- **The arithmetic is demanding.** Replacing most wage income with dividends would take broadly held assets far larger than any public fund today; the appendix itself works through how much capital an income floor needs and lists the evidence that could challenge the framework <Cite id="shapiro2026laborzero" at="appendix, introduction" />.
+- **A ratio is not a mechanism.** CAR adds no new information beyond capital's income share; its value is in directing attention <Cite id="shapiro2026laborzero" at="appendix, 'How the ratios fit together'" />, so it must be paired with policies that actually move assets.
+</Skeptics>

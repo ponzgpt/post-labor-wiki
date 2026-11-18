@@ -2,7 +2,7 @@
 title: How we source
 description: Evidence tiers, claim labels, image licences and how to report a mistake.
 sidebar:
-  order: 2
+  order: 3
 ---
 
 import Tag from '../../../components/Tag.astro';
@@ -25,9 +25,21 @@ Forecasts and proposals can be good arguments. They just aren't facts yet, so th
 2. **Peer-reviewed research** and preregistered trials.
 3. **Working papers** from established series (NBER and similar), labelled as such.
 4. **Books and essays**, cited for ideas and arguments, not for numbers they don't source.
-5. **Commentary**, including David Shapiro's Substack, cited for what its author argues.
+5. **Commentary**, including David Shapiro's Substack and videos, cited for what their author argues.
 
 AI-generated research reports, including the deep-research PDFs in Shapiro's public repository, are used only to find primary sources; they are never cited.
+
+## Checked by machine
+
+`npm run check` refuses to build the site unless:
+
+- every `<Cite>` names a source in the registry and gives a locator (page, table, section or "abstract"); data series are located by their series code;
+- every cited source has passed `npm run verify` (DOI found on Crossref, or URL answering), or carries a dated note that a person checked it behind a bot wall;
+- no page has more than 600 words of prose, and every framework and policy page has a "What skeptics say" box;
+- every chart reads a committed snapshot listed in the data manifest, and no page types chart numbers in by hand;
+- no quotation runs to 15 words or more.
+
+Chart data are refreshed with `npm run data`, which downloads FRED, ILO, OECD, Our World in Data and Alaska Department of Revenue series into `public/data/` and records the date; the build itself never touches the network.
 
 ## Images
 

@@ -5,20 +5,21 @@ A visual, source-first wiki on post-labor economics, post-work society and the h
 Live: https://post-labor-wiki.technoir.cloud
 
 ## Status
-Live: "Post-labor in five minutes", "How we source", **The evidence** (labour share, productivity vs pay, participation, farms and factories, automation studies; charts from FRED and Our World in Data), the generated bibliography and credits. Sections ship one at a time, following [`research/outline.md`](research/outline.md).
+Live sections: **Start here** (five minutes, why now, how we source), **The evidence** (labour share in the US and worldwide, productivity vs pay, participation, historical analogues, automation exposure), **Frameworks** (David Shapiro's Post-Labor Economics, economic agency, power after labour, and a comparison with six other frameworks), the **policy toolbox** (six instruments with evidence for and against), **measures to watch**, **open questions**, and reference pages (timeline, glossary, people, reading list, bibliography, credits). What is next is in [`research/PLAN-v2.md`](research/PLAN-v2.md).
 
 | File | What it is |
 |---|---|
 | [`research/sources.json`](research/sources.json) | The source registry: one entry per work, with a DOI or URL. The wiki and bibliography are generated from it. |
 | [`research/verification.md`](research/verification.md) | Last link and DOI check (`npm run verify`). |
-| [`research/outline.md`](research/outline.md) | Site map: 8 sections, about 40 pages, the sources behind each. |
+| [`research/PLAN-v2.md`](research/PLAN-v2.md) | The v2 audit, structure, quality gates and what is left. |
+| [`research/outline.md`](research/outline.md) | The original long-range map: 8 sections, about 40 pages. |
 | [`research/shapiro-ple.md`](research/shapiro-ple.md) | David Shapiro's Post-Labor Economics terms, mapped to where he defines them. |
 | [`research/assets.md`](research/assets.md) | Images, charts and memes we can use, with licences. |
 
 ## Commands
 - `npm run dev`: local site.
-- `npm run data`: re-downloads the chart data from FRED and Our World in Data into `public/data/` (snapshot dates in `src/data/manifest.json`).
-- `npm run check`: validates the registry and research citations, runs the unit test, builds the site (a `<Cite>` to an unknown id fails the build). CI and the deploy run it.
+- `npm run data`: re-downloads the chart data (FRED, ILOSTAT, OECD, Our World in Data, Alaska Department of Revenue) into `public/data/`, with snapshot dates in `src/data/manifest.json`. `npm run data -- pfd` refreshes only matching files.
+- `npm run check`: enforces the sourcing rules (registry, locators, verified links, word limits, skeptics boxes, snapshot-only charts, short quotes), runs the unit tests and builds the site. CI and the deploy run it.
 - `./scripts/deploy.sh`: builds the committed HEAD on the VPS and rolls it out behind Traefik.
 - `npm run verify`: checks every DOI on Crossref and every URL over HTTP, then rewrites `research/verification.md`.
 

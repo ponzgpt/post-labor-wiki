@@ -1,32 +1,37 @@
 ---
-// Shapiro's Pyramid of Prosperity, five tiers of post-labor household income, base first.
-const tiers = [
-  ['Universal basic income', 'A floor for everyone'],
-  ['Public wealth-fund dividends', 'Like the Alaska Permanent Fund dividend'],
-  ['Collectively owned assets', 'Co-ops, ESOPs, community trusts'],
-  ['Personal assets', 'Savings, shares, property'],
-  ['Residual wages', 'Work by choice'],
-];
-const H = 52, W = 640, top = 20;
+// A five-tier pyramid, base first. Used for Shapiro's two pyramids (Labor Zero plates 3 and 4); drawings ours.
+interface Props {
+  id: string;
+  title: string;
+  /** [name, gloss], base tier first. */
+  tiers: [string, string][];
+  /** Label for the base and the apex, e.g. ['Built first', 'Built last']. */
+  axis: [string, string];
+  dashedTop?: boolean;
+}
+const { id, title, tiers, axis, dashedTop = false } = Astro.props;
+const H = 54, W = 640, top = 20, n = tiers.length;
 ---
-<figure class="infographic">
-  <svg viewBox={`0 0 ${W} ${top + tiers.length * H + 10}`} role="img" aria-labelledby="pp-title">
-    <title id="pp-title">Pyramid of Prosperity: {tiers.map((t) => t[0]).join(', ')}</title>
+<figure class="infographic pyramid">
+  <svg viewBox={`0 0 ${W} ${top + n * H + 34}`} role="img" aria-labelledby={`${id}-t ${id}-d`}>
+    <title id={`${id}-t`}>{title}</title>
+    <desc id={`${id}-d`}>{tiers.map(([name, sub], i) => `Tier ${i + 1}: ${name}, ${sub}.`).join(' ')} {axis[0]} at the base, {axis[1]} at the top.</desc>
     {tiers.map(([name, sub], i) => {
-      const row = tiers.length - 1 - i; // base at the bottom
+      const row = n - 1 - i;
       const y = top + row * H;
-      const t = 60 + row * 50, b = t + 50; // half-widths of top and bottom edges, so slopes line up
+      const t = 60 + row * 50, b = t + 50;
       return (
-        <g class={`pp-tier pp-${i}`}>
+        <g class={`pp-tier pp-${i}${dashedTop && i === n - 1 ? ' pp-dashed' : ''}`}>
           <path d={`M${W / 2 - t} ${y} H${W / 2 + t} L${W / 2 + b} ${y + H - 4} H${W / 2 - b} Z`} />
-          <text x={W / 2} y={y + 22} class="ig-t ig-b">{name}</text>
+          <text x={W / 2} y={y + 22} class="ig-t ig-b">{i + 1}. {name}</text>
           <text x={W / 2} y={y + 40} class="ig-t ig-s">{sub}</text>
         </g>
       );
     })}
+    <text x={W / 2} y={top + n * H + 22} class="ig-t ig-s">▲ {axis[0]} (base) to {axis[1]} (top)</text>
   </svg>
-  <figcaption>
-    The Pyramid of Prosperity: five tiers of household income in a mature post-labor economy, broadest at the base.
-    Tiers from David Shapiro's public-domain <a href="https://github.com/daveshap/PostLaborEconomics/tree/main/Charts">PLE charts</a> and <cite>Labor Zero</cite> plate 3; examples and drawing ours.
-  </figcaption>
+  <ol class="pp-list" aria-hidden="true">
+    {tiers.map(([name, sub]) => <li><strong>{name}</strong>: {sub}</li>)}
+  </ol>
+  <figcaption><slot /></figcaption>
 </figure>

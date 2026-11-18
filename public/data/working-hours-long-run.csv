@@ -1,0 +1,244 @@
+entity,code,year,working_hours_omm,owid_region
+Germany,DEU,1870,3284,Europe
+Germany,DEU,1880,3223,Europe
+Germany,DEU,1890,3108,Europe
+Germany,DEU,1900,3056,Europe
+Germany,DEU,1913,2723,Europe
+Germany,DEU,1929,2128,Europe
+Germany,DEU,1938,2187,Europe
+Germany,DEU,1950,2427.4,Europe
+Germany,DEU,1951,2401.56,Europe
+Germany,DEU,1952,2376.01,Europe
+Germany,DEU,1953,2350.72,Europe
+Germany,DEU,1954,2325.7,Europe
+Germany,DEU,1955,2300.95,Europe
+Germany,DEU,1956,2276.47,Europe
+Germany,DEU,1957,2252.24,Europe
+Germany,DEU,1958,2228.27,Europe
+Germany,DEU,1959,2204.56,Europe
+Germany,DEU,1960,2181.09,Europe
+Germany,DEU,1961,2154.48,Europe
+Germany,DEU,1962,2117.37,Europe
+Germany,DEU,1963,2086.93,Europe
+Germany,DEU,1964,2098.42,Europe
+Germany,DEU,1965,2084.2,Europe
+Germany,DEU,1966,2057.89,Europe
+Germany,DEU,1967,2020.18,Europe
+Germany,DEU,1968,2007.68,Europe
+Germany,DEU,1969,1987.92,Europe
+Germany,DEU,1970,1972.49,Europe
+Germany,DEU,1971,1940.53,Europe
+Germany,DEU,1972,1915.43,Europe
+Germany,DEU,1973,1884.88,Europe
+Germany,DEU,1974,1851.61,Europe
+Germany,DEU,1975,1811.88,Europe
+Germany,DEU,1976,1824.28,Europe
+Germany,DEU,1977,1806.23,Europe
+Germany,DEU,1978,1787.18,Europe
+Germany,DEU,1979,1775.14,Europe
+Germany,DEU,1980,1756.09,Europe
+Germany,DEU,1981,1734.02,Europe
+Germany,DEU,1982,1722.99,Europe
+Germany,DEU,1983,1709.95,Europe
+Germany,DEU,1984,1698.92,Europe
+Germany,DEU,1985,1675.85,Europe
+Germany,DEU,1986,1656.8,Europe
+Germany,DEU,1987,1633.73,Europe
+Germany,DEU,1988,1628.72,Europe
+Germany,DEU,1989,1605.65,Europe
+Germany,DEU,1990,1582.58,Europe
+Germany,DEU,1991,1553.5,Europe
+Germany,DEU,1992,1564.87,Europe
+Germany,DEU,1993,1538.69,Europe
+Germany,DEU,1994,1534.25,Europe
+Germany,DEU,1995,1528.9,Europe
+Germany,DEU,1996,1515.5,Europe
+Germany,DEU,1997,1506.16,Europe
+Germany,DEU,1998,1503.01,Europe
+Germany,DEU,1999,1490.27,Europe
+Germany,DEU,2000,1464.53,Europe
+Germany,DEU,2001,1457.35,Europe
+Germany,DEU,2002,1448.34,Europe
+Germany,DEU,2003,1443.07,Europe
+Germany,DEU,2004,1442.65,Europe
+Germany,DEU,2005,1431.89,Europe
+Germany,DEU,2006,1452.42,Europe
+Germany,DEU,2007,1453.86,Europe
+Germany,DEU,2008,1446.89,Europe
+Germany,DEU,2009,1406.77,Europe
+Germany,DEU,2010,1425.37,Europe
+Germany,DEU,2011,1427.18,Europe
+Germany,DEU,2012,1406,Europe
+Germany,DEU,2013,1395.73,Europe
+Germany,DEU,2014,1400.01,Europe
+Germany,DEU,2015,1401.59,Europe
+Germany,DEU,2016,1395.83,Europe
+Germany,DEU,2017,1388.21,Europe
+Germany,DEU,2018,1380.72,Europe
+Germany,DEU,2019,1372.04,Europe
+Germany,DEU,2020,1313.57,Europe
+Germany,DEU,2021,1341.88,Europe
+Germany,DEU,2022,1340.14,Europe
+Germany,DEU,2023,1335.27,Europe
+United Kingdom,GBR,1870,2755,Europe
+United Kingdom,GBR,1880,2740,Europe
+United Kingdom,GBR,1890,2669,Europe
+United Kingdom,GBR,1900,2656,Europe
+United Kingdom,GBR,1913,2656,Europe
+United Kingdom,GBR,1929,2257,Europe
+United Kingdom,GBR,1938,2200,Europe
+United Kingdom,GBR,1950,2022.62,Europe
+United Kingdom,GBR,1951,2030.69,Europe
+United Kingdom,GBR,1952,2001.24,Europe
+United Kingdom,GBR,1953,2004.87,Europe
+United Kingdom,GBR,1954,2008.71,Europe
+United Kingdom,GBR,1955,2007.26,Europe
+United Kingdom,GBR,1956,1994.68,Europe
+United Kingdom,GBR,1957,1974.74,Europe
+United Kingdom,GBR,1958,1947.15,Europe
+United Kingdom,GBR,1959,1956.21,Europe
+United Kingdom,GBR,1960,1948.19,Europe
+United Kingdom,GBR,1961,1914.14,Europe
+United Kingdom,GBR,1962,1879.16,Europe
+United Kingdom,GBR,1963,1871.34,Europe
+United Kingdom,GBR,1964,1871.56,Europe
+United Kingdom,GBR,1965,1850.01,Europe
+United Kingdom,GBR,1966,1798.18,Europe
+United Kingdom,GBR,1967,1786.99,Europe
+United Kingdom,GBR,1968,1780.21,Europe
+United Kingdom,GBR,1969,1771.32,Europe
+United Kingdom,GBR,1970,1732.69,Europe
+United Kingdom,GBR,1971,1694.95,Europe
+United Kingdom,GBR,1972,1714.61,Europe
+United Kingdom,GBR,1973,1722.84,Europe
+United Kingdom,GBR,1974,1708.99,Europe
+United Kingdom,GBR,1975,1680.07,Europe
+United Kingdom,GBR,1976,1673.54,Europe
+United Kingdom,GBR,1977,1682.71,Europe
+United Kingdom,GBR,1978,1683.74,Europe
+United Kingdom,GBR,1979,1681.38,Europe
+United Kingdom,GBR,1980,1653.51,Europe
+United Kingdom,GBR,1981,1619.91,Europe
+United Kingdom,GBR,1982,1616.49,Europe
+United Kingdom,GBR,1983,1611.05,Europe
+United Kingdom,GBR,1984,1616.8,Europe
+United Kingdom,GBR,1985,1618.95,Europe
+United Kingdom,GBR,1986,1614,Europe
+United Kingdom,GBR,1987,1618.48,Europe
+United Kingdom,GBR,1988,1625.11,Europe
+United Kingdom,GBR,1989,1628.65,Europe
+United Kingdom,GBR,1990,1616.97,Europe
+United Kingdom,GBR,1991,1593.45,Europe
+United Kingdom,GBR,1992,1587.69,Europe
+United Kingdom,GBR,1993,1583.98,Europe
+United Kingdom,GBR,1994,1593.49,Europe
+United Kingdom,GBR,1995,1595.38,Europe
+United Kingdom,GBR,1996,1594.88,Europe
+United Kingdom,GBR,1997,1594.05,Europe
+United Kingdom,GBR,1998,1590.17,Europe
+United Kingdom,GBR,1999,1582.4,Europe
+United Kingdom,GBR,2000,1567.9,Europe
+United Kingdom,GBR,2001,1570.7,Europe
+United Kingdom,GBR,2002,1554.57,Europe
+United Kingdom,GBR,2003,1546.06,Europe
+United Kingdom,GBR,2004,1543.6,Europe
+United Kingdom,GBR,2005,1546.39,Europe
+United Kingdom,GBR,2006,1541.07,Europe
+United Kingdom,GBR,2007,1542.77,Europe
+United Kingdom,GBR,2008,1537.81,Europe
+United Kingdom,GBR,2009,1517.31,Europe
+United Kingdom,GBR,2010,1521.83,Europe
+United Kingdom,GBR,2011,1518.52,Europe
+United Kingdom,GBR,2012,1531.42,Europe
+United Kingdom,GBR,2013,1540.17,Europe
+United Kingdom,GBR,2014,1545.64,Europe
+United Kingdom,GBR,2015,1543.13,Europe
+United Kingdom,GBR,2016,1541.27,Europe
+United Kingdom,GBR,2017,1542.26,Europe
+United Kingdom,GBR,2018,1537.13,Europe
+United Kingdom,GBR,2019,1544.63,Europe
+United Kingdom,GBR,2020,1391.63,Europe
+United Kingdom,GBR,2021,1489.71,Europe
+United Kingdom,GBR,2022,1528.88,Europe
+United Kingdom,GBR,2023,1522.8,Europe
+United States,USA,1870,3096,North America
+United States,USA,1880,3044,North America
+United States,USA,1890,2983,North America
+United States,USA,1900,2938,North America
+United States,USA,1913,2900,North America
+United States,USA,1929,2316,North America
+United States,USA,1938,1756,North America
+United States,USA,1950,2021.98,North America
+United States,USA,1951,2063.8,North America
+United States,USA,1952,2060.12,North America
+United States,USA,1953,2053.91,North America
+United States,USA,1954,2030.68,North America
+United States,USA,1955,2038.46,North America
+United States,USA,1956,2023.37,North America
+United States,USA,1957,1995.38,North America
+United States,USA,1958,1960.95,North America
+United States,USA,1959,1986.87,North America
+United States,USA,1960,1968.41,North America
+United States,USA,1961,1953.61,North America
+United States,USA,1962,1973.51,North America
+United States,USA,1963,1961.96,North America
+United States,USA,1964,1971.53,North America
+United States,USA,1965,1991.91,North America
+United States,USA,1966,2000.82,North America
+United States,USA,1967,1977.72,North America
+United States,USA,1968,1974.18,North America
+United States,USA,1969,1975.34,North America
+United States,USA,1970,1930.72,North America
+United States,USA,1971,1914.99,North America
+United States,USA,1972,1911.75,North America
+United States,USA,1973,1910.32,North America
+United States,USA,1974,1882.34,North America
+United States,USA,1975,1850.8,North America
+United States,USA,1976,1846.91,North America
+United States,USA,1977,1847.02,North America
+United States,USA,1978,1853.67,North America
+United States,USA,1979,1856.07,North America
+United States,USA,1980,1840.47,North America
+United States,USA,1981,1828.64,North America
+United States,USA,1982,1809.88,North America
+United States,USA,1983,1819.48,North America
+United States,USA,1984,1835.54,North America
+United States,USA,1985,1840.8,North America
+United States,USA,1986,1821.1,North America
+United States,USA,1987,1828.61,North America
+United States,USA,1988,1839.12,North America
+United States,USA,1989,1852.08,North America
+United States,USA,1990,1836.18,North America
+United States,USA,1991,1827.74,North America
+United States,USA,1992,1815.51,North America
+United States,USA,1993,1831.55,North America
+United States,USA,1994,1850.24,North America
+United States,USA,1995,1860.37,North America
+United States,USA,1996,1865.89,North America
+United States,USA,1997,1872.51,North America
+United States,USA,1998,1883.08,North America
+United States,USA,1999,1886.01,North America
+United States,USA,2000,1887.58,North America
+United States,USA,2001,1866.69,North America
+United States,USA,2002,1847.99,North America
+United States,USA,2003,1832.54,North America
+United States,USA,2004,1831.55,North America
+United States,USA,2005,1829.11,North America
+United States,USA,2006,1831.26,North America
+United States,USA,2007,1828.84,North America
+United States,USA,2008,1808.99,North America
+United States,USA,2009,1764.89,North America
+United States,USA,2010,1773.37,North America
+United States,USA,2011,1782.51,North America
+United States,USA,2012,1784.7,North America
+United States,USA,2013,1791.31,North America
+United States,USA,2014,1797.12,North America
+United States,USA,2015,1808.72,North America
+United States,USA,2016,1802.6,North America
+United States,USA,2017,1795.58,North America
+United States,USA,2018,1804.19,North America
+United States,USA,2019,1796.65,North America
+United States,USA,2020,1777.88,North America
+United States,USA,2021,1788.7,North America
+United States,USA,2022,1789.59,North America
+United States,USA,2023,1788.88,North America
