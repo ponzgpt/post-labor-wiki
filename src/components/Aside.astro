@@ -1,0 +1,11 @@
+---
+// "In short" summaries and notes (replaces Starlight's Aside). Skeptics boxes have their own component.
+import Icon from './Icon.astro';
+interface Props { type?: 'tip' | 'note'; title?: string }
+const { type = 'note', title } = Astro.props;
+const heading = title === 'TL;DR' ? 'In short' : title ?? (type === 'tip' ? 'In short' : 'Note');
+---
+<aside class={`callout callout-${type}`} aria-label={heading}>
+  <p class="callout-title"><Icon name={type === 'tip' ? 'bolt' : 'info'} />{heading}</p>
+  <div><slot /></div>
+</aside>

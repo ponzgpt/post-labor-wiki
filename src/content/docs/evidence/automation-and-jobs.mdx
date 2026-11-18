@@ -1,37 +1,42 @@
 ---
 title: Automation exposure and jobs
 description: Task-based theory, AI exposure indices and the first measured effects of generative AI, with what each famous number actually measures.
-sidebar:
-  order: 6
+navLabel: Automation and AI exposure
+claim: empirical
+contains: [analytical, forecast]
+framing: independent
+concepts: [automation-exposure, task-based-approach, displacement-and-reinstatement-effects]
+dependsOn: [start/why-now]
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import Aside from '../../../components/Aside.astro';
 import { Image } from 'astro:assets';
 import Cite from '../../../components/Cite.astro';
 import Tag from '../../../components/Tag.astro';
+import Term from '../../../components/Term.astro';
 import Skeptics from '../../../components/Skeptics.astro';
 import computers from '../../../assets/img/five-computers.jpg';
 
 <div class="measure-ladder" role="list" aria-label="From potential to measured effect">
-  <div role="listitem" class="rung rung-forecast"><span class="rung-k">Potential</span><strong>47% → 9%</strong><p>US jobs at "high risk" by occupation <Cite id="frey2017" at="abstract" />, versus OECD jobs by task <Cite id="arntz2016" at="abstract" /></p></div>
-  <div role="listitem" class="rung rung-forecast"><span class="rung-k">Exposure</span><strong>1 in 4</strong><p>workers worldwide in jobs with some generative-AI exposure; 3.3% in the highest band <Cite id="gmyrek2025" at="abstract" /></p></div>
-  <div role="listitem" class="rung rung-evidence"><span class="rung-k">Use</span><strong>~40%</strong><p>of US adults aged 18–64 using generative AI by late 2024; 1–5% of work hours assisted <Cite id="bick2024" at="abstract" /></p></div>
-  <div role="listitem" class="rung rung-evidence"><span class="rung-k">Effect</span><strong>None yet, overall</strong><p>Precise zeros for earnings and hours in Denmark; a widening gap for young US workers in exposed jobs</p></div>
+  <div role="listitem" class="rung rung-forecast"><span class="rung-k">Potential</span><Tag kind="forecast" /><strong>47% → 9%</strong><p>US jobs at "high risk" by occupation <Cite id="frey2017" at="abstract" />, versus OECD jobs by task <Cite id="arntz2016" at="abstract" /></p></div>
+  <div role="listitem" class="rung rung-forecast"><span class="rung-k">Exposure</span><Tag kind="forecast" /><strong>1 in 4</strong><p>workers worldwide in jobs with some generative-AI exposure; 3.3% in the highest band <Cite id="gmyrek2025" at="abstract" /></p></div>
+  <div role="listitem" class="rung rung-empirical"><span class="rung-k">Use</span><Tag kind="empirical" /><strong>~40%</strong><p>of US adults aged 18–64 using generative AI by late 2024; 1–5% of work hours assisted <Cite id="bick2024" at="abstract" /></p></div>
+  <div role="listitem" class="rung rung-empirical"><span class="rung-k">Effect</span><Tag kind="empirical" /><strong>None yet, overall</strong><p>Precise zeros for earnings and hours in Denmark; a widening gap for young US workers in exposed jobs</p></div>
 </div>
 
-<Aside type="tip" title="TL;DR">
+<Aside type="tip" title="In short">
 Read the method before the number. Exposure measures what AI could touch, not what it will replace or when. Measured effects so far are small overall, with the first signs concentrated among young workers in the most exposed occupations.
 </Aside>
 
 ## From occupations to tasks
 
-<Tag kind="evidence" />Computers replace routine tasks and complement problem-solving work <Cite id="autor2003" at="abstract" />. This task view changed the numbers: an occupation-level model put about 47% of US employment at high risk of computerisation <Cite id="frey2017" at="abstract" />; a task-level method for 21 OECD countries found about 9% <Cite id="arntz2016" at="abstract" />. Most jobs mix tasks machines can do with tasks they cannot.
+<Tag kind="empirical" />Computers replace routine tasks and complement problem-solving work <Cite id="autor2003" at="abstract" />. This task view changed the numbers: an occupation-level model put about 47% of US employment at high risk of computerisation <Cite id="frey2017" at="abstract" />; a task-level method for 21 OECD countries found about 9% <Cite id="arntz2016" at="abstract" />. Most jobs mix tasks machines can do with tasks they cannot.
 
-The framework behind most current work: automation displaces labour from tasks, new tasks reinstate it, and in recent decades displacement has outpaced reinstatement <Cite id="acemoglu2019" at="abstract" />.
+<Tag kind="analytical" />The framework behind most current work: automation displaces labour from tasks, new tasks reinstate it, and in recent decades displacement has outpaced reinstatement <Cite id="acemoglu2019" at="abstract" />.
 
 ## AI exposure indices
 
-<Tag kind="forecast" />Exposure indices score occupations by how much of their task content AI could perform. For large language models, about 80% of US workers have at least 10% of their tasks exposed, and about 19% at least half; the authors make no prediction about timing <Cite id="eloundou2024" at="abstract" />. Earlier, Felten, Raj and Seamans built an occupation, industry and county index of AI exposure <Cite id="felten2021" at="abstract" />. The ILO's global index finds exposure rising with income: 11% of employment in low-income countries, 34% in high-income ones <Cite id="gmyrek2025" at="abstract" />.
+<Tag kind="forecast" /><Term id="automation-exposure">Exposure indices</Term> score occupations by how much of their task content AI could perform. For large language models, about 80% of US workers have at least 10% of their tasks exposed, and about 19% at least half; the authors make no prediction about timing <Cite id="eloundou2024" at="abstract" />. Earlier, Felten, Raj and Seamans built an occupation, industry and county index of AI exposure <Cite id="felten2021" at="abstract" />. The ILO's global index finds exposure rising with income: 11% of employment in low-income countries, 34% in high-income ones <Cite id="gmyrek2025" at="abstract" />.
 
 ## What has actually been measured
 
@@ -47,7 +52,7 @@ The young-worker gap works mainly through less hiring, and concentrates where AI
 
 ## Why it matters for post-labor
 
-Post-Labor Economics argues that the old escape route, moving to new tasks, closes once machines are better, faster, cheaper and safer at most of them, cognitive work included <Cite id="shapiro2026seven" at="intuition 1" />. That makes the next few years testable: watch whether the entry-level gap spreads to older workers and to the aggregate.
+<Tag kind="analytical" />Post-Labor Economics argues that the old escape route, moving to new tasks, closes once machines are better, faster, cheaper and safer at most of them, cognitive work included <Cite id="shapiro2026seven" at="intuition 1" />. That makes the next few years testable: watch whether the entry-level gap spreads to older workers and to the aggregate.
 
 <figure class="meme">
   <Image src={computers} alt="Cartoon of a 1940s businessman at a desk saying 'I think there is a world market for maybe five computers.'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />

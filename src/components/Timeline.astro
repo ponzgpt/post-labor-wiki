@@ -5,11 +5,15 @@ import events from '../data/timeline.json';
 
 interface Props { kinds?: string[] }
 const { kinds } = Astro.props;
-const KIND = { idea: 'Idea', evidence: 'Evidence', policy: 'Policy', technology: 'Technology', ple: 'Post-Labor Economics' };
+const KIND = { idea: 'Idea', evidence: 'Measured', policy: 'Policy', technology: 'Technology', ple: 'Post-Labor Economics' };
 const shown = events.filter((e) => !kinds || kinds.includes(e.kind));
 const eras = [...new Set(shown.map((e) => e.era))];
 ---
 <div class="timeline">
+  <div class="tl-filter bib-filter" role="group" aria-label="Show milestones of one kind" data-pagefind-ignore>
+    <button type="button" data-kind="" aria-pressed="true">All ({shown.length})</button>
+    {Object.entries(KIND).map(([k, label]) => <button type="button" data-kind={k} aria-pressed="false">{label}</button>)}
+  </div>
   {eras.map((era) => (
     <section class="tl-era" aria-labelledby={`era-${era.replace(/\W+/g, '-').toLowerCase()}`}>
       <h3 class="tl-era-h" id={`era-${era.replace(/\W+/g, '-').toLowerCase()}`}>{era}</h3>
@@ -28,3 +32,15 @@ const eras = [...new Set(shown.map((e) => e.era))];
     </section>
   ))}
 </div>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.tl-filter button');
+  for (const b of buttons) {
+    b.addEventListener('click', () => {
+      const k = b.dataset.kind;
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      document.querySelectorAll<HTMLElement>('.tl-item').forEach((li) => { li.hidden = !!k && !li.classList.contains(`tl-${k}`); });
+      document.querySelectorAll<HTMLElement>('.tl-era').forEach((s) => { s.hidden = !s.querySelector('.tl-item:not([hidden])'); });
+    });
+  }
+</script>

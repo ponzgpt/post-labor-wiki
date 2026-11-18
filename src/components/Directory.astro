@@ -2,6 +2,8 @@
 // People and organisations from src/data/people.json. Links are checked by npm run verify.
 import Cite from './Cite.astro';
 import people from '../data/people.json';
+import { site } from '../lib/site.mjs';
+const { citedOn, link } = await site();
 const groups = [...new Set(people.map((p) => p.group))];
 ---
 {groups.map((g) => (
@@ -13,6 +15,7 @@ const groups = [...new Set(people.map((p) => p.group))];
           <h3>{p.name}</h3>
           <p class="dir-role">{p.role}</p>
           <p>{p.why}{p.cite && <> <Cite id={p.cite} at={p.at} /></>}</p>
+          {p.cite && citedOn.get(p.cite) && <p class="used-on">This work is cited on: {citedOn.get(p.cite).map((id, i) => <>{i > 0 && ', '}<a href={link(id).href}>{link(id).title}</a></>)}</p>}
           <p class="dir-links">{p.links.map((l, i) => <>{i > 0 && ' · '}<a href={l.url} rel="noopener">{l.label}</a></>)}</p>
         </article>
       ))}

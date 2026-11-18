@@ -1,10 +1,11 @@
 # post-labor-wiki
-Visual, source-first wiki on post-labor economics and post-work society (Astro + Starlight). Live: https://post-labor-wiki.technoir.cloud
+Visual, source-first wiki on post-labor economics and post-work society (Astro, MDX, Pagefind; structure in `research/IA-v3.md`). Live: https://post-labor-wiki.technoir.cloud
 
 ## Commands
 - Check (before every commit and deploy): `npm run check`
 - Verify sources online (before publishing new pages): `npm run verify`
 - Refresh chart data (then review the diff and commit): `npm run data`
+- Re-render favicon PNGs and `og.jpg` (local headless Chrome): `npm run brand`
 - Dev: `npm run dev`
 - Deploy: `./scripts/deploy.sh`
 
@@ -17,3 +18,5 @@ Visual, source-first wiki on post-labor economics and post-work society (Astro +
 6. Summaries are our own wording; quote under 15 words per source.
 7. Visual first: each page leads with a chart, timeline, card or meme; ≤600 words of prose.
 8. Builds never fetch data: charts read the committed snapshots in `public/data/`, and numbers in page text are computed from them, never typed in.
+9. Every page declares `claim` (empirical, analytical, forecast, normative; `mixed` or `reference`) and `framing` in frontmatter, and marks each claim of another type inline; sections and order live only in `src/lib/nav.mjs`; a moved page gets a 301 in `src/data/redirects.json`, `nginx.conf` and `research/IA-v3.md`.
+10. Colours live only in `src/styles/tokens.css`: text pairs ≥ 4.5:1 in both themes and no brown or ochre hues (the owner rejected the old sepia theme); `npm run check` enforces both.

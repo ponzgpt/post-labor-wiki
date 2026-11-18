@@ -1,7 +1,9 @@
 ---
-// Labels a claim as measured evidence, a forecast, or a proposal (sourcing rule 2).
-interface Props { kind: 'evidence' | 'forecast' | 'proposal' }
-const { kind } = Astro.props;
-const label = { evidence: 'Evidence', forecast: 'Forecast', proposal: 'Proposal' }[kind];
+// Claim-type badge (research/IA-v3.md §3): word + icon + border style, so the type never rests on colour alone.
+import Icon from './Icon.astro';
+import { CLAIM } from '../lib/claims.mjs';
+interface Props { kind: 'empirical' | 'analytical' | 'forecast' | 'normative' | 'mixed' | 'reference' | 'illustrative'; label?: string }
+const { kind, label } = Astro.props;
+const info = kind === 'illustrative' ? { label: 'Illustrative', meaning: 'A drawing of an idea with round numbers, not data.' } : CLAIM[kind];
 ---
-<span class={`tag tag-${kind}`}>{label}</span>
+<span class={`claim claim-${kind}`} title={info.meaning} data-pagefind-ignore><Icon name={kind} />{label ?? info.label}</span>

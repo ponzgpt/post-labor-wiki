@@ -1,8 +1,11 @@
 ---
 title: Citizen dividends and wealth funds
 description: Alaska's Permanent Fund Dividend year by year, Norway's fund, and what a public wealth fund can and cannot pay for.
-sidebar:
-  order: 3
+claim: normative
+contains: [empirical]
+framing: independent
+concepts: [citizen-dividend, sovereign-wealth-fund, pyramid-of-prosperity]
+dependsOn: [frameworks/economic-agency]
 ---
 
 import Cite from '../../../components/Cite.astro';
@@ -35,17 +38,17 @@ export const avg = realPfd.reduce((s, p) => s + p.v, 0) / realPfd.length;
 
 ## Alaska: a universal, permanent dividend
 
-<Tag kind="evidence" />Since {nominal[0].x}, every eligible Alaskan has received an annual share of the Permanent Fund's oil-financed earnings <Cite id="akdor-pfd" at="summary table" />. In {cpiYear} prices it has averaged {usd(avg)} a year, ranging from {usd(low.v)} in {low.x} to {usd(peak(realPfd).v)} in {peak(realPfd).x}; the {last(nominal).x} payment was {usd(last(nominal).v)}.
+<Tag kind="empirical" />Since {nominal[0].x}, every eligible Alaskan has received an annual share of the Permanent Fund's oil-financed earnings <Cite id="akdor-pfd" at="summary table" />. In {cpiYear} prices it has averaged {usd(avg)} a year, ranging from {usd(low.v)} in {low.x} to {usd(peak(realPfd).v)} in {peak(realPfd).x}; the {last(nominal).x} payment was {usd(last(nominal).v)}.
 
 It is the best natural experiment on a permanent, universal cash payment. Comparing Alaska with similar states, economists find it had no effect on employment and raised part-time work by 1.8 percentage points, probably because spending the dividend creates local jobs <Cite id="jones2022" at="abstract" />.
 
 ## Norway: a fund without a dividend
 
-<Tag kind="evidence" />Norway's Government Pension Fund Global was worth NOK 19,742 billion at the end of 2024 <Cite id="nbim2024" at="section 1, table 1" />. It pays no dividend to citizens. Instead the government may spend, on average, the fund's expected real return, estimated at about 3% a year, which covers almost a fifth of the state budget <Cite id="nbim-about" at="'About the fund'" />.
+<Tag kind="empirical" />Norway's Government Pension Fund Global was worth NOK 19,742 billion at the end of 2024 <Cite id="nbim2024" at="section 1, table 1" />. It pays no dividend to citizens. Instead the government may spend, on average, the fund's expected real return, estimated at about 3% a year, which covers almost a fifth of the state budget <Cite id="nbim-about" at="'About the fund'" />.
 
 ## Where post-labor thinkers stand
 
-<Tag kind="proposal" />Sovereign wealth funds paying automation dividends are central to Labor/Zero; Shapiro cites Norway, Alaska and Singapore as precedents <Cite id="shapiro2025movement" at="launch post" />. In his pyramid, public wealth is the second tier, above universal programmes <Cite id="shapiro2026laborzero" at="plate 3" />.
+<Tag kind="normative" />Sovereign wealth funds paying automation dividends are central to Labor/Zero; Shapiro cites Norway, Alaska and Singapore as precedents <Cite id="shapiro2025movement" at="launch post" />. In his pyramid, public wealth is the second tier, above universal programmes <Cite id="shapiro2026laborzero" at="plate 3" />.
 
 <Skeptics>
 - **Too small to live on.** Even at its peak, Alaska's dividend was a supplement, not an income; a fund large enough to replace wages would have to own a large share of the economy.

@@ -1,0 +1,14 @@
+[
+  {"from": "/start-here/post-labor-in-five-minutes/", "to": "/start/five-minutes/"},
+  {"from": "/start-here/why-now/", "to": "/start/why-now/"},
+  {"from": "/start-here/how-we-source/", "to": "/start/how-to-read/"},
+  {"from": "/start-here/", "to": "/start/"},
+  {"from": "/timeline/", "to": "/start/timeline/"},
+  {"from": "/measures/", "to": "/evidence/"},
+  {"from": "/evidence/farms-and-factories/", "to": "/evidence/historical-analogues/"},
+  {"from": "/glossary/", "to": "/reference/glossary/"},
+  {"from": "/people/", "to": "/reference/people/"},
+  {"from": "/reading-list/", "to": "/reference/reading-list/"},
+  {"from": "/bibliography/", "to": "/reference/bibliography/"},
+  {"from": "/credits/", "to": "/reference/credits/"}
+]

@@ -14,7 +14,7 @@ for (const g of list) for (const r of g.items) if (!byId.has(r.id)) throw new Er
         return (
           <li>
             <a href={href(s)} rel="noopener"><cite>{s.title}</cite></a> <span class="reading-meta">{s.authors.join(', ')}, {year(s)} · {r.format}</span>
-            <p>{r.why} <a href={`/bibliography/#${s.id}`} class="reading-bib">Bibliography entry</a></p>
+            <p>{r.why} <a href={`/reference/bibliography/#${s.id}`} class="reading-bib">Bibliography entry</a></p>
           </li>
         );
       })}

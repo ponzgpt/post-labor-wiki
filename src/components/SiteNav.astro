@@ -1,0 +1,26 @@
+---
+// Persistent section navigation: the five reader questions, then Reference (src/lib/nav.mjs).
+import { SECTIONS, url } from '../lib/nav.mjs';
+import { site } from '../lib/site.mjs';
+interface Props { current?: string }
+const { current } = Astro.props;
+const { byId } = await site();
+const label = (id: string) => byId.get(id)?.data.navLabel ?? byId.get(id)?.data.title ?? id;
+---
+<nav class="site-nav" id="site-nav" aria-label="Sections">
+  <ol>
+    {SECTIONS.map((s) => (
+      <li class="nav-section">
+        <a class="nav-head" href={url(s.id)} aria-current={current === s.id ? 'page' : undefined}>
+          {s.n ? <span class="nav-n">{s.n}</span> : <span class="nav-n nav-n-ref" aria-hidden="true">·</span>}
+          <span>{s.label}<span class="nav-q">{s.question}</span></span>
+        </a>
+        {s.pages.length > 1 && (
+          <ul class="nav-pages">
+            {s.pages.slice(1).map((p) => <li><a href={url(p)} aria-current={current === p ? 'page' : undefined}>{label(p)}</a></li>)}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

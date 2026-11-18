@@ -1,0 +1,114 @@
+---
+// The document shell: head, header, footer and the three-state theme contract (light · dark by OS · dark by choice).
+import '@fontsource-variable/public-sans/wght.css';
+import '@fontsource-variable/public-sans/wght-italic.css';
+import '@fontsource-variable/source-serif-4/opsz.css';
+import '../styles/site.css';
+import Icon from '../components/Icon.astro';
+import Logo from '../components/Logo.astro';
+import ClaimLegend from '../components/ClaimLegend.astro';
+
+interface Props { title: string; description: string; hasNav?: boolean }
+const { title, description, hasNav = false } = Astro.props;
+const site = 'Post-Labor Wiki';
+const fullTitle = title === site ? `${site}: income and power when machines do the work` : `${title} · ${site}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og = new URL('/og.jpg', Astro.site);
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/icon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#f6f8fb" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={og} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script is:inline>
+    try { const t = localStorage.getItem('plw-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}
+  </script>
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    {hasNav && (
+      <button class="icon-button menu-button" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open sections menu"><Icon name="menu" /></button>
+    )}
+    <a class="brand" href="/"><Logo /><span>Post-Labor Wiki</span></a>
+    <form class="header-search" action="/search/" method="get" role="search">
+      <Icon name="search" />
+      <label class="visually-hidden" for="q">Search the wiki</label>
+      <input id="q" name="q" type="search" placeholder="Search" autocomplete="off" />
+      <kbd aria-hidden="true">/</kbd>
+    </form>
+    <button class="icon-button theme-toggle" type="button" data-mode="auto" aria-label="Theme: follows your system. Switch to light">
+      <span data-icon="auto"><Icon name="auto" /></span><span data-icon="light"><Icon name="sun" /></span><span data-icon="dark"><Icon name="moon" /></span>
+    </button>
+    <a class="icon-button gh-link" href="https://github.com/ponzgpt/post-labor-wiki" aria-label="Source on GitHub"><Icon name="github" /></a>
+  </header>
+
+  <slot />
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <section class="footer-legend" aria-labelledby="legend-h">
+        <h2 id="legend-h">How to read this wiki</h2>
+        <ClaimLegend />
+        <p style="margin-top:0.75rem"><a href="/start/how-to-read/">The full rules: sources, labels and what the build checks</a></p>
+      </section>
+      <section aria-labelledby="about-h">
+        <h2 id="about-h">About</h2>
+        <p><strong>Post-labor economics</strong> is David Shapiro's framing; this wiki describes it with attribution and links to <a href="https://daveshap.substack.com/">his work</a>. It is an independent project, not affiliated with or endorsed by him.</p>
+        <p>Writing and original graphics <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; code MIT. <a href="/reference/credits/">Image credits</a> · <a href="https://github.com/ponzgpt/post-labor-wiki/issues">Report an error</a></p>
+      </section>
+    </div>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const btn = document.querySelector<HTMLButtonElement>('.theme-toggle')!;
+    const NEXT = { auto: 'light', light: 'dark', dark: 'auto' } as const;
+    const LABEL = { auto: 'follows your system', light: 'light', dark: 'dark' };
+    const read = (): keyof typeof NEXT => { try { const t = localStorage.getItem('plw-theme'); return t === 'light' || t === 'dark' ? t : 'auto'; } catch { return 'auto'; } };
+    const apply = (m: keyof typeof NEXT) => {
+      if (m === 'auto') delete root.dataset.theme; else root.dataset.theme = m;
+      btn.dataset.mode = m;
+      btn.setAttribute('aria-label', `Theme: ${LABEL[m]}. Switch to ${LABEL[NEXT[m]]}`);
+    };
+    apply(read());
+    btn.addEventListener('click', () => {
+      const m = NEXT[(btn.dataset.mode as keyof typeof NEXT) ?? 'auto'];
+      try { if (m === 'auto') localStorage.removeItem('plw-theme'); else localStorage.setItem('plw-theme', m); } catch {}
+      apply(m);
+    });
+
+    const menu = document.querySelector<HTMLButtonElement>('.menu-button');
+    const nav = document.getElementById('site-nav');
+    if (menu && nav) {
+      const set = (open: boolean) => { nav.dataset.open = String(open); menu.setAttribute('aria-expanded', String(open)); menu.setAttribute('aria-label', open ? 'Close sections menu' : 'Open sections menu'); document.body.style.overflow = open ? 'hidden' : ''; };
+      menu.addEventListener('click', () => set(nav.dataset.open !== 'true'));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.dataset.open === 'true') { set(false); menu.focus(); } });
+      matchMedia('(min-width: 64rem)').addEventListener('change', () => set(false));
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const t = e.target as HTMLElement;
+      if (e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) && !t.isContentEditable) { e.preventDefault(); document.querySelector<HTMLInputElement>('#q')?.focus(); }
+    });
+  </script>
+</body>
+</html>

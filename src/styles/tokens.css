@@ -1,0 +1,109 @@
+/* Design tokens: the only place colours are defined. Three-state contract: light by default, dark from the OS unless the
+   reader chose light, dark by choice. npm run check reads this file: text pairs ≥ 4.5:1, no earthy hues (15–70°). */
+:root {
+  color-scheme: light;
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-2: #eef2f8;
+  --surface-3: #e2e8f2;
+  --line: #d6deea;
+  --line-strong: #7d8ba1;
+  --ink: #0d1626;
+  --ink-2: #364357;
+  --ink-3: #536073;
+  --accent: #1a56db;
+  --accent-hover: #1442a8;
+  --accent-ink: #ffffff;
+  --accent-soft: #e5ecff;
+  --data-2: #c42a6c;
+  --s1: #1d64d8;
+  --s2: #d9367a;
+  --s3: #14873a;
+  --grid: #e3e8f0;
+  --axis: #536073;
+  --empirical: #0a7449;
+  --empirical-soft: #e2f4eb;
+  --analytical: #5b3fd0;
+  --analytical-soft: #ece8fb;
+  --forecast: #a3247f;
+  --forecast-soft: #f9e6f2;
+  --normative: #b81f3c;
+  --normative-soft: #fce8eb;
+  --mark: #d3e0ff;
+  --shadow: 0 1px 2px rgb(13 22 38 / 0.06), 0 4px 16px rgb(13 22 38 / 0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0b1220;
+    --surface: #111a2b;
+    --surface-2: #172236;
+    --surface-3: #1f2c44;
+    --line: #26344c;
+    --line-strong: #5a6c90;
+    --ink: #e8edf5;
+    --ink-2: #bcc6d6;
+    --ink-3: #94a1b6;
+    --accent: #7ea8ff;
+    --accent-hover: #a9c4ff;
+    --accent-ink: #0b1220;
+    --accent-soft: #1a2a4d;
+    --data-2: #f06aa6;
+    --s1: #3987e5;
+    --s2: #d55181;
+    --s3: #0ca30c;
+    --grid: #1f2b40;
+    --axis: #94a1b6;
+    --empirical: #52d49c;
+    --empirical-soft: #0f2a22;
+    --analytical: #b6a5ff;
+    --analytical-soft: #231c45;
+    --forecast: #f483cb;
+    --forecast-soft: #351730;
+    --normative: #ff8a9b;
+    --normative-soft: #3a1520;
+    --mark: #4a3f8f;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 6px 20px rgb(0 0 0 / 0.25);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --surface: #111a2b;
+  --surface-2: #172236;
+  --surface-3: #1f2c44;
+  --line: #26344c;
+  --line-strong: #5a6c90;
+  --ink: #e8edf5;
+  --ink-2: #bcc6d6;
+  --ink-3: #94a1b6;
+  --accent: #7ea8ff;
+  --accent-hover: #a9c4ff;
+  --accent-ink: #0b1220;
+  --accent-soft: #1a2a4d;
+  --data-2: #f06aa6;
+  --s1: #3987e5;
+  --s2: #d55181;
+  --s3: #0ca30c;
+  --grid: #1f2b40;
+  --axis: #94a1b6;
+  --empirical: #52d49c;
+  --empirical-soft: #0f2a22;
+  --analytical: #b6a5ff;
+  --analytical-soft: #231c45;
+  --forecast: #f483cb;
+  --forecast-soft: #351730;
+  --normative: #ff8a9b;
+  --normative-soft: #3a1520;
+  --mark: #4a3f8f;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 6px 20px rgb(0 0 0 / 0.25);
+}
+:root {
+  --font-text: 'Public Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Source Serif 4 Variable', 'Iowan Old Style', Georgia, serif;
+  --measure: 68ch;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --gutter: clamp(1rem, 3vw, 2rem);
+  --header-h: 3.75rem;
+}

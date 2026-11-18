@@ -1,0 +1,24 @@
+---
+// The short "how to read this" legend: the four claim types with their meaning.
+import Tag from './Tag.astro';
+import { CLAIM_TYPES, CLAIM } from '../lib/claims.mjs';
+interface Props { cards?: boolean }
+const { cards = false } = Astro.props;
+const EXAMPLES = {
+  empirical: "Alaska's dividend did not reduce employment.",
+  analytical: "Shapiro's Great Decoupling: output stops running through wages.",
+  forecast: 'AI adds at most 0.66% to productivity over ten years.',
+  normative: 'Pay every citizen an automation dividend.',
+};
+---
+{cards ? (
+  <div class="legend-grid">
+    {CLAIM_TYPES.map((k) => (
+      <div class="legend-card"><Tag kind={k} /><p>{CLAIM[k].meaning}</p><p class="eg">e.g. {EXAMPLES[k]}</p></div>
+    ))}
+  </div>
+) : (
+  <ul class="legend-list">
+    {CLAIM_TYPES.map((k) => <li><Tag kind={k} /><span>{CLAIM[k].meaning}</span></li>)}
+  </ul>
+)}

@@ -1,0 +1,85 @@
+---
+// Full-text search over the Pagefind index (built after astro build), filterable by claim type and section.
+import Base from '../layouts/Base.astro';
+import SiteNav from '../components/SiteNav.astro';
+import Tag from '../components/Tag.astro';
+import { CLAIM_TYPES, CLAIM } from '../lib/claims.mjs';
+import { SECTIONS } from '../lib/nav.mjs';
+---
+<Base title="Search" description="Search every page of the Post-Labor Wiki, filtered by claim type or section." hasNav>
+  <div class="shell">
+    <SiteNav />
+    <div class="article-wrap no-toc">
+      <main id="main">
+        <article class="page">
+          <h1>Search</h1>
+          <p class="lede">Every page, filterable by the kind of claim it makes.</p>
+          <form class="search-box" role="search" id="search-form">
+            <label class="visually-hidden" for="search-q">Search terms</label>
+            <input id="search-q" name="q" type="search" placeholder="e.g. labour share, Alaska, technofeudalism" autocomplete="off" />
+          </form>
+          <fieldset class="search-filters" id="type-filters">
+            <legend>Claim type</legend>
+            {CLAIM_TYPES.map((k) => <label><input type="checkbox" name="type" value={CLAIM[k].label} /><Tag kind={k} /></label>)}
+          </fieldset>
+          <fieldset class="search-filters" id="section-filters">
+            <legend>Section</legend>
+            {SECTIONS.map((s) => <label><input type="checkbox" name="section" value={s.label} />{s.label}</label>)}
+          </fieldset>
+          <p class="search-status" id="search-status" role="status" aria-live="polite">Type to search.</p>
+          <ol class="search-results" id="search-results"></ol>
+          <noscript><p>Search needs JavaScript. Every page is also reachable from the section menu.</p></noscript>
+        </article>
+      </main>
+    </div>
+  </div>
+</Base>
+
+<script>
+  type Result = { url: string; excerpt: string; meta: { title?: string; claim?: string } };
+  const KIND: Record<string, string> = { empirical: 'Empirical', analytical: 'Analytical', forecast: 'Forecast', normative: 'Normative', mixed: 'Mixed', reference: 'Reference' };
+  const input = document.getElementById('search-q') as HTMLInputElement;
+  const status = document.getElementById('search-status')!;
+  const list = document.getElementById('search-results')!;
+  const params = new URLSearchParams(location.search);
+  input.value = params.get('q') ?? '';
+  for (const t of params.getAll('type')) document.querySelector<HTMLInputElement>(`input[name=type][value="${CSS.escape(t)}"]`)?.setAttribute('checked', '');
+
+  let pagefind: any;
+  async function load() {
+    if (pagefind) return pagefind;
+    const path = '/pagefind/pagefind.js';
+    pagefind = await import(/* @vite-ignore */ path);
+    await pagefind.options({ excerptLength: 24 });
+    return pagefind;
+  }
+  const checked = (name: string) => [...document.querySelectorAll<HTMLInputElement>(`input[name=${name}]:checked`)].map((i) => i.value);
+  const badge = (k: string) => `<span class="claim claim-${k}">${KIND[k] ?? k}</span>`;
+  let seq = 0;
+  async function run() {
+    const q = input.value.trim();
+    const filters: Record<string, string[]> = {};
+    if (checked('type').length) filters.type = checked('type');
+    if (checked('section').length) filters.section = checked('section');
+    const url = new URL(location.href);
+    url.searchParams.delete('q'); url.searchParams.delete('type');
+    if (q) url.searchParams.set('q', q);
+    checked('type').forEach((t) => url.searchParams.append('type', t));
+    history.replaceState(null, '', url);
+    if (!q && !Object.keys(filters).length) { list.replaceChildren(); status.textContent = 'Type to search.'; return; }
+    const my = ++seq;
+    let pf;
+    try { pf = await load(); } catch { status.textContent = 'The search index is built with the site; it is not available in this preview.'; return; }
+    const res = await pf.search(q || null, { filters });
+    const data: Result[] = await Promise.all(res.results.slice(0, 25).map((r: any) => r.data()));
+    if (my !== seq) return;
+    status.textContent = `${res.results.length} ${res.results.length === 1 ? 'page' : 'pages'}${q ? ` for “${q}”` : ''}.`;
+    list.innerHTML = data.map((d) => `<li><a href="${d.url}">${d.meta.title ?? d.url}</a>${(d.meta.claim ?? '').split(' ').filter(Boolean).map(badge).join(' ')}<p>${d.excerpt}</p></li>`).join('');
+  }
+  let t: number | undefined;
+  input.addEventListener('input', () => { clearTimeout(t); t = window.setTimeout(run, 150); });
+  document.getElementById('search-form')!.addEventListener('submit', (e) => { e.preventDefault(); run(); });
+  document.querySelectorAll('.search-filters input').forEach((i) => i.addEventListener('change', run));
+  if (input.value || params.getAll('type').length) run();
+  input.focus();
+</script>

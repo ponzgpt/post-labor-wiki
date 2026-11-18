@@ -3,6 +3,7 @@
 import Cite from './Cite.astro';
 import policies from '../data/policies.json';
 const STRENGTH = { strong: 'Strong', moderate: 'Moderate', thin: 'Thin' };
+const BARS = { strong: 3, moderate: 2, thin: 1 };
 ---
 <div class="policy-grid">
   {policies.map((p) => (
@@ -12,7 +13,7 @@ const STRENGTH = { strong: 'Strong', moderate: 'Moderate', thin: 'Thin' };
       <dl>
         <dt>Paid for by</dt><dd>{p.funding}</dd>
         <dt>Reaches</dt><dd>{p.reach}</dd>
-        <dt>Evidence base</dt><dd><span class={`strength strength-${p.strength}`}>{STRENGTH[p.strength]}</span> {p.evidence} <Cite id={p.cite} at={p.at} /></dd>
+        <dt>Evidence base</dt><dd><span class={`strength strength-${p.strength}`}><i aria-hidden="true">{[1, 2, 3].map((n) => <b class={n <= BARS[p.strength] ? 'on' : ''} />)}</i>{STRENGTH[p.strength]}</span> {p.evidence} <Cite id={p.cite} at={p.at} /></dd>
         <dt>Main risk</dt><dd>{p.risk}</dd>
       </dl>
     </article>

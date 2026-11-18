@@ -1,9 +1,14 @@
 ---
 // The steelmanned counter-case every framework and policy page must carry (AGENTS.md rule 4; npm run check enforces it).
-import { Aside } from '@astrojs/starlight/components';
+import Icon from './Icon.astro';
 interface Props { title?: string }
 const { title = 'What skeptics say' } = Astro.props;
+const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 ---
-<Aside type="caution" title={title}>
-  <div class="skeptics"><slot /></div>
-</Aside>
+<section class="skeptics" aria-labelledby={id}>
+  <div class="skeptics-head">
+    <Icon name="skeptic" />
+    <div><h2 id={id}>{title}</h2><p>The strongest case against, in its best form.</p></div>
+  </div>
+  <div><slot /></div>
+</section>

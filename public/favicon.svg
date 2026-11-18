@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .bg { fill: #0d1626; } .up { stroke: #ffffff; } .flat { stroke: #f06aa6; } .o { fill: #ffffff; }
+    @media (prefers-color-scheme: dark) { .bg { fill: #e8edf5; } .up { stroke: #0b1220; } .flat { stroke: #c42a6c; } .o { fill: #0b1220; } }
+  </style>
+  <rect class="bg" width="32" height="32" rx="8"/>
+  <path class="up" d="M7 24.5 13 18.5 18.5 14 25 7.5" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="flat" d="M7 24.5 13 21.5 18.5 20.8 25 19.6" fill="none" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle class="o" cx="7" cy="24.5" r="2.5"/>
+</svg>

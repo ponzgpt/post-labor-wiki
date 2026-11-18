@@ -8,11 +8,18 @@ interface Props {
   /** Label for the base and the apex, e.g. ['Built first', 'Built last']. */
   axis: [string, string];
   dashedTop?: boolean;
+  /** Both pyramids are Shapiro's proposals (value choices), drawn as illustrations. */
+  kind?: 'normative' | 'analytical';
 }
-const { id, title, tiers, axis, dashedTop = false } = Astro.props;
+import Tag from './Tag.astro';
+const { id, title, tiers, axis, dashedTop = false, kind = 'normative' } = Astro.props;
 const H = 54, W = 640, top = 20, n = tiers.length;
 ---
-<figure class="infographic pyramid">
+<figure class="frame infographic pyramid">
+  <div class="frame-head">
+    <p class="frame-title">{title}</p>
+    <div class="frame-badges"><Tag kind={kind} label={kind === 'normative' ? 'Normative · Shapiro' : undefined} /><Tag kind="illustrative" label="Drawing" /></div>
+  </div>
   <svg viewBox={`0 0 ${W} ${top + n * H + 34}`} role="img" aria-labelledby={`${id}-t ${id}-d`}>
     <title id={`${id}-t`}>{title}</title>
     <desc id={`${id}-d`}>{tiers.map(([name, sub], i) => `Tier ${i + 1}: ${name}, ${sub}.`).join(' ')} {axis[0]} at the base, {axis[1]} at the top.</desc>

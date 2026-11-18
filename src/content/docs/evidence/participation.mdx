@@ -1,11 +1,15 @@
 ---
 title: Who is working
 description: Prime-age labour-force participation in the US since 1948, for men and women.
-sidebar:
-  order: 3
+navLabel: Who is working
+claim: empirical
+contains: [forecast]
+framing: independent
+concepts: [prime-age-participation, guaranteed-income]
+dependsOn: [evidence]
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import Aside from '../../../components/Aside.astro';
 import Skeptics from '../../../components/Skeptics.astro';
 import Cite from '../../../components/Cite.astro';
 import Tag from '../../../components/Tag.astro';
@@ -17,13 +21,13 @@ export const men = fred('LRAC25MAUSM156S.csv');
 export const women = fred('LRAC25FEUSM156S.csv');
 export const f1 = (v) => v.toFixed(1);
 
-<Aside type="tip" title="TL;DR">
+<Aside type="tip" title="In short">
 Among Americans aged 25 to 54, men's participation has fallen for seventy years while women's rose steeply until the 1990s and has edged up since. Overall, prime-age participation is near its record. Labour has not disappeared; it has been redistributed.
 </Aside>
 
 ## The chart
 
-<Tag kind="evidence" />Participation means working or looking for work. For prime-age men it fell from {f1(men[0].v)}% in {men[0].x} to {f1(last(men).v)}% in {last(men).x}. For women it rose from {f1(women[0].v)}% to {f1(last(women).v)}%. The total for both stood at {f1(last(all).v)}% in {last(all).x}, against a peak of {f1(peak(all).v)}% in {peak(all).x}.
+<Tag kind="empirical" />Participation means working or looking for work. For prime-age men it fell from {f1(men[0].v)}% in {men[0].x} to {f1(last(men).v)}% in {last(men).x}. For women it rose from {f1(women[0].v)}% to {f1(last(women).v)}%. The total for both stood at {f1(last(all).v)}% in {last(all).x}, against a peak of {f1(peak(all).v)}% in {peak(all).x}.
 
 <LineChart
   title="US labour-force participation, ages 25 to 54"
@@ -45,8 +49,8 @@ Among Americans aged 25 to 54, men's participation has fallen for seventy years 
 
 - Participation is not employment, and it is not hours. A part-time worker counts the same as a full-time one.
 - A chart cannot say *why*. The decline among men has many proposed causes; this page makes no claim about which dominates.
-- <Tag kind="evidence" />Where cash was given without conditions, people kept working but worked somewhat less: in a three-year US trial, participation fell 4.2 points <Cite id="vivalt2024" at="abstract" />, while Alaska's universal dividend left employment unchanged <Cite id="jones2022" at="abstract" />. See [Post-labor in five minutes](/start-here/post-labor-in-five-minutes/).
+- <Tag kind="empirical" />Where cash was given without conditions, people kept working but worked somewhat less: in a three-year US trial, participation fell 4.2 points <Cite id="vivalt2024" at="abstract" />, while Alaska's universal dividend left employment unchanged <Cite id="jones2022" at="abstract" />. See [Post-labor in five minutes](/start/five-minutes/).
 
 <Skeptics>
-On this measure there is no sign yet of work disappearing: prime-age participation is close to its all-time high. Post-labor advocates answer that the shift they expect is ahead, driven by AI agents and robots, and not visible in past data <Cite id="shapiro2025six" at="part I" />.
+On this measure there is no sign yet of work disappearing: prime-age participation is close to its all-time high. <Tag kind="forecast" />Post-labor advocates answer that the shift they expect is ahead, driven by AI agents and robots, and not visible in past data <Cite id="shapiro2025six" at="part I" />.
 </Skeptics>

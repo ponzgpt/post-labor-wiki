@@ -1,12 +1,15 @@
 ---
-// Static SVG line chart rendered at build time, with a crosshair tooltip, a legend, direct end labels and a data table.
+// Static SVG line chart rendered at build time, in the shared figure frame: title, claim badge, legend, crosshair tooltip,
+// direct end labels, source line, snapshot date ("last updated") and a data table. Forecast series are drawn dashed.
 // Two layouts (wide, narrow) are rendered and swapped by CSS so text stays legible on phones.
 import Cite from './Cite.astro';
+import Tag from './Tag.astro';
+import Icon from './Icon.astro';
 import { fetched } from '../lib/data.mjs';
 import { fmt as fmtValue, tick } from '../lib/format.mjs';
 
 interface Point { x: number; v: number }
-interface Series { label: string; points: Point[]; gap?: number; markers?: boolean }
+interface Series { label: string; points: Point[]; gap?: number; markers?: boolean; forecast?: boolean }
 interface Props {
   title: string;
   series: Series[];
@@ -18,8 +21,12 @@ interface Props {
   files: string[];
   /** false for series that are already annual values (OWID, ILO, OECD, PFD), so the caption does not claim averaging. */
   averaged?: boolean;
+  /** What the chart shows: measured data (default), a forecast, or an illustration with made-up round numbers. */
+  kind?: 'empirical' | 'forecast' | 'illustrative';
+  /** Height of the title in the page outline; charts sit under h2 sections, so h3 by default. */
+  compact?: boolean;
 }
-const { title, series, unit, annotations = [], sources, files, averaged = true } = Astro.props;
+const { title, series, unit, annotations = [], sources, files, averaged = true, kind = 'empirical', compact = false } = Astro.props;
 
 const fmt = (v: number) => fmtValue(unit, v);
 const tickFmt = (v: number) => tick(unit, v);
@@ -72,7 +79,11 @@ const payload = JSON.stringify({
 });
 const id = `c-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}`;
 ---
-<figure class="chart" data-chart={payload}>
+<figure class="frame chart" data-chart={payload} aria-labelledby={`${id}-h`}>
+  <div class="frame-head">
+    <p class="frame-title" id={`${id}-h`}>{title}</p>
+    {!compact && <div class="frame-badges"><Tag kind={kind} label={kind === 'empirical' ? 'Empirical · data' : undefined} /></div>}
+  </div>
   {series.length > 1 && (
     <ul class="chart-legend" aria-label="Legend">
       {series.map((s, i) => <li><span class={`key s${i + 1}`} aria-hidden="true" />{s.label}</li>)}
@@ -95,7 +106,7 @@ const id = `c-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}`;
             <text x={g.sx(a.x) + 4} y={g.m.t + 10}>{a.label}</text>
           </g>
         ))}
-        {g.paths.map((d, i) => <path d={d} class={`line s${i + 1}`} />)}
+        {g.paths.map((d, i) => <path d={d} class={`line s${i + 1}${series[i].forecast ? ' dashed' : ''}`} />)}
         {series.map((s, i) => s.markers && s.points.slice(0, -1).map((p) => <circle cx={g.sx(p.x)} cy={g.sy(p.v)} r="4" class={`dot s${i + 1}`} />))}
         {series.map((s, i) => {
           const p = s.points.at(-1)!;
@@ -113,8 +124,8 @@ const id = `c-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}`;
   </div>
   <figcaption>
     <slot />
-    {' '}Source: {sources.map((s, i) => <>{i > 0 && '; '}<Cite id={s} /></>)}.{averaged && ' Annual averages of complete years.'}
-    {' '}Data snapshot {fetched(files[0])}: {files.map((f, i) => <>{i > 0 && ', '}<a href={`/data/${f}`} download>{f}</a></>)}.
+    {' '}<strong>Source:</strong> {sources.map((s, i) => <>{i > 0 && '; '}<Cite id={s} /></>)}.{averaged && ' Annual averages of complete years.'}
+    {' '}<span class="updated"><Icon name="clock" />Data updated {fetched(files[0])}</span> · CSV: {files.map((f, i) => <>{i > 0 && ', '}<a href={`/data/${f}`} download>{f}</a></>)}.
   </figcaption>
   <details class="chart-table">
     <summary>Data table</summary>
@@ -136,7 +147,7 @@ const id = `c-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}`;
     const d: Payload = JSON.parse(fig.dataset.chart!);
     const tip = fig.querySelector<HTMLElement>('.chart-tip')!;
     const fmt = (v: number) => fmtValue(d.unit, v);
-    fig.querySelectorAll<SVGSVGElement>('svg').forEach((svg, vi) => {
+    fig.querySelectorAll<SVGSVGElement>('.chart-plot > svg').forEach((svg, vi) => {
       const g = d.views[vi];
       const hair = svg.querySelector<SVGLineElement>('.crosshair')!;
       const toSvg = (x: number) => g.m.l + ((x - d.x0) / (d.x1 - d.x0 || 1)) * (g.w - g.m.l - g.m.r);

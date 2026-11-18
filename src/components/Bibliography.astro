@@ -1,5 +1,7 @@
 ---
 import { sources, year, href } from '../lib/sources.mjs';
+import { site } from '../lib/site.mjs';
+const { citedOn, link } = await site();
 
 const GROUPS = [
   ['shapiro', 'David Shapiro: Post-Labor Economics'],
@@ -34,6 +36,7 @@ const topics = [...new Set(sources.flatMap((s) => s.topics))].sort();
             {s.doi && <span class="badge">DOI {s.doi}</span>}
             {s.laborZero && <span class="badge badge-lz" title="Also cited in Shapiro's Labor Zero (2026)">in Labor Zero</span>}
             {s.note && <p class="bib-note">{s.note}</p>}
+            {citedOn.get(s.id) && <p class="bib-used">Cited on: {citedOn.get(s.id).map((id, i) => <>{i > 0 && ', '}<a href={link(id).href}>{link(id).title}</a></>)}</p>}
           </li>
         ))}
       </ol>

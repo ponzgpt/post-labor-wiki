@@ -1,0 +1,9 @@
+---
+// A definition block for a framework's own measure or term; links to the shared glossary card when there is one.
+interface Props { term: string; abbr?: string; glossary?: string }
+const { term, abbr, glossary } = Astro.props;
+---
+<dl class="define">
+  <dt>{glossary ? <a href={`/reference/glossary/#${glossary}`}>{term}</a> : term}{abbr && <abbr>{abbr}</abbr>}</dt>
+  <dd><slot /></dd>
+</dl>

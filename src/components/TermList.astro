@@ -1,19 +1,23 @@
 ---
-// Glossary from src/data/glossary.json, alphabetical, each term with the source that defines or measures it.
+// Glossary from src/data/glossary.json, alphabetical: each term with its source and the pages that rely on it.
 import Cite from './Cite.astro';
 import terms from '../data/glossary.json';
+import { site } from '../lib/site.mjs';
+const { conceptUsers, link } = await site();
 const sorted = [...terms].sort((a, b) => a.term.localeCompare(b.term));
 const letters = [...new Set(sorted.map((t) => t.term[0].toUpperCase()))];
+const first = (i: number) => i === 0 || sorted[i - 1].term[0].toUpperCase() !== sorted[i].term[0].toUpperCase();
 ---
 <nav class="az" aria-label="Jump to letter">{letters.map((l) => <a href={`#letter-${l}`}>{l}</a>)}</nav>
-<dl class="glossary">
+<div class="glossary">
   {sorted.map((t, i) => (
     <>
-      <dt id={t.term.toLowerCase().replace(/[^a-z0-9]+/g, '-')} data-letter={i === 0 || sorted[i - 1].term[0].toUpperCase() !== t.term[0].toUpperCase() ? t.term[0].toUpperCase() : undefined}>
-        {(i === 0 || sorted[i - 1].term[0].toUpperCase() !== t.term[0].toUpperCase()) && <span id={`letter-${t.term[0].toUpperCase()}`} class="az-anchor" />}
-        {t.term}{t.ple && <span class="badge badge-lz" title="A Post-Labor Economics term, as David Shapiro uses it">PLE</span>}
-      </dt>
-      <dd>{t.def} <Cite id={t.cite} at={t.at} />{t.see && <> See <a href={t.see}>{t.seeLabel ?? 'more'}</a>.</>}</dd>
+      {first(i) && <span id={`letter-${t.term[0].toUpperCase()}`} class="az-anchor" />}
+      <dl class="term-card" id={t.id}>
+        <dt>{t.term}{t.ple && <span class="badge badge-lz" title="A Post-Labor Economics term, as David Shapiro uses it">PLE</span>}</dt>
+        <dd>{t.def} <Cite id={t.cite} at={t.at} />{t.see && <> See <a href={t.see}>{t.seeLabel ?? 'more'}</a>.</>}</dd>
+        {conceptUsers.get(t.id) && <dd class="used-on">Used on: {conceptUsers.get(t.id).map((id, k) => <>{k > 0 && ', '}<a href={link(id).href}>{link(id).title}</a></>)}</dd>}
+      </dl>
     </>
   ))}
-</dl>
+</div>

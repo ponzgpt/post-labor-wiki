@@ -1,0 +1,6 @@
+---
+import Tag from './Tag.astro';
+interface Props { title: string; href: string; description?: string; kind?: 'empirical' | 'analytical' | 'forecast' | 'normative' | 'mixed' | 'reference' }
+const { title, href, description, kind } = Astro.props;
+---
+<a class="link-card" href={href}><strong>{title}</strong>{description && <span class="lc-desc">{description}</span>}{kind && <Tag kind={kind} />}</a>

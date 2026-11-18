@@ -1,12 +1,17 @@
 ---
 title: Economic agency and the Pyramid of Prosperity
 description: How Post-Labor Economics measures where household income comes from, the five tiers it wants to build, and what US data show today.
-sidebar:
-  order: 2
+navLabel: Economic agency
+claim: analytical
+contains: [empirical, normative]
+framing: shapiro
+concepts: [economic-agency, pyramid-of-prosperity, capital-allocation-ratio, public-wealth-ratio]
+dependsOn: [frameworks/post-labor-economics]
 ---
 
 import Cite from '../../../components/Cite.astro';
 import Tag from '../../../components/Tag.astro';
+import Define from '../../../components/Define.astro';
 import Skeptics from '../../../components/Skeptics.astro';
 import Pyramid from '../../../components/Pyramid.astro';
 import LineChart from '../../../components/LineChart.astro';
@@ -36,20 +41,20 @@ export const f0 = (v) => v.toFixed(0);
 
 ## The idea
 
-<Tag kind="proposal" />Economic agency is a household's ability to secure its own living. Post-Labor Economics tracks it by splitting income into three buckets, wages, transfers and capital, and argues that as wages fall the other two must rise, with capital the most neglected <Cite id="shapiro2026seven" at="intuition 3" />. The Pyramid of Prosperity orders the institutions that would deliver that income, broadest first <Cite id="shapiro2026laborzero" at="plate 3" />.
+<Tag kind="analytical" />Economic agency is a household's ability to secure its own living. Post-Labor Economics tracks it by splitting income into three buckets, wages, transfers and capital, and argues that as wages fall the other two must rise, with capital the most neglected <Cite id="shapiro2026seven" at="intuition 3" />. The Pyramid of Prosperity orders the institutions that would deliver that income, broadest first <Cite id="shapiro2026laborzero" at="plate 3" />.
 
 ## Two ratios to measure it
 
 <cite>Labor Zero</cite>'s free appendix defines two measures <Cite id="shapiro2026laborzero" at="appendix, 'How the ratios fit together'" />:
 
-- **Capital Allocation Ratio (CAR):** recurring ownership income divided by wages plus transfers. A CAR of 0.25 means capital supplies one fifth of that income; a CAR of 4, four fifths.
-- **Public Wealth Ratio (PWR):** the part of household resources that comes through qualifying shared institutions, so that broad ownership can be told apart from ownership by a few.
+<Define term="Capital Allocation Ratio" abbr="CAR" glossary="capital-allocation-ratio">Recurring ownership income divided by wages plus transfers. A CAR of 0.25 means capital supplies one fifth of that income; a CAR of 4, four fifths.</Define>
+<Define term="Public Wealth Ratio" abbr="PWR" glossary="public-wealth-ratio">The part of household resources that comes through qualifying shared institutions, so that broad ownership can be told apart from ownership by a few.</Define>
 
 The appendix also sets tests for what counts as inclusive capital, including broad eligibility, real yielding assets and benefits independent of employment <Cite id="shapiro2026laborzero" at="appendix, 'Count the benefit once'" />.
 
 ## What US data show
 
-<Tag kind="evidence" />National accounts give a rough version of the three buckets. In {y1.x}, compensation was {f0(y1.v)}% of US personal income from these sources, transfers {f0(last(h.transfers).v)}% and capital income {f0(last(h.capital).v)}%, against {f0(y0.v)}%, {f0(h.transfers[0].v)}% and {f0(h.capital[0].v)}% in {y0.x}. The implied CAR moved from {car(0).toFixed(2)} to {car(lastI).toFixed(2)}.
+<Tag kind="empirical" />National accounts give a rough version of the three buckets. In {y1.x}, compensation was {f0(y1.v)}% of US personal income from these sources, transfers {f0(last(h.transfers).v)}% and capital income {f0(last(h.capital).v)}%, against {f0(y0.v)}%, {f0(h.transfers[0].v)}% and {f0(h.capital[0].v)}% in {y0.x}. The implied CAR moved from {car(0).toFixed(2)} to {car(lastI).toFixed(2)}.
 
 <LineChart
   title="US personal income by source, share of the total"

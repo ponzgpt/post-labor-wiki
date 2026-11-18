@@ -7,4 +7,4 @@ const { id, at } = Astro.props;
 const s = byId.get(id);
 if (!s) throw new Error(`<Cite id="${id}"> is not in research/sources.json`);
 ---
-<span class="cite">(<a href={`/bibliography/#${id}`} title={s.title}>{shortCite(s)}</a>{at && `, ${at}`})</span>
+<span class="cite">(<a href={`/reference/bibliography/#${id}`} title={s.title}>{shortCite(s)}</a>{at && `, ${at}`})</span>

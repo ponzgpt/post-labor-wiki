@@ -1,11 +1,14 @@
 ---
 title: Why now
 description: What changed with generative AI, what has been measured so far, and which claims are still forecasts.
-sidebar:
-  order: 2
+claim: mixed
+contains: [empirical, forecast]
+framing: independent
+concepts: [automation-exposure, task-based-approach]
+dependsOn: [start/five-minutes]
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import Aside from '../../../components/Aside.astro';
 import Cite from '../../../components/Cite.astro';
 import Tag from '../../../components/Tag.astro';
 
@@ -16,21 +19,21 @@ import Tag from '../../../components/Tag.astro';
   <div class="figure-tile"><div class="value">+15%</div><div class="label">productivity for support agents with an AI assistant <Cite id="brynjolfsson2025" at="abstract" /></div></div>
 </div>
 
-<Aside type="tip" title="TL;DR">
+<Aside type="tip" title="In short">
 Earlier automation took over physical and routine work. Generative AI reaches into cognitive and creative tasks, and it spread fast. That is new. What it will do to jobs and pay is still mostly forecast.
 </Aside>
 
 ## What is different this time
 
-<Tag kind="evidence" />Earlier waves of computerisation replaced routine tasks and complemented problem-solving and interpersonal work <Cite id="autor2003" at="abstract" />. Language models are exposed to exactly the tasks that used to be safe: writing, analysis, coding, customer contact. Exposure is highest in clerical work, and rises with a country's income <Cite id="gmyrek2025" at="abstract" />.
+<Tag kind="empirical" />Earlier waves of computerisation replaced routine tasks and complemented problem-solving and interpersonal work <Cite id="autor2003" at="abstract" />. Language models are exposed to exactly the tasks that used to be safe: writing, analysis, coding, customer contact. Exposure is highest in clerical work, and rises with a country's income <Cite id="gmyrek2025" at="abstract" />.
 
 Adoption has been fast. Within two years of ChatGPT's release, nearly four in ten working-age Americans were using generative AI, a quarter of workers had used it for work in the previous week, and it assisted an estimated 1% to 5% of all work hours <Cite id="bick2024" at="abstract" />.
 
 ## What has been measured so far
 
-- <Tag kind="evidence" />Where AI is deployed, productivity rises, most for less experienced workers <Cite id="brynjolfsson2025" at="abstract" />.
-- <Tag kind="evidence" />Economy-wide, the most precise early study finds no effect on earnings or hours, ruling out effects above 2% <Cite id="humlum2025" at="abstract" />.
-- <Tag kind="evidence" />Early-career workers in exposed occupations are the first group to show a gap, mainly through less hiring <Cite id="brynjolfsson2025canaries" at="abstract" />.
+- <Tag kind="empirical" />Where AI is deployed, productivity rises, most for less experienced workers <Cite id="brynjolfsson2025" at="abstract" />.
+- <Tag kind="empirical" />Economy-wide, the most precise early study finds no effect on earnings or hours, ruling out effects above 2% <Cite id="humlum2025" at="abstract" />.
+- <Tag kind="empirical" />Early-career workers in exposed occupations are the first group to show a gap, mainly through less hiring <Cite id="brynjolfsson2025canaries" at="abstract" />.
 
 ## What is still forecast
 
@@ -38,4 +41,4 @@ Adoption has been fast. Within two years of ChatGPT's release, nearly four in te
 - <Tag kind="forecast" />Scenario models show wages can rise forever if automation is slow, but collapse if the tasks humans can do are bounded and automation reaches all of them <Cite id="korinek2024" at="abstract" />.
 - <Tag kind="forecast" />David Shapiro expects a largely post-labor economy between about 2040 and 2060, driven by AI agents and humanoid robots <Cite id="shapiro2025six" at="part I" />.
 
-These forecasts differ by orders of magnitude because they disagree about one thing: whether there is a limit to what machines can learn to do. The [open questions](/open-questions/) page sets out that disagreement, and the [measures to watch](/measures/) page tracks the numbers that will settle it.
+These forecasts differ by orders of magnitude because they disagree about one thing: whether there is a limit to what machines can learn to do. The [open questions](/open-questions/) page sets out that disagreement, and the [evidence dashboard](/evidence/#dashboard) tracks the numbers that will settle it.

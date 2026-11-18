@@ -1,0 +1,62 @@
+---
+title: How to read this wiki
+description: The four kinds of claim and how each is marked, which pages follow David Shapiro's framing, which sources count, and what the build checks before anything ships.
+navLabel: How to read this wiki
+claim: reference
+contains: []
+framing: independent
+concepts: []
+dependsOn: []
+---
+
+import Tag from '../../../components/Tag.astro';
+import ClaimLegend from '../../../components/ClaimLegend.astro';
+
+This wiki covers a contested subject, so it has to be checkable. Every factual sentence links to its source, and every source sits in one [bibliography](/reference/bibliography/) with a DOI or a stable link.
+
+## Four kinds of claim
+
+<ClaimLegend cards />
+
+Every page declares one primary type in its header. When a page also contains claims of another type, the header lists them and each one carries its badge where it appears, so a measured fact never sits unmarked beside an interpretation. Badges never rely on colour alone: each has a word and an icon, forecasts are dashed and value choices double-ruled. Charts carry the same badge in their frame, and drawings of an idea with round numbers are marked <Tag kind="illustrative" /> so they are not read as data.
+
+<h2 id="framing">Whose framing</h2>
+
+Each page header also says whose framing it follows.
+
+| Chip | Pages | Means |
+|---|---|---|
+| Follows Shapiro's framing | Post-Labor Economics, economic agency, power after labour | Describes David Shapiro's framework in his terms and structure, with attribution. Description, not endorsement; each page still ends with the strongest case against. |
+| Independent synthesis | The evidence, policy options, open questions, frameworks compared, reference | Our own reading of primary data and peer-reviewed work. Where Post-Labor Economics has a position, it appears in a marked, attributed paragraph. |
+| PLE framing + independent evidence | Start here | Shapiro's question organises the overview; the evidence beside it is independent. |
+
+The five questions that structure the wiki are ours, not Shapiro's. His own syllabus has six steps; we put the evidence before any framework, his included.
+
+## Which sources count
+
+1. **Official data**: statistical agencies, central banks, Our World in Data.
+2. **Peer-reviewed research** and preregistered trials.
+3. **Working papers** from established series (NBER and similar), labelled as such.
+4. **Books and essays**, cited for ideas and arguments, not for numbers they don't source.
+5. **Commentary**, including David Shapiro's Substack and videos, cited for what their author argues.
+
+AI-generated research reports, including the deep-research PDFs in Shapiro's public repository, are used only to find primary sources; they are never cited. His *Labor Zero* companion is © all rights reserved, so this wiki links to it and paraphrases it; it never reproduces it.
+
+## Checked by machine
+
+`npm run check` refuses to build the site unless:
+
+- every `<Cite>` names a source in the registry and gives a locator (page, table, section or "abstract"), and every cited source has passed `npm run verify` or carries a dated note that a person checked it;
+- every page declares its claim type and framing, uses only the inline badges it declares, and declares only badges it uses;
+- no page has more than 600 words of prose, every framework and policy page has a skeptics box, and no quotation runs to 15 words or more;
+- every chart reads a committed snapshot listed in the data manifest, and no page types chart numbers in by hand;
+- every internal link, anchor and redirect resolves, and every section index lists all its pages;
+- every text colour meets 4.5:1 contrast in both themes, and no colour token falls in the brown and ochre range.
+
+Chart data are refreshed with `npm run data`; the build itself never touches the network.
+
+## Images and corrections
+
+Every image is public domain, CC0, CC BY or drawn by us, listed with its licence in the [credits](/reference/credits/). Found an error or a better source? [Open an issue](https://github.com/ponzgpt/post-labor-wiki/issues) or use "Edit this page" at the bottom of any page.
+
+The research, structure and editorial rules are Javier Ponz's; AI coding agents write the code and help draft text, and every claim is checked against the source it cites before it ships. Writing and original graphics are CC BY 4.0.

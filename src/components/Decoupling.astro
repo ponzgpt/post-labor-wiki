@@ -13,8 +13,13 @@ const bar = (parts: readonly (readonly [string, number])[], x: number, y: number
   });
 };
 const b1 = bar(before, 20, 272, 320), b2 = bar(after, 390, 272, 320);
+import Tag from './Tag.astro';
 ---
-<figure class="infographic">
+<figure class="frame infographic scroll-x">
+  <div class="frame-head">
+    <p class="frame-title">The Great Decoupling, as Post-Labor Economics frames it</p>
+    <div class="frame-badges"><Tag kind="analytical" label="Analytical · Shapiro" /><Tag kind="illustrative" /></div>
+  </div>
   <svg viewBox="0 0 720 340" role="img" aria-labelledby="dc-title dc-desc">
     <title id="dc-title">The Great Decoupling: from a wage-based to a capital-based household</title>
     <desc id="dc-desc">Today households sell labour to firms and are paid wages; in Shapiro's illustration about 60% of household income is wages, 20% transfers and 20% capital. After the decoupling, households own capital (firms, robots, AI, land, energy, funds) and receive dividends, interest and rents; his long-run target is 80% from capital and 20% from wages and transfers.</desc>

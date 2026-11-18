@@ -5,13 +5,14 @@ A visual, source-first wiki on post-labor economics, post-work society and the h
 Live: https://post-labor-wiki.technoir.cloud
 
 ## Status
-Live sections: **Start here** (five minutes, why now, how we source), **The evidence** (labour share in the US and worldwide, productivity vs pay, participation, historical analogues, automation exposure), **Frameworks** (David Shapiro's Post-Labor Economics, economic agency, power after labour, and a comparison with six other frameworks), the **policy toolbox** (six instruments with evidence for and against), **measures to watch**, **open questions**, and reference pages (timeline, glossary, people, reading list, bibliography, credits). What is next is in [`research/PLAN-v2.md`](research/PLAN-v2.md).
+The wiki is organised as five reader questions ([`research/IA-v3.md`](research/IA-v3.md)): **Start here** (five minutes, why now, timeline, how to read this wiki), **The evidence** (indicator dashboard, labour share, productivity vs pay, who is working, automation exposure, historical analogues), **Frameworks** (David Shapiro's Post-Labor Economics, economic agency, power after labour, and a comparison with six other frameworks), **Policy options** (six instruments with evidence for and against), **Open questions**, and **Reference** (glossary, people, reading list, bibliography, credits). Every page declares whether its claims are empirical, analytical, forecast or normative. What is next is in [`research/PLAN-v2.md`](research/PLAN-v2.md).
 
 | File | What it is |
 |---|---|
 | [`research/sources.json`](research/sources.json) | The source registry: one entry per work, with a DOI or URL. The wiki and bibliography are generated from it. |
 | [`research/verification.md`](research/verification.md) | Last link and DOI check (`npm run verify`). |
-| [`research/PLAN-v2.md`](research/PLAN-v2.md) | The v2 audit, structure, quality gates and what is left. |
+| [`research/IA-v3.md`](research/IA-v3.md) | The v3 information architecture: the five questions, claim types, attribution, redirects and the front-end choices. |
+| [`research/PLAN-v2.md`](research/PLAN-v2.md) | The v2 audit, quality gates and what is left. |
 | [`research/outline.md`](research/outline.md) | The original long-range map: 8 sections, about 40 pages. |
 | [`research/shapiro-ple.md`](research/shapiro-ple.md) | David Shapiro's Post-Labor Economics terms, mapped to where he defines them. |
 | [`research/assets.md`](research/assets.md) | Images, charts and memes we can use, with licences. |
@@ -19,7 +20,8 @@ Live sections: **Start here** (five minutes, why now, how we source), **The evid
 ## Commands
 - `npm run dev`: local site.
 - `npm run data`: re-downloads the chart data (FRED, ILOSTAT, OECD, Our World in Data, Alaska Department of Revenue) into `public/data/`, with snapshot dates in `src/data/manifest.json`. `npm run data -- pfd` refreshes only matching files.
-- `npm run check`: enforces the sourcing rules (registry, locators, verified links, word limits, skeptics boxes, snapshot-only charts, short quotes), runs the unit tests and builds the site. CI and the deploy run it.
+- `npm run check`: enforces the sourcing rules (registry, locators, verified links, word limits, skeptics boxes, snapshot-only charts, short quotes), the structure (claim types, framing, section map, redirects) and the design (contrast, no brown hues, brand files), runs the unit tests, builds the site with its Pagefind index and checks every built link, anchor and redirect. CI and the deploy run it.
+- `npm run brand`: re-renders the PNG icons and the social image with the local headless Chrome.
 - `./scripts/deploy.sh`: builds the committed HEAD on the VPS and rolls it out behind Traefik.
 - `npm run verify`: checks every DOI on Crossref and every URL over HTTP, then rewrites `research/verification.md`.
 

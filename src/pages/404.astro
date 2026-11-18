@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import { SECTIONS, url } from '../lib/nav.mjs';
+---
+<Base title="Page not found" description="This page does not exist or has moved.">
+  <main id="main" class="not-found">
+    <h1>Page not found</h1>
+    <p class="lede">This page does not exist, or it moved when the wiki was reorganised into five questions. Try <a href="/search/">search</a>, or start from a question:</p>
+    <ol>{SECTIONS.map((s) => <li><a href={url(s.id)}>{s.label}</a>: {s.question}</li>)}</ol>
+  </main>
+</Base>

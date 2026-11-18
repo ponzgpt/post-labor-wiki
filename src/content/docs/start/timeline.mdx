@@ -1,0 +1,23 @@
+---
+title: Timeline
+description: 'From Aristotle''s self-weaving shuttles to generative AI: two and a half thousand years of the idea that machines could free us from work, and what happened each time.'
+claim: reference
+contains: []
+framing: independent
+concepts: [laborism, negative-income-tax, citizen-dividend, engels-pause]
+dependsOn: [start/five-minutes]
+toc: false
+---
+
+import { Image } from 'astro:assets';
+import Timeline from '../../../components/Timeline.astro';
+import cockaigne from '../../../assets/img/cockaigne.jpg';
+
+<figure class="painting">
+  <Image src={cockaigne} alt="Pieter Bruegel the Elder, The Land of Cockaigne (1567). Three men lie asleep under a tree, surrounded by food that serves itself." widths={[480, 960, 1440]} sizes="(max-width: 48rem) 100vw, 44rem" />
+  <figcaption>Pieter Bruegel the Elder, <cite>The Land of Cockaigne</cite> (1567), public domain. People have pictured a world without toil for at least 450 years.</figcaption>
+</figure>
+
+Each card is labelled as an idea, a technology, a policy, a measured result or a step in Post-Labor Economics, with its source. The pattern to watch: ideas arrive centuries before the technology, and each wave of machines is followed by new work, until the question becomes whether this one will be.
+
+<Timeline />

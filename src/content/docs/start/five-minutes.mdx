@@ -1,27 +1,34 @@
 ---
 title: Post-labor in five minutes
 description: The idea, the evidence so far, what Post-Labor Economics proposes, what experiments show, and the strongest doubts.
-sidebar:
-  order: 1
+navLabel: Post-labor in five minutes
+claim: mixed
+contains: [empirical, analytical, forecast, normative]
+framing: mixed
+concepts: [post-labor-economics, great-decoupling, labour-share, productivity-pay-gap, universal-basic-income, citizen-dividend]
+dependsOn: []
 ---
 
-import { Aside, LinkCard, CardGrid } from '@astrojs/starlight/components';
+import Aside from '../../../components/Aside.astro';
+import LinkCard from '../../../components/LinkCard.astro';
+import CardGrid from '../../../components/CardGrid.astro';
 import { Image } from 'astro:assets';
 import Cite from '../../../components/Cite.astro';
 import Tag from '../../../components/Tag.astro';
+import Term from '../../../components/Term.astro';
 import Decoupling from '../../../components/Decoupling.astro';
 import horse from '../../../assets/img/horse-tractor.png';
 import cubicle from '../../../assets/img/cubicle-museum.png';
 
 <Decoupling />
 
-<Aside type="tip" title="TL;DR">
+<Aside type="tip" title="In short">
 Machines have always replaced tasks. Post-labor thinkers argue that AI and robotics could replace enough of them that wages stop being how most households get by, so income, and power, have to come from ownership instead. The data show labour losing ground in some measures; whether it is about to fall off a cliff is contested.
 </Aside>
 
 ## 1. An old dream, a new deadline
 
-In 1930 Keynes warned of "technological unemployment" and predicted that his grandchildren would need only "a fifteen-hour week" <Cite id="keynes1930" at="parts I–II" />. In 1983 Wassily Leontief warned that human labour could go the way of the draft horse after the tractor <Cite id="leontief1983" at="pp. 403–410" />. See the [timeline](/timeline/).
+In 1930 Keynes warned of "technological unemployment" and predicted that his grandchildren would need only "a fifteen-hour week" <Cite id="keynes1930" at="parts I–II" />. In 1983 Wassily Leontief warned that human labour could go the way of the draft horse after the tractor <Cite id="leontief1983" at="pp. 403–410" />. See the [timeline](/start/timeline/).
 
 <figure class="meme">
   <Image src={horse} alt="Cartoon of a grinning horse in overalls driving a tractor, saying 'Try and automate my job, I dare you!'" widths={[416, 832]} sizes="(max-width: 30rem) 100vw, 26rem" />
@@ -30,22 +37,22 @@ In 1930 Keynes warned of "technological unemployment" and predicted that his gra
 
 ## 2. What the data already show
 
-- <Tag kind="evidence" />The global labour share of income has declined significantly since the early 1980s <Cite id="karabarbounis2014" at="abstract" />.
-- <Tag kind="evidence" />In the US, output per hour has grown much faster than typical workers' pay since the 1970s <Cite id="bivens2015" at="figure A" />.
-- <Tag kind="evidence" />US local labour markets more exposed to industrial robots lost employment and wages <Cite id="acemoglu2020" at="abstract" />.
-- <Tag kind="evidence" />Workers aged 22 to 25 in the most AI-exposed US occupations are employed about 19% below the path of less-exposed peers, with no economy-wide displacement <Cite id="brynjolfsson2025canaries" at="abstract" />.
+- <Tag kind="empirical" />The global <Term id="labour-share">labour share</Term> of income has declined significantly since the early 1980s <Cite id="karabarbounis2014" at="abstract" />.
+- <Tag kind="empirical" />In the US, output per hour has grown much faster than typical workers' pay since the 1970s <Cite id="bivens2015" at="figure A" />.
+- <Tag kind="empirical" />US local labour markets more exposed to industrial robots lost employment and wages <Cite id="acemoglu2020" at="abstract" />.
+- <Tag kind="empirical" />Workers aged 22 to 25 in the most AI-exposed US occupations are employed about 19% below the path of less-exposed peers, with no economy-wide displacement <Cite id="brynjolfsson2025canaries" at="abstract" />.
 
 More in [the evidence](/evidence/).
 
 ## 3. The Post-Labor Economics answer
 
-David Shapiro's Post-Labor Economics starts from what he calls the Great Decoupling: output stops running through wage employment <Cite id="shapiro2026laborzero" at="plates 1–2" />. If that holds, the question is not how to save jobs but how households get an income, and keep a say, without them.
+<Tag kind="analytical" />David Shapiro's Post-Labor Economics starts from what he calls the <Term id="great-decoupling">Great Decoupling</Term>: output stops running through wage employment <Cite id="shapiro2026laborzero" at="plates 1–2" />. If that holds, the question is not how to save jobs but how households get an income, and keep a say, without them.
 
-<Tag kind="proposal" />His answer is to make ownership, not wages, the main way income is distributed: sovereign wealth funds paying automation dividends, wider employee ownership, universal basic capital grants and public stakes in AI built on public data <Cite id="shapiro2025movement" at="launch post" />. He calls basic income necessary but not sufficient: prosperity measures need power measures beside them <Cite id="shapiro2025six" at="part V" />. See [the framework](/frameworks/post-labor-economics/).
+<Tag kind="normative" />His answer is to make ownership, not wages, the main way income is distributed: sovereign wealth funds paying automation dividends, wider employee ownership, universal basic capital grants and public stakes in AI built on public data <Cite id="shapiro2025movement" at="launch post" />. He calls basic income necessary but not sufficient: prosperity measures need power measures beside them <Cite id="shapiro2025six" at="part V" />. See [the framework](/frameworks/post-labor-economics/).
 
 ## 4. What real experiments say
 
-<Tag kind="evidence" />Cash without conditions has been tested for decades:
+<Tag kind="empirical" />Cash without conditions has been tested for decades:
 
 | Programme | What people got | Headline result |
 |---|---|---|
@@ -59,8 +66,8 @@ None of these tested a world without jobs. They show how people respond to cash 
 
 ## 5. The strongest doubts
 
-- <Tag kind="evidence" />Automation complements labour as well as replacing it <Cite id="autor2015" at="abstract" />, and most US jobs today are in specialties that did not exist in 1940 <Cite id="autor2024newwork" at="abstract" />.
-- <Tag kind="evidence" />The most precise study so far finds no effect of generative AI on earnings or hours two years after ChatGPT <Cite id="humlum2025" at="abstract" />.
+- <Tag kind="empirical" />Automation complements labour as well as replacing it <Cite id="autor2015" at="abstract" />, and most US jobs today are in specialties that did not exist in 1940 <Cite id="autor2024newwork" at="abstract" />.
+- <Tag kind="empirical" />The most precise study so far finds no effect of generative AI on earnings or hours two years after ChatGPT <Cite id="humlum2025" at="abstract" />.
 - <Tag kind="forecast" />A task-based estimate puts AI's ten-year boost to total factor productivity at no more than 0.66% <Cite id="acemoglu2024" at="abstract" />. Post-labor advocates reply that such models miss machines becoming better, faster, cheaper and safer at nearly everything <Cite id="shapiro2026seven" at="intuition 1" />.
 
 <figure class="meme">
@@ -71,6 +78,6 @@ None of these tested a world without jobs. They show how people respond to cash 
 ## Next on the path
 
 <CardGrid>
-  <LinkCard title="Why now" href="/start-here/why-now/" description="What changed with generative AI, and what has been measured so far." />
+  <LinkCard title="Why now" href="/start/why-now/" description="What changed with generative AI, and what has been measured so far." />
   <LinkCard title="Open questions" href="/open-questions/" description="Where serious people disagree, and what would settle it." />
 </CardGrid>

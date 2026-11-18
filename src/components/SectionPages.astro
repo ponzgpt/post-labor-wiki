@@ -1,0 +1,19 @@
+---
+// A section index lists every page in its section (npm run check verifies this after the build).
+import LinkCard from './LinkCard.astro';
+import { SECTIONS, url } from '../lib/nav.mjs';
+import { site } from '../lib/site.mjs';
+interface Props { section: string; heading?: string }
+const { section, heading = 'Pages in this section' } = Astro.props;
+const s = SECTIONS.find((x) => x.id === section)!;
+const { byId } = await site();
+---
+<section class="section-pages" aria-label={heading}>
+  <h2>{heading}</h2>
+  <div class="card-grid">
+    {s.pages.slice(1).map((id) => {
+      const e = byId.get(id)!;
+      return <LinkCard title={e.data.navLabel ?? e.data.title} href={url(id)} description={e.data.description} kind={e.data.claim} />;
+    })}
+  </div>
+</section>

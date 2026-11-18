@@ -1,0 +1,101 @@
+---
+// A wiki page: section nav, breadcrumbs, a header that declares the claim type and framing, contents, connections, previous/next.
+import Base from './Base.astro';
+import SiteNav from '../components/SiteNav.astro';
+import Tag from '../components/Tag.astro';
+import Icon from '../components/Icon.astro';
+import SectionPages from '../components/SectionPages.astro';
+import { sectionOf, neighbours, url, SECTIONS } from '../lib/nav.mjs';
+import { CLAIM, FRAMING } from '../lib/claims.mjs';
+import { site } from '../lib/site.mjs';
+import terms from '../data/glossary.json';
+
+interface Props { id: string; data: any; headings: { depth: number; slug: string; text: string }[] }
+const { id, data, headings } = Astro.props;
+const section = sectionOf(id)!;
+const isIndex = SECTIONS.some((s) => s.id === id);
+const { link, dependents } = await site();
+const { prev, next } = neighbours(id);
+const toc = data.toc && headings.filter((h) => h.depth === 2);
+const showToc = toc && toc.length >= 3;
+const builtOn = data.dependsOn.map(link);
+const builtBy = (dependents.get(id) ?? []).map(link);
+const concepts = data.concepts.map((c: string) => terms.find((t) => t.id === c)!);
+const wide = ['reference/bibliography', 'reference/glossary', 'evidence', 'policy', 'frameworks', 'reference/people'].includes(id);
+const types = [data.claim, ...data.contains].filter((t, i, a) => a.indexOf(t) === i);
+---
+<Base title={data.title} description={data.description} hasNav>
+  <div class="shell">
+    <SiteNav current={id} />
+    <div class:list={['article-wrap', { 'no-toc': !showToc, wide: wide && !showToc }]}>
+      <main id="main">
+        <article class="page" data-pagefind-body>
+          <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              {!isIndex && <li><a href={url(section.id)}>{section.label}</a></li>}
+              <li aria-current="page">{isIndex ? section.label : data.navLabel ?? data.title}</li>
+            </ol>
+          </nav>
+          <header>
+            <p class="page-kicker" data-pagefind-ignore>{section.n ? `Question ${section.n} · ${section.question}` : section.label}</p>
+            <h1>{data.title}</h1>
+            <p class="lede">{data.description}</p>
+            <div class="page-meta" data-pagefind-ignore>
+              <span class="visually-hidden">Claim type:</span>
+              <Tag kind={data.claim} />
+              {data.contains.length > 0 && <span>also contains</span>}
+              {data.contains.map((k: string) => <Tag kind={k as any} />)}
+              <span class="sep" aria-hidden="true">|</span>
+              <a class="chip" href="/start/how-to-read/#framing" title={FRAMING[data.framing as keyof typeof FRAMING].meaning}><Icon name={data.framing === 'shapiro' ? 'person' : 'info'} />{FRAMING[data.framing as keyof typeof FRAMING].label}</a>
+            </div>
+            <span hidden data-pagefind-filter="type">{CLAIM[data.claim as keyof typeof CLAIM].label}</span>
+            {data.contains.map((k: string) => <span hidden data-pagefind-filter="type">{CLAIM[k as keyof typeof CLAIM].label}</span>)}
+            <span hidden data-pagefind-filter="section">{section.label}</span>
+            <span hidden data-pagefind-meta="claim">{types.join(' ')}</span>
+          </header>
+          {showToc && (
+            <details class="toc-mobile" data-pagefind-ignore>
+              <summary>On this page</summary>
+              <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+            </details>
+          )}
+          <div class="prose">
+            <slot />
+            {isIndex && section.pages.length > 1 && <SectionPages section={section.id} />}
+          </div>
+          <aside class="connections" aria-labelledby="conn-h" data-pagefind-ignore>
+            <h2 id="conn-h">Connections</h2>
+            <div class="conn-grid">
+              <div><h3>Builds on</h3>{builtOn.length ? <ul>{builtOn.map((l: any) => <li><a href={l.href}>{l.title}</a></li>)}</ul> : <p class="conn-empty">A starting point: no prerequisites.</p>}</div>
+              <div><h3>Built on by</h3>{builtBy.length ? <ul>{builtBy.map((l: any) => <li><a href={l.href}>{l.title}</a></li>)}</ul> : <p class="conn-empty">No page builds on this one yet.</p>}</div>
+              <div><h3>Key concepts</h3>{concepts.length ? <div class="chips">{concepts.map((t: any) => <a class="chip" href={`/reference/glossary/#${t.id}`} title={t.def}>{t.term}</a>)}</div> : <p class="conn-empty">See the <a href="/reference/glossary/">glossary</a>.</p>}</div>
+            </div>
+          </aside>
+        </article>
+        <nav class="pager" aria-label="Previous and next" data-pagefind-ignore>
+          {prev && <a class="prev" href={url(prev)} rel="prev"><small>← Previous</small><span>{link(prev).title}</span></a>}
+          {next && <a class="next" href={url(next)} rel="next"><small>Next →</small><span>{link(next).title}</span></a>}
+        </nav>
+        <p class="edit-line" data-pagefind-ignore>Found an error or a better source? <a href={`https://github.com/ponzgpt/post-labor-wiki/edit/main/src/content/docs/${id}${isIndex ? '/index' : ''}.mdx`}>Edit this page</a> or <a href="https://github.com/ponzgpt/post-labor-wiki/issues">open an issue</a>.</p>
+      </main>
+      {showToc && (
+        <aside class="toc-rail" aria-labelledby="toc-h" data-pagefind-ignore>
+          <h2 id="toc-h">On this page</h2>
+          <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+        </aside>
+      )}
+    </div>
+  </div>
+</Base>
+
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc-rail a')];
+  if (links.length && 'IntersectionObserver' in window) {
+    const targets = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))).filter(Boolean) as HTMLElement[];
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) links.forEach((a) => a.setAttribute('aria-current', String(a.hash.slice(1) === e.target.id)));
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    targets.forEach((t) => io.observe(t));
+  }
+</script>

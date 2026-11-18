@@ -1,0 +1,11 @@
+---
+// A glossary term in running text: links to its card and shows the definition on hover or keyboard focus.
+import terms from '../data/glossary.json';
+interface Props { id: string }
+const { id } = Astro.props;
+const t = terms.find((x) => x.id === id);
+if (!t) throw new Error(`<Term id="${id}"> is not in src/data/glossary.json`);
+const n = ((globalThis as any).__plwTerm = ((globalThis as any).__plwTerm ?? 0) + 1);
+const tipId = `tip-${id}-${n}`;
+---
+<span class="term"><a href={`/reference/glossary/#${id}`} aria-describedby={tipId}><slot /></a><span class="term-tip" role="tooltip" id={tipId}><strong>{t.term}</strong>{t.def}</span></span>

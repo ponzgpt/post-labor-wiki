@@ -1,0 +1,114 @@
+---
+// Landing: what this is, one chart that earns attention, the reader-question path, the legend, and the credit to Shapiro.
+import Base from '../layouts/Base.astro';
+import LineChart from '../components/LineChart.astro';
+import ClaimLegend from '../components/ClaimLegend.astro';
+import Tag from '../components/Tag.astro';
+import { SECTIONS, url } from '../lib/nav.mjs';
+import { site } from '../lib/site.mjs';
+import { fred, rebase, last, ilo } from '../lib/data.mjs';
+
+const prod = rebase(fred('OPHNFB.csv'), 1973);
+const pay = rebase(fred('COMPRNFB.csv'), 1973);
+const world = ilo('X01');
+const epop = fred('LNS12300060.csv');
+const gain = (s: { v: number }[]) => Math.round(last(s).v - 100);
+const { byId } = await site();
+const questions = SECTIONS.filter((s) => s.n);
+const reference = SECTIONS.find((s) => s.id === 'reference')!;
+const title = (id: string) => byId.get(id)?.data.navLabel ?? byId.get(id)?.data.title;
+const primary = (s: (typeof SECTIONS)[number]) => (s.id === 'start' ? 'mixed' : byId.get(s.id)?.data.claim ?? 'mixed');
+---
+<Base title="Post-Labor Wiki" description="A visual, source-first wiki on post-labor economics: what happens to income and power when machines can do most paid work. Every claim cited, every forecast labelled.">
+  <main id="main" class="landing" data-pagefind-body>
+    <section class="hero" aria-labelledby="hero-h">
+      <div>
+        <p class="hero-kicker">An independent, source-first wiki</p>
+        <h1 id="hero-h">What happens to income and power when machines can do most paid work?</h1>
+        <p class="lede">Post-labor economics asks how households earn a living, and keep a say, if wages stop being the main way income is shared. This wiki sets out the evidence, the frameworks, the policy options and the open questions, with every claim cited and labelled as measured, modelled, forecast or a value choice.</p>
+        <div class="actions">
+          <a class="button button-primary" href="/start/five-minutes/">Start in five minutes →</a>
+          <a class="button button-ghost" href="/start/how-to-read/">How to read this wiki</a>
+        </div>
+      </div>
+      <div>
+        <div class="hero-stat" aria-hidden="true">
+          <div class="st1"><strong>+{gain(prod)}%</strong>output per hour</div>
+          <div class="st2"><strong>+{gain(pay)}%</strong>real hourly pay</div>
+          <div><strong>{last(prod).x}</strong>vs 1973, US business</div>
+        </div>
+        <LineChart
+          title="US productivity and real hourly compensation, 1973 = 100"
+          series={[
+            { label: 'Output per hour', points: prod },
+            { label: 'Real hourly compensation', points: pay },
+          ]}
+          unit="index"
+          sources={['fred-productivity', 'fred-realcomp']}
+          files={['OPHNFB.csv', 'COMPRNFB.csv']}
+        >
+          The gap the post-labor debate starts from. Its size depends on which worker, which pay and which prices: <a href="/evidence/productivity-and-pay/">see the debate</a>.
+        </LineChart>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="path-h">
+      <div class="band-head">
+        <h2 id="path-h">Five questions, in the order you would ask them</h2>
+        <p>Facts before interpretations, interpretations before prescriptions. Stop after any one and what you have read is still correctly labelled.</p>
+      </div>
+      <ol class="path-grid">
+        {questions.map((s) => (
+          <li>
+            <a class="path-card" href={url(s.id)}>
+              <span class="path-n" aria-hidden="true">{s.n}</span>
+              <span class="path-label">{s.label}</span>
+              <h3>{s.question}</h3>
+              <p>{s.purpose}</p>
+              <Tag kind={primary(s)} />
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="band" aria-labelledby="legend-band-h">
+      <div class="band-head">
+        <h2 id="legend-band-h">How to read this</h2>
+        <p>Every page and chart declares what kind of claim it makes. Never colour alone: each badge has a word, an icon and its own border.</p>
+      </div>
+      <ClaimLegend cards />
+    </section>
+
+    <section class="band" aria-labelledby="figures-h">
+      <div class="band-head">
+        <h2 id="figures-h">Three numbers, two directions</h2>
+        <p>Labour is losing ground on some measures and holding it on others. <a href="/evidence/">The evidence dashboard</a> tracks all of them.</p>
+      </div>
+      <div class="figures">
+        <div class="figure-tile"><div class="value">+{gain(prod)}% vs +{gain(pay)}%</div><div class="label">US output per hour vs real hourly pay, 1973–{last(prod).x}</div><Tag kind="empirical" /></div>
+        <div class="figure-tile"><div class="value">{world[0].v.toFixed(1)}% → {last(world).v.toFixed(1)}%</div><div class="label">World labour income share of GDP, {world[0].x}–{last(world).x} (ILO modelled estimates)</div><Tag kind="empirical" /></div>
+        <div class="figure-tile"><div class="value">{last(epop).v.toFixed(1)}%</div><div class="label">US adults aged 25–54 in work in {last(epop).x}: no sign yet of jobs vanishing</div><Tag kind="empirical" /></div>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="credit-h">
+      <h2 id="credit-h" class="visually-hidden">Credit and independence</h2>
+      <div class="credit-band">
+        <span class="credit-mark" aria-hidden="true">DS</span>
+        <div>
+          <p><strong>Post-labor economics</strong> is the framing developed by <strong>David Shapiro</strong>: as AI and robots out-compete human labour, household income and citizens' leverage must come from ownership rather than wages. This wiki uses his question to organise the field, describes his framework in his terms with attribution, and links to his work: <a href="https://www.youtube.com/@DaveShap">YouTube</a>, <a href="https://daveshap.substack.com/">Substack</a>, <a href="https://daveshap.github.io/PostLaborEconomics/">research</a> and the <a href="https://daveshap.github.io/PostLaborEconomics/laborzero/"><cite>Labor Zero</cite> companion</a>.</p>
+          <p class="credit-small"><strong>An independent project</strong>, not affiliated with or endorsed by David Shapiro. Pages that follow his framing say so in their header; everywhere else the wiki follows the evidence, including the evidence against.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="ref-h">
+      <div class="band-head"><h2 id="ref-h">Reference</h2><p>{reference.purpose}</p></div>
+      <div class="ref-grid">
+        {reference.pages.slice(1).map((id) => <a class="link-card" href={url(id)}><strong>{title(id)}</strong><span class="lc-desc">{byId.get(id)?.data.description}</span></a>)}
+      </div>
+    </section>
+    <span hidden data-pagefind-filter="section">Home</span>
+  </main>
+</Base>
